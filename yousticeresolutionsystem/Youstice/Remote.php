@@ -15,8 +15,8 @@ namespace Youstice;
  */
 class Remote extends Request {
 	//deprecated
-	protected $apiRemoteRedirectLink = "https://beta.youstice.com/blox-odr13/generix/odr/sk/app2/_complaint_/token/";
-	protected $apiUrl = "https://api-sand.youstice.com/YApiServices/services/";
+	protected $apiRemoteRedirectLink = "https://app.youstice.com/blox-odr13/generix/odr/sk/app2/_complaint_/token/";
+	protected $apiUrl = "https://api.youstice.com/YApiServices/services/";
 	protected $apiSandboxUrl = "https://api-sand.youstice.com/YApiServices/services/";
 	protected $apiKey;
 	protected $sandbox;

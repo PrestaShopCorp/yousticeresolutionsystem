@@ -4,8 +4,9 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
+
 
 namespace Youstice\Widgets;
 
@@ -63,8 +64,17 @@ class LogoWidget {
 				.	'<div class="bottom">';
 
 		//split "98% of resolved..." by percentage
-		$percentageString = substr($this->data['stats'], 0, strpos($this->data['stats'], "%") + 1);
+
+		$stat = $this->data['stats'];
+        if (strpos($stat, "%") > 0) {
+            $percentageString = substr($this->data['stats'], 0, strpos($this->data['stats'], "%") + 1);
 		$remainingString = substr($this->data['stats'], strpos($this->data['stats'], "%") + 1);
+                } else {
+            $percentageString = "";
+            $remainingString = $stat;
+        }
+		// $percentageString = substr($this->data['stats'], 0, strpos($this->data['stats'], "%") + 1);
+		// $remainingString = substr($this->data['stats'], strpos($this->data['stats'], "%") + 1);
 
 		$output .=	'<div class="numResolved"><strong>' . HelperFunctions::sh($percentageString).'</strong>'
 						. HelperFunctions::sh($remainingString) . '</div>'
