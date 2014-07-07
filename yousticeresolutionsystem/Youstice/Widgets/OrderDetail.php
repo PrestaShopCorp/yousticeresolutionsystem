@@ -4,7 +4,7 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 namespace Youstice\Widgets;
@@ -14,14 +14,12 @@ use Youstice\Helpers\HelperFunctions;
 class OrderDetail {
 
 	protected $api;
-	protected $href;
 	protected $lang;
 	protected $productHref;
 	protected $report;
 	protected $order;
 
-	public function __construct($href, $lang, \Youstice\ShopOrder $order, \Youstice\Reports\OrderReport $report, $api) {
-		$this->href = $href;
+	public function __construct($lang, \Youstice\ShopOrder $order, \Youstice\Reports\OrderReport $report, $api) {
 		$this->translator = new \Youstice\Translator($lang);
 		$this->order = $order;
 		$this->report = $report;
@@ -34,7 +32,7 @@ class OrderDetail {
 				'<div class="orderDetailWrap">'
 				. '<h1>' . HelperFunctions::sh($this->order->getName()) . '</h1>';
 		$output .= '<div class="topRightWrap">';
-			$output .= $this->api->getOrderReportButtonHtml($this->href, $this->order->getCode());
+			$output .= $this->api->getOrderReportButtonHtml($this->order->getHref(), $this->order->getCode());
 		$output .=		'<span class="space"></span>'
 				.		'<a class="yrsButton yrsButton-close">x</a>'
 				.	'</div>'

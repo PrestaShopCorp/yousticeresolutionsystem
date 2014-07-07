@@ -4,7 +4,7 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 class YrsController extends FrontController {
@@ -23,10 +23,15 @@ class YrsController extends FrontController {
 		$yapi->run();
 		$this->yapi = $yapi;
 	}
+        
+        public function getShowButtonsHtml()
+        {
+            echo $this->yapi->getShowButtonsWidgetHtml();
+        }
 
 	public function logoWidget()
 	{
-		echo $this->yapi->getLogoWidgetHtml(self::URL_YRS.'index.php?section=setButtonsVisible');
+		echo $this->yapi->getLogoWidgetHtml();
 	}
 
 	public function setButtonsVisible()
@@ -99,9 +104,7 @@ class YrsController extends FrontController {
 	{
 		$shop_order = $this->createShopOrder($in['order_id']);
 
-		$order_link = self::URL_YRS.'index.php?section=orderReportPost&amp;order_id='.$in['order_id'];
-
-		echo $this->yapi->getOrderDetailHtml($order_link, $shop_order);
+		echo $this->yapi->getOrderDetailHtml($shop_order);
 	}
 
 	public function orderReportPost($in)

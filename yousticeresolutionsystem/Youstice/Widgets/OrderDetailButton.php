@@ -4,7 +4,7 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 namespace Youstice\Widgets;
@@ -57,14 +57,15 @@ class OrderDetailButton {
 
 		$output = '<div class="orderDetailButtonWrap">'
 					. '<a class="yrsButton yrsButton-order-detail" '
-						. 'href="' . HelperFunctions::sh($this->href) .'">' . HelperFunctions::sh($message) . '</a>';
+						. 'href="' . $this->href .'">' . HelperFunctions::sh($message) . '</a>';
 
 		$output .= '<a class="yrsButton yrsButton-plus" href="' . $this->href . '">+</a>';
 
 		// POPUP
 		$output .= '<div class="popup"><span>&nbsp;</span>';
+
 		if($this->report->orderReportExists()) {
-			$output .= $this->api->getOrderReportButtonHtml($this->order->getHref(), $this->report->getCode());
+			$output .= $this->api->getOrderReportButtonHtml($this->order->getHref(), $this->order->getId());
 		}
 
 		$orderProducts = $this->order->getProducts();
@@ -72,7 +73,7 @@ class OrderDetailButton {
 
 		foreach($orderProducts as $op) {
 			foreach($reportProducts as $rp) {
-				$temp = explode("__", $rp['code']);
+				$temp = explode("__", $rp['code']);                                
 				$localProductCode = $temp[1];
 				if($op->getId() != $localProductCode) {
 					continue;

@@ -4,7 +4,7 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 namespace Youstice;
@@ -31,6 +31,10 @@ class ShopOrder extends ShopItem {
 					$array['orderDate'], $array['image'], $array['otherInfo'], $array['products']);
 	}
 
+        /**
+	 * Add product related to this order
+	 * @param \Youstice\ShopProduct $product of order
+	 */
 	public function addProduct(ShopProduct $product) {
 		$this->data['products'][] = $product;
 	}

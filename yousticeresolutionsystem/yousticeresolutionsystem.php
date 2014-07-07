@@ -1,10 +1,10 @@
 <?php
 /**
- * Youstice Resolution System
+ * Youstice Resolution Module
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 if (!defined('_PS_VERSION_'))
@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.0.9';
+		$this->version                = '1.2.2';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -53,17 +53,17 @@ class YousticeResolutionSystem extends Module
 
 	}
 
-	public function hookActionOrderDetail()
-	{
-		echo '<script type="text/javascript" src="'.$this->_path.'public/js/yrs_order_detail.js"></script>';
-	}
-
 	public function hookDisplayHeader()
 	{
 		$this->context->controller->addCSS($this->_path.'public/css/youstice.css', 'all');
 		$this->context->controller->addCSS($this->_path.'public/css/jquery.fancybox.css', 'all');
 		$this->context->controller->addJS($this->_path.'public/js/yrs_order_history.js');
 		$this->context->controller->addJS($this->_path.'public/js/fancybox/jquery.fancybox.pack.js');
+	}
+
+	public function hookActionOrderDetail()
+	{
+		echo '<script type="text/javascript" src="'.$this->_path.'public/js/yrs_order_detail.js"></script>';
 	}
 
 	public function getContent()
@@ -99,7 +99,24 @@ class YousticeResolutionSystem extends Module
 			$this->y_api->install();
 
 		}
-		return $output.$this->displayForm();
+		$output .= $this->displayForm();
+                
+                $footerFile = _PS_ROOT_DIR_ . _THEME_DIR_ . 'footer.tpl';
+                $footerContent = file_get_contents($footerFile);
+                $anchorFound = false;
+                
+                if($footerContent !== false && strpos($footerContent, 'yousticeShowLogoWidget')) {
+                    $anchorFound = true;
+                }
+                
+                if(!$anchorFound) {
+                    $output .= $this->displayError(
+                            'No logo widget anchor found! '
+                            . 'Please add following code to file <b>'. $footerFile . '</b><br><br>'
+                            . '<b>' . htmlspecialchars('<a class="yousticeShowLogoWidget">Youstice - show logo</a>') . '</b>');
+                }
+                
+                return $output;
 	}
 
 	public function displayForm()

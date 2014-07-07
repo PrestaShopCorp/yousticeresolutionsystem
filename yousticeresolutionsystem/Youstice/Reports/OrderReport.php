@@ -1,78 +1,53 @@
 <?php
+
 /**
  * Represents one order report.
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 namespace Youstice\Reports;
 
-class OrderReport {
+class OrderReport extends BaseReport {
 
-	protected $exists = false;
-	protected $data = array();
+    public function orderReportExists() {
+        return isset($this->data['code']) && isset($this->data['created_at']);
+    }
 
-	public function __construct($data) {
-		if (isset($data) && is_array($data) && count($data)) {
-			$this->exists = true;
-			$this->data = $data;
-		}
-	}
+    public function getProducts() {
+        return isset($this->data['products']) ? $this->data['products'] : array();
+    }
 
-	//at least one report
-	public function exists() {
-		return $this->exists;
-	}
+    public function getReportedProductsCount() {
+        return isset($this->data['products']) ? count($this->data['products']) : 0;
+    }
 
-	public function orderReportExists() {
-		return isset($this->data['code']) && isset($this->data['created_at']);
-	}
+    public function getCode() {
+        if (count($this->data) && isset($this->data['code'])) {
+            return $this->data['code'];
+        }
 
-	public function getProducts() {
-		return isset($this->data['products']) ? $this->data['products'] : array();
-	}
+        return $this->data['id'];
+    }
 
-	public function getReportedProductsCount() {
-		return isset($this->data['products']) ? count($this->data['products']) : 0;
-	}
+    public function getName() {
+        if (count($this->data) && isset($this->data['name'])) {
+            return $this->data['name'];
+        }
 
-	public function getCode() {
-		if (count($this->data) && isset($this->data['code'])) {
-			return $this->data['code'];
-		}
+        return "";
+    }
 
-		return $this->data['id'];
-	}
+    public function getFirstProductStatus() {
+        if (isset($this->data['products']) && count($this->data['products'])) {
+            $status = $this->data['products'][0]['status'];
 
-	public function getName() {
-		if (count($this->data) && isset($this->data['name'])) {
-			return $this->data['name'];
-		}
+            return strlen($status) ? $status : 'Problem reported';
+        }
 
-		return "";
-	}
-
-	public function getStatus() {
-		if (count($this->data) && isset($this->data['status']))
-			return $this->data['status'];
-
-		return "Problem reported";
-	}
-
-	public function getRemainingTime() {
-		return isset($this->data['remaining_time']) ? $this->data['remaining_time'] : 0;
-	}
-
-	public function getFirstProductStatus() {
-		if ( isset($this->data['products']) && count($this->data['products']) ) {
-			$status = $this->data['products'][0]['status'];
-
-			return strlen($status) ? $status : 'Problem reported';
-		}
-
-		return "";
-	}
+        return "";
+    }
 
 }

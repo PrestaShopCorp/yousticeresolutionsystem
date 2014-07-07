@@ -4,7 +4,7 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 namespace Youstice;
@@ -13,7 +13,8 @@ class Request {
 
 	private $authLogin = 'adminapi';
 	private $authPassw = 'AdminApi';
-	private $response = null;
+	protected $response = null;
+	private $additionalParams = array();
 
 	public function returnResponse() {
 		return $this->response;
@@ -24,11 +25,26 @@ class Request {
 
 		return $data;
 	}
+	
+	public function setAdditionalParam($key, $val) {
+	    $this->additionalParams[$key] = $val;
+	}
 
 	protected function generateUrl($url) {
-		return ($this->sandbox ? $this->apiSandboxUrl : $this->apiUrl)
-				. $url . '/' . $this->apiKey . "?"
-				. "version=1&channel=" . $this->shopSoftwareType;
+	    $apiUrl = $this->useSandbox ? $this->apiSandboxUrl : $this->apiUrl;
+	    
+	    $returnUrl = $apiUrl . $url . '/' . $this->apiKey . "?"
+			    . "version=1&channel=" . $this->shopSoftwareType;
+	    
+	    if(count($this->additionalParams)) {
+		foreach($this->additionalParams as $key => $val) {
+		    $returnUrl .= "&$key=$val";
+		}
+		
+		$this->additionalParams = array();
+	    }
+	    
+	    return $returnUrl;
 	}
 
 	public function post($url, $data = array()) {

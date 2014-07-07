@@ -4,7 +4,7 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 namespace Youstice;
@@ -144,7 +144,7 @@ abstract class ShopItem {
 	}
 
 	public function setDeliveryDate($deliveryDate) {
-		if(strlen($deliveryDate > 1))	//todo check if is in ISO8601
+		if(strlen($deliveryDate > 1))
 			$this->data['deliveryDate'] = $deliveryDate;
 
 		$zeroDate = new \DateTime();
@@ -156,7 +156,7 @@ abstract class ShopItem {
 	}
 
 	public function setOrderDate($orderDate) {
-		$this->data['orderDate'] = $orderDate;	//todo check if is in ISO8601
+		$this->data['orderDate'] = $orderDate;
 
 		return $this;
 	}

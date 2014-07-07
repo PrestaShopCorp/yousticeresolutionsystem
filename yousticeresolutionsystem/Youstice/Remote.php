@@ -4,7 +4,7 @@
  *
  * @author    Youstice
  * @copyright (c) 2014, Youstice
- * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
 namespace Youstice;
@@ -14,19 +14,17 @@ namespace Youstice;
  *
  */
 class Remote extends Request {
-	//deprecated
-	protected $apiRemoteRedirectLink = "https://app.youstice.com/blox-odr13/generix/odr/sk/app2/_complaint_/token/";
 	protected $apiUrl = "https://api.youstice.com/YApiServices/services/";
 	protected $apiSandboxUrl = "https://api-sand.youstice.com/YApiServices/services/";
 	protected $apiKey;
-	protected $sandbox;
+	protected $useSandbox;
 	protected $lang;
 	protected $shopSells;
 	protected $shopSoftwareType;
 
-	public function __construct($apiKey, $sandbox, $lang, $shopSells, $shopSoftwareType) {
+	public function __construct($apiKey, $useSandbox, $lang, $shopSells, $shopSoftwareType) {
 		$this->apiKey = $apiKey;
-		$this->sandbox = $sandbox;
+		$this->useSandbox = $useSandbox;
 		$this->lang = $lang;
 		$this->shopSells = $shopSells;
 		$this->shopSoftwareType = $shopSoftwareType;
@@ -34,25 +32,15 @@ class Remote extends Request {
 
 	/**
 	 *
-	 * @return string
+	 * @return string html
 	 */
-	public function getLogoWidgetData() {
-		$this->get('Api/logo');
-		$returnData = $this->responseToArray();
-
-		$searchString = str_replace(array("[", "]"), "", $returnData['image']);
-
-		$bytes = explode(",", $searchString);
-		$image = "";
-		foreach ($bytes as $byte) {
-			$image .= chr((int)$byte);
-		}
-
-		$returnData['image'] = null;
-		if(strlen($image))
-			$returnData['image'] = "data:image/png;base64," . $image;
-
-		return $returnData;
+	public function getLogoWidgetData($updatesCount) {
+	    $this->setAdditionalParam('numberOfUpdates', $updatesCount);
+	    $this->get('Api/badge');
+	    
+	    $response = $this->responseToArray();
+	    
+	    return $response['html'];
 	}
 
 	public function getRemoteReportsData(array $localReportsData) {
@@ -68,10 +56,10 @@ class Remote extends Request {
 		return $response['orders'];
 	}
 
-	public function createWebReport(array $data) {
+	public function createWebReport($orderNumber) {
 
 		try {
-			$this->post("Api/addTransactionShop", $data);
+			$this->post("Api/addTransactionShop", array('orderNumber' => $orderNumber));
 		}
 		catch(Youstice\InvalidApiKeyException $e) {
 			exit("Invalid API key");
@@ -82,13 +70,13 @@ class Remote extends Request {
 		return $response['redirect_link'];
 	}
 
-	public function createOrderReport(ShopOrder $order) {
+	public function createOrderReport(ShopOrder $order, $code) {
 		$data = $order->toArray();
 		$now = new \DateTime();
 
 		$requestData = array(
 			'itemType'	=> $this->shopSells,
-			'orderNumber'	=> $order->getCode(),
+			'orderNumber'	=> $code,
 			'itemDescription' => $data['description'],
 			'itemName'			=> $data['name'],
 			'itemCurrency'		=> $data['currency'],
@@ -113,12 +101,12 @@ class Remote extends Request {
 		return $response['redirect_link'];
 	}
 
-	public function createProductReport(ShopProduct $product) {
+	public function createProductReport(ShopProduct $product, $code) {
 		$data = $product->toArray();
 
 		$requestData = array(
 			'itemType'	=> $this->shopSells,
-			'orderNumber'	=> $product->getCode(),
+			'orderNumber'	=> $code,
 			'itemDescription' => $data['description'],
 			'itemName'			=> $data['name'],
 			'itemCurrency'		=> $data['currency'],
