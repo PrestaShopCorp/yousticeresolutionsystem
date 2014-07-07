@@ -24,4 +24,15 @@ return array(
 	"Waiting for decision"						=> "Čakanie na rozhodnutie",
 	"Escalated to ODR"							=> "Poslané na ODR",
 	"Waiting for retailer's response"			=> "Čakanie na odpoveď od obchodníka",
+    
+	//admin
+	"Yes"	    => "Áno",
+	"No"	    => "Nie",
+	"Products"	    => "Produkty",
+	"Services"	    => "Služby",
+	"Settings"	    => "Nastavenia",
+	"Api Key"	    => "Api Kľúč",
+	"Use sandbox environment"   => "Používať sandbox prostredie",
+	"This e-shop sells"	    => "Tento e-shop predáva",
+	"Save"			    => "Uložiť"
 );

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <script type="text/javascript">
+        if (IsYousticeLogoVisible() === false)
+            {hideYousticeLogoWidget(false); }
+            document.getElementById("logoWidgetClose").onclick = function()
+                {hideYousticeLogoWidget(true); return false; };
+            document.getElementById("yousticeLogo").onclick = function()
+                    {showYousticeLogoWidget();};
+    function hideYousticeLogoWidget(byUser)
+        {
+            var widget = document.getElementById("logoWidgetClose").parentNode.parentNode;
+            if (byUser) {
+                widget.className = widget.className.replace("alwaysShow", "");
+            }
+
+            widget.className = widget.className.replace("logoHidden", "");
+            widget.className = widget.className + " logoHidden";
+            document.cookie = "yousticeShowLogoWidget=0; path=/";
+        }
+
+        function showYousticeLogoWidget() {
+            var widget = document.getElementById("logoWidgetClose").parentNode.parentNode;
+            widget.className = widget.className.replace("logoHidden", "");
+            document.cookie = "yousticeShowLogoWidget=1; path=/";
+            return false;
+        }
+        function IsYousticeLogoVisible() {
+            var name = "yousticeShowLogoWidget=";
+            var parts = document.cookie.split(";");
+            for (var i = 0; i < parts.length; i++)
+            {
+                var c = parts[i].trim();
+                if (c.indexOf(name) == 0)
+                    return c.substring(name.length, c.length);
+            }
+            return true;
+
+        }</script>
+</html>

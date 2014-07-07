@@ -100,22 +100,22 @@ class YousticeResolutionSystem extends Module
 
 		}
 		$output .= $this->displayForm();
-                
+
                 $footerFile = _PS_ROOT_DIR_ . _THEME_DIR_ . 'footer.tpl';
                 $footerContent = file_get_contents($footerFile);
                 $anchorFound = false;
-                
-                if($footerContent !== false && strpos($footerContent, 'yousticeShowLogoWidget')) {
+
+                if($footerContent !== false && strpos($footerContent, 'yousticeShowLogoWidget') !== false) {
                     $anchorFound = true;
                 }
-                
+
                 if(!$anchorFound) {
                     $output .= $this->displayError(
                             'No logo widget anchor found! '
                             . 'Please add following code to file <b>'. $footerFile . '</b><br><br>'
                             . '<b>' . htmlspecialchars('<a class="yousticeShowLogoWidget">Youstice - show logo</a>') . '</b>');
                 }
-                
+
                 return $output;
 	}
 
@@ -162,7 +162,7 @@ class YousticeResolutionSystem extends Module
 				),
 				array(
 					'type' => 'select',
-					'label' => $this->l('Use sandbox environment'),
+					'label' => $this->y_api->t('Use sandbox environment'),
 					'name' => 'YRS_SANDBOX',
 					'required' => true,
 					'options' => array(

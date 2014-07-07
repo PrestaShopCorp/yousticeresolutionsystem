@@ -24,4 +24,15 @@ return array(
 	"Waiting for decision"						=> "Waiting for decision",
 	"Escalated to ODR"							=> "Escalated to ODR",
 	"Waiting for retailer's response"			=> "Waiting for retailer's response",
+    
+	//admin
+	"Yes"	    => "Yes",
+	"No"	    => "No",
+	"Products"	    => "Products",
+	"Services"	    => "Services",
+	"Settings"	    => "Settings",
+	"Api Key"	    => "Api Key",
+	"Use sandbox environment"   => "Use sandbox environment",
+	"This e-shop sells"	    => "This e-shop sells",
+	"Save"			    => "Save"
 );

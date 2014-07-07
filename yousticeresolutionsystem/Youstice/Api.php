@@ -298,7 +298,6 @@ class Api {
             exit("Remote server connection failed");
         }
 
-        $this->updateData(true);
 	$this->setOftenUpdates();
 
         return $redirectLink;
@@ -338,7 +337,6 @@ class Api {
             exit("Remote server connection failed");
         }
 
-        $this->updateData(true);
 	$this->setOftenUpdates();
 
         return $redirectLink;
@@ -378,7 +376,6 @@ class Api {
             exit("Remote server connection failed");
         }
 
-        $this->updateData(true);
 	$this->setOftenUpdates();
 
         return $redirectLink;
