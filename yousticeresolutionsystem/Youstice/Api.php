@@ -114,7 +114,7 @@ class Api {
     public function getShowButtonsWidgetHtml() {
         $reportsCount = count($this->local->getReportsByUser($this->userId));
 
-        $widget = new Widgets\ShowButtonsWidget($this->lang, $reportsCount > 0);
+        $widget = new Widgets\ShowButtonsWidget($this->language, $reportsCount > 0);
 
         return $widget->toString();
     }
@@ -521,6 +521,8 @@ class Api {
      * @throws \InvalidArgumentException
      */
     public function setLanguage($lang = null) {
+	$lang = trim(strtolower($lang));
+	
         if ($lang && \Youstice\Helpers\LanguageCodes::check($lang)) {
             $this->language = $lang;
             $this->translator = new Translator($this->language);

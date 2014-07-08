@@ -23,7 +23,7 @@ function showProductsButtons() {
 
 		$(this).find('td:first').append('<div id="yrs_id_' + id_order + '-' + id_order_detail + '"></div>');
 	    });
-	    $.get('modules/yousticeresolutionsystem/index.php?section=getProductsButtons', {"order_id": id_order, "products_ids": products_ids}, function(data) {
+	    $.get('/modules/yousticeresolutionsystem/index.php?section=getProductsButtons', {"order_id": id_order, "products_ids": products_ids}, function(data) {
 		for (key in data) {
 		    $('#yrs_id_' + id_order + '-' + key).html(data[key]);
 		}
@@ -42,7 +42,7 @@ jQuery(function($) {
 	if($('#yousticeLogoWidget').length)
 	    return;
 	    
-        $.get('modules/yousticeresolutionsystem/index.php?section=logoWidget', function(data) {
+        $.get('/modules/yousticeresolutionsystem/index.php?section=logoWidget', function(data) {
             $('body').append(data);
         });
     });
@@ -52,7 +52,7 @@ jQuery(function($) {
     }
 
     //button to start showing buttons
-    $.get('modules/yousticeresolutionsystem/index.php?section=getShowButtonsHtml', function(data) {
+    $.get('/modules/yousticeresolutionsystem/index.php?section=getShowButtonsHtml', function(data) {
         $('#center_column h1:first').after(data);
 
         if ($(data).data('has-reports'))
@@ -70,7 +70,7 @@ jQuery(function($) {
         $('a.yrsShowButtons').remove();
 
         //load web report button
-        $.get('modules/yousticeresolutionsystem/index.php?section=getWebReportButton', function(data) {
+        $.get('/modules/yousticeresolutionsystem/index.php?section=getWebReportButton', function(data) {
             $('#center_column h1:first').after(data);
         });
 
@@ -93,7 +93,7 @@ jQuery(function($) {
                 $this.append('<div id="report_order_' + order_id + '" style="min-width:230px;min-height: 30px;"></div>');
             });
 
-            $.get('modules/yousticeresolutionsystem/index.php?section=getOrdersButtons', {"order_ids": order_ids}, function(data) {
+            $.get('/modules/yousticeresolutionsystem/index.php?section=getOrdersButtons', {"order_ids": order_ids}, function(data) {
                 for (key in data) {
                     $('#report_order_' + key).html(data[key]);
                 }

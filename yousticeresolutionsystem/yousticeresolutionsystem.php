@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.2.2';
+		$this->version                = '1.2.7';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -55,6 +55,11 @@ class YousticeResolutionSystem extends Module
 
 	public function hookDisplayHeader()
 	{
+		//if ajax call
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+		    return;
+		}
+		
 		$this->context->controller->addCSS($this->_path.'public/css/youstice.css', 'all');
 		$this->context->controller->addCSS($this->_path.'public/css/jquery.fancybox.css', 'all');
 		$this->context->controller->addJS($this->_path.'public/js/yrs_order_history.js');
@@ -99,6 +104,14 @@ class YousticeResolutionSystem extends Module
 			$this->y_api->install();
 
 		}
+		
+		$output .= '<h2>'.$this->displayName.'</h2>'
+			. '<img src="../modules/yousticeresolutionsystem/youstice.png" style="float:left; margin-right:15px;"><b>'
+			.$this->l('We help customers and retailers resolve shopping issues quickly and effectively.').'</b><br /><br />'
+			.$this->l('Youstice is a global online application for customers and retailers').'<br />'
+			.$this->l('It allows quick and efficient communication between shops and customers').'<br />'
+			.$this->l('Complaints are resolved in just a few clicks.').'<br /><br /><br />';
+		
 		$output .= $this->displayForm();
 
                 $footerFile = _PS_ROOT_DIR_ . _THEME_DIR_ . 'footer.tpl';
@@ -201,8 +214,7 @@ class YousticeResolutionSystem extends Module
 		$helper->allow_employee_form_lang = $default_lang;
 
 		// Title and toolbar
-		$helper->title = $this->displayName;
-		$helper->show_toolbar   = true;
+		$helper->show_toolbar   = false;
 		$helper->toolbar_scroll = true;
 		$helper->submit_action  = 'submit'.$this->name;
 		$helper->toolbar_btn = array(

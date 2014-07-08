@@ -13,12 +13,14 @@ class YrsController extends FrontController {
 	public $theme_file = '';
 
 	const URL_ORDERS = 'index.php?controller=history';
-	const URL_YRS = 'modules/yousticeresolutionsystem/';
+	private $url_yrs;
 
 	public function __construct(\Youstice\Api $yapi)
 	{
 		parent::__construct();
-
+		
+		$this->url_yrs = _PS_BASE_URL_ .'/modules/yousticeresolutionsystem/';
+		
 		$yapi->setUserId($this->context->customer->id);
 		$yapi->run();
 		$this->yapi = $yapi;
@@ -27,19 +29,12 @@ class YrsController extends FrontController {
         public function getShowButtonsHtml()
         {
             echo $this->yapi->getShowButtonsWidgetHtml();
+	    $this->yapi->orderHistoryViewed();
         }
 
 	public function logoWidget()
 	{
 		echo $this->yapi->getLogoWidgetHtml();
-	}
-
-	public function setButtonsVisible()
-	{
-		$this->yapi->setButtonsVisible();
-		$this->yapi->orderHistoryViewed();
-		header('Location: '._PS_BASE_URL_.__PS_BASE_URI__.self::URL_ORDERS);
-		exit;
 	}
 
 	# AJAX
@@ -55,7 +50,7 @@ class YrsController extends FrontController {
 			$shop_order = $this->createShopOrder($order_id);
 
 			$reports[$order_id] = $this->yapi->getOrderDetailButtonHtml(
-					self::URL_YRS.'index.php?section=getOrderDetail&order_id='.$order_id, $shop_order
+					$this->url_yrs.'index.php?section=getOrderDetail&order_id='.$order_id, $shop_order
 			);
 		}
 
@@ -74,7 +69,7 @@ class YrsController extends FrontController {
 			if ($order->id_customer != $this->context->customer->id)
 				continue;
 
-			$href = self::URL_YRS.'index.php?section=productReportPost&order_id='.$order_id.'&amp;id_order_detail='.$product_order_id;
+			$href = $this->url_yrs.'index.php?section=productReportPost&order_id='.$order_id.'&amp;id_order_detail='.$product_order_id;
 
 			$reports[$product_order_id] = $this->yapi->getProductReportButtonHtml($href, $product_order_id, $order_id);
 		}
@@ -88,7 +83,7 @@ class YrsController extends FrontController {
 		if (!$this->context->customer->id)
 			return;
 
-		echo $this->yapi->getWebReportButtonHtml('modules/yousticeresolutionsystem/index.php?section=webReportPost');
+		echo $this->yapi->getWebReportButtonHtml($this->url_yrs.'index.php?section=webReportPost');
 	}
 
 	# RENDERS INSIDE POPUP
@@ -243,7 +238,7 @@ class YrsController extends FrontController {
 		$shop_order->setOrderDate($order->date_add);
 		//$shop_order->setImage(NULL);
 		$shop_order->setOtherInfo(Tools::jsonEncode($this->buildDataArray($order)));
-		$shop_order->setHref(self::URL_YRS.'index.php?section=orderReportPost&amp;order_id='.$order_id);
+		$shop_order->setHref($this->url_yrs.'index.php?section=orderReportPost&amp;order_id='.$order_id);
 
 		foreach ($products as $product)
 		{
@@ -277,7 +272,7 @@ class YrsController extends FrontController {
 		}
 
 		$shop_product->setOrderId($order_id);
-		$shop_product->setHref(self::URL_YRS.'index.php?section=productReportPost&amp;order_id='.$order_id
+		$shop_product->setHref($this->url_yrs.'index.php?section=productReportPost&amp;order_id='.$order_id
 				.'&amp;id_order_detail='.$product['id_order_detail']);
 
 		return $shop_product;

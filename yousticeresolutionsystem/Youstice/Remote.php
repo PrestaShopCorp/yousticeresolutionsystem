@@ -36,8 +36,8 @@ class Remote extends Request {
 	 */
 	public function getLogoWidgetData($updatesCount) {
 	    $this->setAdditionalParam('numberOfUpdates', $updatesCount);
-	    $this->get('Api/logo');
-	    
+	    $this->get('Api/badge');
+
 	    $response = $this->responseToArray();
 	    
 	    return $response['html'];
