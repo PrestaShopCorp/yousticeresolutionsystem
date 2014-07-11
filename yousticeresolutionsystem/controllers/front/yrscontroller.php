@@ -18,19 +18,19 @@ class YrsController extends FrontController {
 	public function __construct(\Youstice\Api $yapi)
 	{
 		parent::__construct();
-		
-		$this->url_yrs = _PS_BASE_URL_ .'/modules/yousticeresolutionsystem/';
-		
+
+		$this->url_yrs = _PS_BASE_URL_.'/modules/yousticeresolutionsystem/';
+
 		$yapi->setUserId($this->context->customer->id);
 		$yapi->run();
 		$this->yapi = $yapi;
 	}
-        
-        public function getShowButtonsHtml()
-        {
-            echo $this->yapi->getShowButtonsWidgetHtml();
-	    $this->yapi->orderHistoryViewed();
-        }
+
+	public function getShowButtonsHtml()
+	{
+		echo $this->yapi->getShowButtonsWidgetHtml();
+		$this->yapi->orderHistoryViewed();
+	}
 
 	public function logoWidget()
 	{
@@ -91,8 +91,7 @@ class YrsController extends FrontController {
 	{
 		$redirect_url = $this->yapi->createWebReport();
 
-		header('Location: '.$redirect_url);
-		exit;
+		Tools::redirect($redirect_url);
 	}
 
 	public function getOrderDetail($in)
@@ -106,10 +105,9 @@ class YrsController extends FrontController {
 	{
 		$shop_order = $this->createShopOrder((int)$in['order_id']);
 
-		$redirect_link = $this->yapi->createOrderReport($shop_order);
+		$redirect_url = $this->yapi->createOrderReport($shop_order);
 
-		header('Location: '.$redirect_link);
-		exit;
+		Tools::redirect($redirect_url);
 	}
 
 	public function productReportPost($in)
@@ -122,10 +120,9 @@ class YrsController extends FrontController {
 		{
 			if ($shop_product->getId() == $in['id_order_detail'])
 			{
-				$redirect_link = $this->yapi->createProductReport($shop_product);
+				$redirect_url = $this->yapi->createProductReport($shop_product);
 
-				header('Location: '.$redirect_link);
-				exit;
+				Tools::redirect($redirect_url);
 			}
 		}
 

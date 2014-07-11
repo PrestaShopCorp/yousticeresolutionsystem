@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Youstice show buttons widget.
  *

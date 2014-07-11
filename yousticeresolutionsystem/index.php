@@ -36,8 +36,8 @@ if (Tools::getIsset('section'))
 {
 	$c = new YrsController($y_api);
 	$c->module = new YousticeResolutionSystem();
-	if (method_exists('YrsController', $_GET['section']))
-		call_user_func_array(array($c, $_GET['section']), array($_GET));
+	if (method_exists('YrsController', Tools::getValue('section')))
+		call_user_func_array(array($c, Tools::getValue('section')), array($_GET));
 	else
 		exit('Route not found');
 }

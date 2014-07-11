@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Represents one order report.
  *

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Handles localy stored reports
  *

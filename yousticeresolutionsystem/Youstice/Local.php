@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Handles localy stored reports
  *
@@ -158,7 +157,7 @@ class Local implements LocalInterface {
                 . "(code, user_id, status, remaining_time, created_at, updated_at) VALUES (?, ?, null, ?, ?, ?)");
 
         try {
-            $result = $stmt->execute(array($code, $userId, $remainingTime, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')));
+            $stmt->execute(array($code, $userId, $remainingTime, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')));
         } catch (\PDOException $e) {
             if ((int) $e->getCode() === 23000) {
                 throw new \Exception("Report with code " . $code . " already exists");

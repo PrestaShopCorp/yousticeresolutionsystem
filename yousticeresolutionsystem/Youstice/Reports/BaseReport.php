@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Represents base class for orders
  *
