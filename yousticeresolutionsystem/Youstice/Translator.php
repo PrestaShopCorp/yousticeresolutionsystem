@@ -14,7 +14,7 @@ class Translator {
 	private $strings = array();
 
 	public function __construct($lang = 'sk') {
-		$file = __DIR__ . "/languageStrings/translations_local_{$lang}.php";
+		$file = __DIR__ . "/languageStrings/{$lang}.php";
 		if (file_exists($file)) {
 			$this->strings = include $file;
 		}

@@ -38,7 +38,7 @@ jQuery(function($) {
     }
 
     //show logoWidget
-    $('a.yousticeShowLogoWidget').click(function() {
+    $('.yousticeShowLogoWidget').click(function() {
 	if($('#yousticeLogoWidget').length)
 	    return;
 	    

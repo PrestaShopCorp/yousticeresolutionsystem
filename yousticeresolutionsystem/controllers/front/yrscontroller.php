@@ -86,10 +86,14 @@ class YrsController extends FrontController {
 		echo $this->yapi->getWebReportButtonHtml($this->url_yrs.'index.php?section=webReportPost');
 	}
 
-	# RENDERS INSIDE POPUP
 	public function webReportPost()
 	{
-		$redirect_url = $this->yapi->createWebReport();
+		try {
+			$redirect_url = $this->yapi->createWebReport();
+		}
+		catch(\Exception $e) {
+			exit('Connection to remote server failed, please <a href="#" onClick="history.go(0)">try again</a> later');
+		}
 
 		Tools::redirect($redirect_url);
 	}
@@ -105,7 +109,12 @@ class YrsController extends FrontController {
 	{
 		$shop_order = $this->createShopOrder((int)$in['order_id']);
 
-		$redirect_url = $this->yapi->createOrderReport($shop_order);
+		try {
+			$redirect_url = $this->yapi->createOrderReport($shop_order);
+		}
+		catch(\Exception $e) {
+			exit('Connection to remote server failed, please <a href="" onClick="history.go(0)">try again</a> later');
+		}
 
 		Tools::redirect($redirect_url);
 	}
@@ -120,7 +129,13 @@ class YrsController extends FrontController {
 		{
 			if ($shop_product->getId() == $in['id_order_detail'])
 			{
-				$redirect_url = $this->yapi->createProductReport($shop_product);
+
+				try {
+					$redirect_url = $this->yapi->createProductReport($shop_product);
+				}
+				catch(\Exception $e) {
+					exit('Connection to remote server failed, please <a href="" onClick="history.go(0)">try again</a> later');
+				}
 
 				Tools::redirect($redirect_url);
 			}

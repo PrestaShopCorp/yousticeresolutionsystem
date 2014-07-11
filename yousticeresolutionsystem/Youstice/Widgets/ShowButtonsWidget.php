@@ -25,13 +25,9 @@ class ShowButtonsWidget {
     }
 
     public function toString() {
-        //todo translate if final
         $text = $this->translator->t('Would you like to file a complaint?');
         
-        //todo debug
-        //$this->hasReports = 0;
-        
-        return '<a class="yrsShowButtons yrsButton" '
+        return '<a href="#" class="yrsShowButtons yrsButton" '
             . 'data-has-reports="'.(boolean)$this->hasReports.'">'
             . $text . '</a>';
     }

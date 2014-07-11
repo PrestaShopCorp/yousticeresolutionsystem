@@ -37,7 +37,7 @@ class Remote extends Request {
 	public function getLogoWidgetData($updatesCount) {
 	    $this->setAdditionalParam('numberOfUpdates', $updatesCount);
 	    $this->get('Api/logo');
-
+	    
 	    $response = $this->responseToArray();
 	    
 	    return $response['html'];
@@ -57,13 +57,8 @@ class Remote extends Request {
 	}
 
 	public function createWebReport($orderNumber) {
-
-		try {
-			$this->post("Api/addTransactionShop", array('orderNumber' => $orderNumber));
-		}
-		catch(Youstice\InvalidApiKeyException $e) {
-			exit("Invalid API key");
-		}
+		
+		$this->post("Api/addTransactionShop", array('orderNumber' => $orderNumber));
 
 		$response = $this->responseToArray();
 
@@ -89,12 +84,7 @@ class Remote extends Request {
 			'other'				=> $data['other'],
 		);
 
-		try {
-			$this->post("Api/addTransaction", $requestData);
-		}
-		catch(Youstice\InvalidApiKeyException $e) {
-			exit("Invalid API key");
-		}
+		$this->post("Api/addTransaction", $requestData);
 
 		$response = $this->responseToArray();
 
@@ -119,12 +109,7 @@ class Remote extends Request {
 			'other'				=> $data['other'],
 		);
 
-		try {
-			$this->post("Api/addTransaction", $requestData);
-		}
-		catch(Youstice\InvalidApiKeyException $e) {
-			exit("Invalid API key");
-		}
+		$this->post("Api/addTransaction", $requestData);
 
 		$response = $this->responseToArray();
 

@@ -37,11 +37,12 @@ class Request {
 			    . "version=1&channel=" . $this->shopSoftwareType;
 
 	    if(count($this->additionalParams)) {
-		foreach($this->additionalParams as $key => $val) {
-		    $returnUrl .= "&$key=$val";
-		}
+			
+			foreach($this->additionalParams as $key => $val) {
+				$returnUrl .= "&$key=$val";
+			}
 
-		$this->additionalParams = array();
+			$this->additionalParams = array();
 	    }
 
 	    return $returnUrl;
@@ -52,7 +53,7 @@ class Request {
 		$this->postStream($url, $data);
 
 		if ($this->response === false || $this->response === null)
-			throw new \Exception('Post Request failed: ' . $url);
+			throw new \FailedRemoteConnectionException('Post Request failed: ' . $url);
 
 		if(strpos($this->response, "Invalid api key") !== false || strpos($this->response, "Invalid api key") !== false)
 			throw new InvalidApiKeyException;
@@ -65,7 +66,7 @@ class Request {
 		$this->getStream($url);
 
 		if ($this->response === false || $this->response === null)
-			throw new \Exception('get Request failed: ' . $url);
+			throw new \FailedRemoteConnectionException('get Request failed: ' . $url);
 
 		if(strpos($this->response, "Invalid api key") !== false || strpos($this->response, "Invalid api key") !== false)
 			throw new InvalidApiKeyException;
