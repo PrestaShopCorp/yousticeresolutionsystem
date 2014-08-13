@@ -7,87 +7,128 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
-namespace Youstice;
-
 /**
  * Youstice main API class
  *
  * @author KBS Development
  */
-class Api {
+class YousticeApi {
 
-	//because updateData function is called every request, update only every 10 minutes
-	protected $updateInterval = 600;
-	//when setOftenUpdates was called, next 5 minutes updates occurs
-	protected $oftenUpdateInterval = 300;
-	// \Youstice\Translator
-	protected $translator;
-	// \Youstice\LocalInterface
-	protected $local;
-	//ISO 639-1 char code "en|sk|cz|es"
-	protected $language;
-	//string from youstice service
-	protected $apiKey;
-	// product|service
-	protected $thisShopSells;
-	//unique integer for user
-	protected $userId;
-	//true if testing, real claims are not creating
-	protected $useSandbox;
-	//string prestashop|magento|ownSoftware
-	protected $shopSoftwareType;
+	/**
+	 * Because updateData function is called every request, update only every 10 minutes
+	 * @var int 
+	 */
+	protected $update_interval = 600;
+
+	/**
+	 * When setOftenUpdates was called, next 5 minutes updates occurs
+	 * @var int 
+	 */
+	protected $often_update_interval = 300;
 
 	/**
 	 *
-	 * @param array $dbCredentials associative array for PDO connection with must fields: driver, host, name, user, pass
-	 * @param string $language ISO 639-1 char code "en|sk|cz|es"
-	 * @param string $apiKey string from youstice service
-	 * @param string $thisShopSells "products|services"
-	 * @param integer $userId unique integer for user
-	 * @param boolean $useSandbox true if testing implementation
-	 * @param string $shopSoftwareType prestashop|magento|ownSoftware
-	 * @return \Youstice\Api
+	 * @var type YousticeTranslator
 	 */
-	public static function create(array $dbCredentials = array(), $language = 'sk', $apiKey = "", $thisShopSells = 'product', $userId = null, $useSandbox = false, $shopSoftwareType = "custom") {
+	protected $translator;
 
-		return new self($dbCredentials, $language, $apiKey, $thisShopSells, $userId, $useSandbox, $shopSoftwareType);
+	/**
+	 *
+	 * @var type YousticeLocalInterface
+	 */
+	protected $local;
+
+	/**
+	 * ISO 639-1 char code "en|sk|cz|es"
+	 * @var string 
+	 */
+	protected $language;
+
+	/**
+	 * string from youstice service
+	 * @var string 
+	 */
+	protected $api_key;
+
+	/**
+	 * product|service
+	 * @var string 
+	 */
+	protected $shop_sells;
+
+	/**
+	 * unique integer identifier
+	 * @var type 
+	 */
+	protected $user_id;
+
+	/**
+	 * true for testing environment
+	 * @var boolean 
+	 */
+	protected $use_sandbox;
+
+	/**
+	 * prestashop|magento|ownSoftware
+	 * @var string 
+	 */
+	protected $shop_software_type;
+
+	/**
+	 *
+	 * @param array $db_credentials associative array for PDO connection with must fields: driver, host, name, user, pass
+	 * @param string $language ISO 639-1 char code "en|sk|cz|es"
+	 * @param string $api_key string from youstice service
+	 * @param string $shop_sells "products|services"
+	 * @param integer $user_id unique integer for user
+	 * @param boolean $use_sandbox true if testing implementation
+	 * @param string $shop_software_type prestashop|magento|ownSoftware
+	 * @return YousticeApi
+	 */
+	public static function create(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
+	{
+		return new self($db_credentials, $language, $api_key, $shop_sells, $user_id, $use_sandbox, $shop_software_type);
 	}
 
 	/**
 	 *
-	 * @param array $dbCredentials associative array for PDO connection with must fields: driver, host, name, user, pass
+	 * @param array $db_credentials associative array for PDO connection with must fields: driver, host, name, user, pass
 	 * @param string $language ISO 639-1 char code "en|sk|cz|es"
-	 * @param string $apiKey string from youstice service
-	 * @param string $thisShopSells "products|services"
-	 * @param integer $userId unique integer for user
-	 * @param boolean $useSandbox true if testing implementation
-	 * @param string $shopSoftwareType prestashop|magento|ownSoftware
-	 * @return \Youstice\Api
+	 * @param string $api_key string from youstice service
+	 * @param string $shop_sells "products|services"
+	 * @param integer $user_id unique integer for user
+	 * @param boolean $use_sandbox true if testing implementation
+	 * @param string $shop_software_type prestashop|magento|ownSoftware
+	 * @return YousticeApi
 	 */
-	public function __construct(array $dbCredentials = array(), $language = 'sk', $apiKey = "", $thisShopSells = 'product', $userId = null, $useSandbox = false, $shopSoftwareType = "custom") {
+	public function __construct(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
+	{
+		$this->registerAutoloader();
+		/*if (!Helpers\HelperFunctions::isSessionStarted())
+			session_start();
+		 */
 
-		$this->__registerAutoloader();
-		if (!isset($_SESSION))
-			@session_start();
-
-		$this->setDbCredentials($dbCredentials);
+		$this->setDbCredentials($db_credentials);
 		$this->setLanguage($language);
-		$this->setUserId($userId);
-		$this->setApiKey($apiKey, $useSandbox);
-		$this->setThisShopSells($thisShopSells);
-		$this->setShopSoftwareType($shopSoftwareType);
+		$this->setUserId($user_id);
+		$this->setApiKey($api_key, $use_sandbox);
+		$this->setThisShopSells($shop_sells);
+		$this->setShopSoftwareType($shop_software_type);
 
 		return $this;
 	}
 
 	/**
 	 * Start Youstice API
-	 * @return \Youstice\Api
+	 * @return YousticeApi
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->checkShopSells();
 
-		$this->remote = new Remote($this->apiKey, $this->useSandbox, $this->language, $this->shopSells, $this->shopSoftwareType);
+		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type);
 
 		$this->updateData();
 
@@ -97,38 +138,71 @@ class Api {
 	/**
 	 * Helper function for autoloading classes (called in constructor)
 	 */
-	protected function __registerAutoloader() {
-		spl_autoload_register(function ($className) {
-			$className = str_replace('Youstice\\', '', $className);
-			$classPath = str_replace('\\', DIRECTORY_SEPARATOR, $className);
+	protected function registerAutoloader()
+	{
+		spl_autoload_register(function ($class_name) {
+			$class_name = str_replace('Youstice', '', $class_name);
+			//$class_path = str_replace('_', DIRECTORY_SEPARATOR, $class_name);
+			$class_path = Tools::substr(preg_replace('/([A-Z])/', DIRECTORY_SEPARATOR.'\\1', $class_name), 1);
 
-			$path = __DIR__ . DIRECTORY_SEPARATOR . $classPath;
+			$path = dirname(__FILE__).DIRECTORY_SEPARATOR.$class_path;
 
-			if (is_readable($path . ".php")) {
-				require $path . ".php";
+			if (is_readable($path.'.php'))
+				require_once $path.'.php';
+			else
+			{
+				$path = strrev(preg_replace('/\\'.DIRECTORY_SEPARATOR.'/', '', strrev($path), 1));
+
+				if (is_readable($path.'.php'))
+					require_once $path.'.php';
+				else
+				{
+					$path = strrev(preg_replace('/\\'.DIRECTORY_SEPARATOR.'/', '', strrev($path), 1));
+
+					if (is_readable($path.'.php'))
+						require_once $path.'.php';
+				}
 			}
 		}, true, true);  //prepend our autoloader
 	}
 
-	public function getShowButtonsWidgetHtml() {
-		$reportsCount = count($this->local->getReportsByUser($this->userId));
+	/**
+	 * Renders form with fields email and orderNumber for reporting claims
+	 * @return string html
+	 */
+	public function getReportClaimsFormHtml()
+	{
+		if (!trim($this->api_key))
+			return "Invalid shop's api key";
 
-		$widget = new Widgets\ShowButtonsWidget($this->language, $reportsCount > 0);
+		$widget = new YousticeWidgetsReportClaimsForm($this->language);
+
+		return $widget->toString();
+	}
+
+	public function getShowButtonsWidgetHtml()
+	{
+		if (!trim($this->api_key))
+			return '';
+
+		$reports_count = count($this->local->getReportsByUser($this->user_id));
+
+		$widget = new YousticeWidgetsShowButtons($this->language, $reports_count > 0);
 
 		return $widget->toString();
 	}
 
 	/**
 	 * Returns html string of logo widget
-	 * @param string $href url address where method setButtonsVisible must be called
+	 * @param string $claims_url url to report claims form
 	 * @return string html
 	 */
-	public function getLogoWidgetHtml() {
-		if (!trim($this->apiKey)) {
-			return "";
-		}
+	public function getLogoWidgetHtml($claims_url = '')
+	{
+		if (!trim($this->api_key))
+			return '';
 
-		return $this->remote->getLogoWidgetData($this->local->getChangedReportStatusesCount());
+		return $this->remote->getLogoWidgetData($this->local->getChangedReportStatusesCount(), $claims_url, $this->user_id !== null);
 	}
 
 	/**
@@ -136,131 +210,133 @@ class Api {
 	 * @param string $href url address where web report is created
 	 * @return string of html button
 	 */
-	public function getWebReportButtonHtml($href) {
-		if (!trim($this->apiKey)) {
-			return "";
-		}
+	public function getWebReportButtonHtml($href)
+	{
+		if (!trim($this->api_key))
+			return '';
 
-		$report = $this->local->getWebReport($this->userId);
+		$report = $this->local->getWebReport($this->user_id);
 
 		//exists, just redirect
-		if (!$report->canCreateNew()) {
-			$remoteLink = $this->local->getCachedRemoteReportLink($report->getCode());
-			if (strlen($remoteLink)) {
-				$href = $remoteLink;
-			}
+		if (!$report->canCreateNew())
+		{
+			$remote_link = $this->local->getCachedRemoteReportLink($report->getCode());
+
+			if (Tools::strlen($remote_link))
+				$href = $remote_link;
 		}
 
-		$webButton = new Widgets\WebReportButton($href, $this->language, $report);
+		$web_button = new YousticeWidgetsWebReportButton($href, $this->language, $report);
 
-		return $webButton->toString();
+		return $web_button->toString();
 	}
 
 	/**
 	 * Returns html of product button
 	 * @param string $href url address where product report is created
-	 * @param integer $productId
-	 * @param integer $orderId
+	 * @param integer $product_id
+	 * @param integer $order_id
 	 * @return string of html button
 	 */
-	public function getProductReportButtonHtml($href, $productId, $orderId = null) {
-		if (!trim($this->apiKey)) {
-			return "";
-		}
+	public function getProductReportButtonHtml($href, $product_id, $order_id = null)
+	{
+		if (!trim($this->api_key))
+			return '';
 
-		$report = $this->local->getProductReport($productId, $orderId);
+		$report = $this->local->getProductReport($product_id, $order_id);
 
 		//exists, just redirect
-		if (!$report->canCreateNew()) {
-			$remoteLink = $this->local->getCachedRemoteReportLink($report->getCode());
-			if (strlen($remoteLink)) {
-				$href = $remoteLink;
-			}
+		if (!$report->canCreateNew())
+		{
+			$remote_link = $this->local->getCachedRemoteReportLink($report->getCode());
+
+			if (Tools::strlen($remote_link))
+				$href = $remote_link;
 		}
 
-		$productButton = new Widgets\ProductReportButton($href, $this->language, $report);
+		$product_button = new YousticeWidgetsProductReportButton($href, $this->language, $report);
 
-		return $productButton->toString();
+		return $product_button->toString();
 	}
 
 	/**
 	 * Returns html of button for simple order reporting
 	 * @param string $href url address where order report is created
-	 * @param inteter $orderId
+	 * @param inteter $order_id
 	 * @return string of html button
 	 */
-	public function getOrderReportButtonHtml($href, $orderId) {
-		if (!trim($this->apiKey)) {
-			return "";
-		}
+	public function getOrderReportButtonHtml($href, $order_id)
+	{
+		if (!trim($this->api_key))
+			return '';
 
-		$report = $this->local->getOrderReport($orderId);
+		$report = $this->local->getOrderReport($order_id);
 
 		//exists, just redirect
-		if (!$report->canCreateNew()) {
-			$remoteLink = $this->local->getCachedRemoteReportLink($report->getCode());
-			if (strlen($remoteLink)) {
-				$href = $remoteLink;
-			}
+		if (!$report->canCreateNew())
+		{
+			$remote_link = $this->local->getCachedRemoteReportLink($report->getCode());
+
+			if (Tools::strlen($remote_link))
+				$href = $remote_link;
 		}
 
-		$orderButton = new Widgets\OrderReportButton($href, $this->language, $report);
+		$order_button = new YousticeWidgetsOrderReportButton($href, $this->language, $report);
 
-		return $orderButton->toString();
+		return $order_button->toString();
 	}
 
 	/**
 	 * Returns button for opening popup
 	 * @param string $href url address where showing order detail is mantained
-	 * @param \Youstice\ShopOrder $order class with attached data
+	 * @param YousticeShopOrder $order class with attached data
 	 */
-	public function getOrderDetailButtonHtml($href, ShopOrder $order) {
-		if (!trim($this->apiKey)) {
-			return "";
-		}
+	public function getOrderDetailButtonHtml($href, YousticeShopOrder $order)
+	{
+		if (!trim($this->api_key))
+			return '';
 
 		$products = $order->getProducts();
-		$productCodes = array();
+		$product_codes = array();
 
-		foreach ($products as $product) {
-			$productCodes[] = $product->getCode();
-		}
+		foreach ($products as $product)
+			$product_codes[] = $product->getCode();
 
-		$report = $this->local->getOrderReport($order->getId(), $productCodes);
+		$report = $this->local->getOrderReport($order->getId(), $product_codes);
 
-		$orderButton = new Widgets\OrderDetailButton($href, $this->language, $order, $report, $this);
+		$order_button = new YousticeWidgetsOrderDetailButton($href, $this->language, $order, $report, $this);
 
-		return $orderButton->toString();
+		return $order_button->toString();
 	}
 
 	/**
 	 * Returns html string of popup
-	 * @param \Youstice\ShopOrder $order class with attached data
+	 * @param YousticeShopOrder $order class with attached data
 	 */
-	public function getOrderDetailHtml(ShopOrder $order) {
-		if (!trim($this->apiKey)) {
-			return "";
-		}
+	public function getOrderDetailHtml(YousticeShopOrder $order)
+	{
+		if (!trim($this->api_key))
+			return '';
 
 		$products = $order->getProducts();
-		$producCodes = array();
+		$product_codes = array();
 
-		foreach ($products as $product) {
-			$producCodes[] = $product->getCode();
-		}
+		foreach ($products as $product)
+			$product_codes[] = $product->getCode();
 
-		$report = $this->local->getOrderReport($order->getCode(), $producCodes);
+		$report = $this->local->getOrderReport($order->getCode(), $product_codes);
 
-		$orderDetail = new Widgets\OrderDetail($this->language, $order, $report, $this);
+		$order_detail = new YousticeWidgetsOrderDetail($this->language, $order, $report, $this);
 
-		return $orderDetail->toString();
+		return $order_detail->toString();
 	}
 
 	/**
 	 * Action when user viewed order history (for changing report statuses count)
-	 * @return \Youstice\Api
+	 * @return YousticeApi
 	 */
-	public function orderHistoryViewed() {
+	public function orderHistoryViewed()
+	{
 		$this->local->setChangedReportStatusesCount(0);
 
 		return $this;
@@ -270,114 +346,117 @@ class Api {
 	 * Creates report of web
 	 * @return string where to redirect
 	 */
-	public function createWebReport() {
+	public function createWebReport()
+	{
 		$this->updateData(true);
 
-		$localReport = $this->local->getWebReport($this->userId);
+		$local_report = $this->local->getWebReport($this->user_id);
 
-		if ($localReport->canCreateNew()) {
-			return $this->_createWebReport($this->userId);
-		} else {
-			$remoteLink = $this->local->getCachedRemoteReportLink($localReport->getCode());
+		if ($local_report->canCreateNew())
+			return $this->createWebReportExecute($this->user_id);
+		else
+		{
+			$remote_link = $this->local->getCachedRemoteReportLink($local_report->getCode());
 
-			if (strlen($remoteLink)) {
-				return $remoteLink;
-			} else {
-				return $this->_createWebReport($this->userId);
-			}
+			if (Tools::strlen($remote_link))
+				return $remote_link;
+			else
+				return $this->_createWebReport($this->user_id);
 		}
 	}
 
-	private function _createWebReport($userId) {
-		$newCode = $this->local->createWebReport($userId, $userId);
+	private function createWebReportExecute($user_id)
+	{
+		$new_code = $this->local->createWebReport($user_id, $user_id);
 
-		$redirectLink = $this->remote->createWebReport($newCode);
+		$redirect_link = $this->remote->createWebReport($new_code);
 
-		if ($redirectLink == null) {
-			throw new FailedRemoteConnectionException;
-		}
+		if ($redirect_link == null)
+			throw new YousticeFailedRemoteConnectionException;
 
 		$this->setOftenUpdates();
 
-		return $redirectLink;
+		return $redirect_link;
 	}
 
 	/**
 	 * Creates order report
-	 * @param \Youstice\ShopOrder $order class with attached data
+	 * @param YousticeShopOrder $order class with attached data
 	 * @return string where to redirect
 	 */
-	public function createOrderReport(ShopOrder $order) {
+	public function createOrderReport(YousticeShopOrder $order)
+	{
 		$this->updateData(true);
 
-		$report = new Reports\OrderReport($order->toArray());
-		$localReport = $this->local->getOrderReport($report->getCode());
+		$report = new YousticeReportsOrderReport($order->toArray());
+		$local_report = $this->local->getOrderReport($report->getCode());
 
-		if ($localReport->canCreateNew()) {
-			return $this->_createOrderReport($order);
-		} else {
-			$remoteLink = $this->local->getCachedRemoteReportLink($localReport->getCode());
+		if ($local_report->canCreateNew())
+			return $this->createOrderReportExecute($order);
+		else
+		{
+			$remote_link = $this->local->getCachedRemoteReportLink($local_report->getCode());
 
-			if (strlen($remoteLink)) {
-				return $remoteLink;
-			} else {
+			if (Tools::strlen($remote_link))
+				return $remote_link;
+			else
 				return $this->_createOrderReport($order);
-			}
 		}
 	}
 
-	private function _createOrderReport(ShopOrder $order) {
-		$report = new Reports\OrderReport($order->toArray());
-		$newCode = $this->local->createReport($report->getCode(), $this->userId);
+	private function createOrderReportExecute(YousticeShopOrder $order)
+	{
+		$report = new YousticeReportsOrderReport($order->toArray());
+		$new_code = $this->local->createReport($report->getCode(), $this->user_id);
 
-		$redirectLink = $this->remote->createOrderReport($order, $newCode);
+		$redirect_link = $this->remote->createOrderReport($order, $new_code);
 
-		if ($redirectLink == null) {
-			throw new FailedRemoteConnectionException;
-		}
+		if ($redirect_link == null)
+			throw new YousticeFailedRemoteConnectionException;
 
 		$this->setOftenUpdates();
 
-		return $redirectLink;
+		return $redirect_link;
 	}
 
 	/**
 	 * Creates product report
-	 * @param \Youstice\ShopProduct $product class with attached data
+	 * @param YousticeShopProduct $product class with attached data
 	 * @return string where redirect
 	 */
-	public function createProductReport(ShopProduct $product) {
+	public function createProductReport(YousticeShopProduct $product)
+	{
 		$this->updateData(true);
 
-		$report = new Reports\ProductReport($product->toArray());
-		$localReport = $this->local->getProductReport($report->getCode());
+		$report = new YousticeReportsProductReport($product->toArray());
+		$local_report = $this->local->getProductReport($report->getCode());
 
-		if ($localReport->canCreateNew()) {
-			return $this->_createProductReport($product);
-		} else {
-			$remoteLink = $this->local->getCachedRemoteReportLink($localReport->getCode());
+		if ($local_report->canCreateNew())
+			return $this->createProductReportExecute($product);
+		else
+		{
+			$remote_link = $this->local->getCachedRemoteReportLink($local_report->getCode());
 
-			if (strlen($remoteLink)) {
-				return $remoteLink;
-			} else {
+			if (Tools::strlen($remote_link))
+				return $remote_link;
+			else
 				return $this->_createProductReport($product);
-			}
 		}
 	}
 
-	private function _createProductReport(ShopProduct $product) {
-		$report = new Reports\ProductReport($product->toArray());
-		$newCode = $this->local->createReport($report->getCode(), $this->userId);
+	private function createProductReportExecute(YousticeShopProduct $product)
+	{
+		$report = new YousticeReportsProductReport($product->toArray());
+		$new_code = $this->local->createReport($report->getCode(), $this->user_id);
 
-		$redirectLink = $this->remote->createProductReport($product, $newCode);
+		$redirect_link = $this->remote->createProductReport($product, $new_code);
 
-		if ($redirectLink == null) {
-			throw new FailedRemoteConnectionException;
-		}
+		if ($redirect_link == null)
+			throw new YousticeFailedRemoteConnectionException;
 
 		$this->setOftenUpdates();
 
-		return $redirectLink;
+		return $redirect_link;
 	}
 
 	/**
@@ -386,7 +465,8 @@ class Api {
 	 * @param array $variables
 	 * @return string translated
 	 */
-	public function t($string, $variables = array()) {
+	public function t($string, $variables = array())
+	{
 		return $this->translator->t($string, $variables);
 	}
 
@@ -394,7 +474,8 @@ class Api {
 	 * Create necessary table
 	 * @return boolean success
 	 */
-	public function install() {
+	public function install()
+	{
 		return $this->local->install();
 	}
 
@@ -402,11 +483,13 @@ class Api {
 	 * Drop table
 	 * @return boolean success
 	 */
-	public function uninstall() {
+	public function uninstall()
+	{
 		return $this->local->uninstall();
 	}
 
-	public function setOftenUpdates() {
+	public function setOftenUpdates()
+	{
 		$_SESSION['YRS']['last_often_update'] = time();
 	}
 
@@ -414,11 +497,12 @@ class Api {
 	 * Connect to remote and update local data
 	 * @param boolean $force update also if data are acutal
 	 */
-	protected function updateData($force = false) {
-		if ($force || $this->canUpdate()) {
-			if ($this->__updateData()) {
+	protected function updateData($force = false)
+	{
+		if ($force || $this->canUpdate())
+		{
+			if ($this->updateDataExecute())
 				$_SESSION['YRS']['last_update'] = time();
-			}
 		}
 	}
 
@@ -426,61 +510,62 @@ class Api {
 	 * If api key is set and time upate intervals are in range
 	 * @return boolean if can update
 	 */
-	protected function canUpdate() {
-		if (strlen($this->apiKey) == 0)
+	protected function canUpdate()
+	{
+		if (Tools::strlen($this->api_key) == 0)
 			return false;
 
-		$lastOftenUpdate = 0;
-		if (isset($_SESSION['YRS']['last_often_update'])) {
-			$lastOftenUpdate = $_SESSION['YRS']['last_often_update'];
-		}
+		$last_often_update = 0;
+		if (isset($_SESSION['YRS']['last_often_update']))
+			$last_often_update = $_SESSION['YRS']['last_often_update'];
 
 		//setOftenUpdates() was called 5 minutes before or earlier
-		if ($lastOftenUpdate + $this->oftenUpdateInterval > time()) {
+		if ($last_often_update + $this->often_update_interval > time())
 			return true;
-		}
 
-		$lastUpdate = 0;
-		if (isset($_SESSION['YRS']['last_update'])) {
-			$lastUpdate = $_SESSION['YRS']['last_update'];
-		}
+		$last_update = 0;
+		if (isset($_SESSION['YRS']['last_update']))
+			$last_update = $_SESSION['YRS']['last_update'];
 
-		return $lastUpdate + $this->updateInterval < time();
+		return $last_update + $this->update_interval < time();
 	}
 
 	/**
 	 * Get data for logoWidget, update report statuses and time
 	 * @return boolean success
 	 */
-	protected function __updateData() {
-		if (!$this->userId)
+	protected function updateDataExecute()
+	{
+		if (!$this->user_id)
 			return false;
 
-		$localReportsData = $this->local->getReportsByUser($this->userId);
+		$local_reports_data = $this->local->getReportsByUser($this->user_id);
 
 		//try to get remote reports
 		try {
-			$remoteReportsData = $this->remote->getRemoteReportsData($localReportsData);
-		} catch (\Exception $e) {
+			$remote_reports_data = $this->remote->getRemoteReportsData($local_reports_data);
+		} catch (Exception $e) {
 			return false;
 		}
 
 		//no new updates
-		if (count($remoteReportsData) === 0)
+		if (count($remote_reports_data) === 0)
 			return true;
 
-		$changedReportStatusesCount = $this->local->getChangedReportStatusesCount();
+		$changed_report_statuses_count = $this->local->getChangedReportStatusesCount();
 
-		foreach ($localReportsData as $local) {
-			foreach ($remoteReportsData as $remote) {
-				if (!isset($remote['orderNumber']) || $local['code'] !== $remote['orderNumber']) {
+		foreach ($local_reports_data as $local)
+		{
+			foreach ($remote_reports_data as $remote)
+			{
+				if (!isset($remote['orderNumber']) || $local['code'] !== $remote['orderNumber'])
 					continue;
-				}
 
 				$this->local->setCachedRemoteReportLink($local['code'], $remote['redirect_link']);
 				//status changed?
-				if ($local['status'] !== $remote['status']) {
-					$changedReportStatusesCount++;
+				if ($local['status'] !== $remote['status'])
+				{
+					$changed_report_statuses_count++;
 					$this->local->updateReportStatus($remote['orderNumber'], $remote['status']);
 				}
 
@@ -488,121 +573,129 @@ class Api {
 			}
 		}
 
-		$this->local->setChangedReportStatusesCount($changedReportStatusesCount);
+		$this->local->setChangedReportStatusesCount($changed_report_statuses_count);
 
 		return true;
 	}
 
 	/**
 	 * Set database params in associative array for PDO
-	 * @param array $dbCredentials associative array for PDO connection with must fields: driver, host, name, user, pass
-	 * @return \Youstice\Api
+	 * @param array $db_credentials associative array for PDO connection with must fields: driver, host, name, user, pass
+	 * @return YousticeApi
 	 */
-	public function setDbCredentials(array $dbCredentials) {
-		if (count($dbCredentials))
-			$this->local = new Local($dbCredentials);
+	public function setDbCredentials(array $db_credentials)
+	{
+		if (count($db_credentials))
+			$this->local = new YousticeLocal($db_credentials);
 
 		return $this;
 	}
 
 	/**
 	 * 
-	 * @param Youstice\LocalInterface $local
+	 * @param YousticeLocalInterface $local
 	 */
-	public function setLocal(LocalInterface $local) {
+	public function setLocal(YousticeLocalInterface $local)
+	{
 		$this->local = $local;
 	}
 
 	/**
 	 * Set eshop language
 	 * @param string ISO 639-1 char code "en|sk|cz|es"
-	 * @return \Youstice\Api
-	 * @throws \InvalidArgumentException
+	 * @return YousticeApi
+	 * @throws InvalidArgumentException
 	 */
-	public function setLanguage($lang = null) {
-		$lang = trim(strtolower($lang));
+	public function setLanguage($lang = null)
+	{
+		$lang = trim(Tools::strtolower($lang));
 
-		if ($lang && \Youstice\Helpers\LanguageCodes::check($lang)) {
+		if ($lang && YousticeHelpersLanguageCodes::check($lang))
+		{
 			$this->language = $lang;
-			$this->translator = new Translator($this->language);
-		} else {
-			throw new \InvalidArgumentException('Language code "' . $lang . '" is not allowed.');
+			$this->translator = new YousticeTranslator($this->language);
 		}
+		else
+			throw new InvalidArgumentException('Language code "'.$lang.'" is not allowed.');
 
 		return $this;
 	}
 
 	/**
 	 * Set API key
-	 * @param string $apiKey if true api is in playground mode, data are not real
-	 * @return \Youstice\Api
+	 * @param string $api_key if true api is in playground mode, data are not real
+	 * @return YousticeApi
 	 */
-	public function setApiKey($apiKey, $useSandbox = false) {
-		if (!trim($apiKey))
+	public function setApiKey($api_key, $use_sandbox = false)
+	{
+		if (!trim($api_key))
 			return $this;
 
-		$this->apiKey = $apiKey;
+		$this->api_key = $api_key;
 
-		$this->useSandbox = ($useSandbox == true ? true : false);
+		$this->use_sandbox = ($use_sandbox == true ? true : false);
 
 		return $this;
 	}
 
 	/**
 	 * Set what type of goods is eshop selling
-	 * @param string $shopSells "products|services"
-	 * @return \Youstice\Api
-	 * @throws \InvalidArgumentException
+	 * @param string $shop_sells "product|service"
+	 * @return YousticeApi
+	 * @throws InvalidArgumentException
 	 */
-	public function setThisShopSells($shopSells) {
-		$this->shopSells = strtolower($shopSells);
+	public function setThisShopSells($shop_sells)
+	{
+		$this->shop_sells = Tools::strtolower($shop_sells);
 
 		return $this;
 	}
 
 	/**
 	 * Check if shopSells attribute is correct
-	 * @throws \InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 */
-	protected function checkShopSells() {
-		$allowedTypes = array("product", "service");
+	protected function checkShopSells()
+	{
+		$allowed_types = array('product', 'service');
 
-		if (in_array(strtolower($this->shopSells), $allowedTypes)) {
-			$this->shopSells = strtolower($this->shopSells);
-		} else {
-			throw new \InvalidArgumentException('Shop selling "' . $this->shopSells . '" is not allowed.');
-		}
+		if (in_array(Tools::strtolower($this->shop_sells), $allowed_types))
+			$this->shop_sells = Tools::strtolower($this->shop_sells);
+		else
+			throw new InvalidArgumentException('Shop selling "'.$this->shop_sells.'" is not allowed.');
 	}
 
 	/**
 	 * Set on which software is eshop running
-	 * @param string $shopType "prestashop|magento|ownSoftware"
-	 * @return \Youstice\Api
+	 * @param string $shop_type "prestashop|magento|ownSoftware"
+	 * @return YousticeApi
 	 */
-	public function setShopSoftwareType($shopType) {
-		if (strlen($shopType))
-			$this->shopSoftwareType = $shopType;
+	public function setShopSoftwareType($shop_type)
+	{
+		if (Tools::strlen($shop_type))
+			$this->shop_software_type = $shop_type;
 
 		return $this;
 	}
 
 	/**
 	 * Set user id, unique for eshop
-	 * @param integer $userId
-	 * @return \Youstice\Api
+	 * @param integer $user_id
+	 * @return YousticeApi
 	 */
-	public function setUserId($userId) {
-		$this->userId = $userId;
+	public function setUserId($user_id)
+	{
+		$this->user_id = $user_id;
 
 		return $this;
 	}
 
 }
 
-class InvalidApiKeyException extends \Exception {
-	
+class YousticeInvalidApiKeyException extends Exception {
+
 }
 
-class FailedRemoteConnectionException extends \Exception {
-	
+class YousticeFailedRemoteConnectionException extends Exception {
+
 }

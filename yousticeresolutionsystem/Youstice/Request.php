@@ -7,101 +7,106 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
-namespace Youstice;
+class YousticeRequest {
 
-class Request {
-
-	private $authLogin = 'adminapi';
-	private $authPassw = 'AdminApi';
+	private $auth_login = 'adminapi';
+	private $auth_passw = 'AdminApi';
 	protected $response = null;
-	private $additionalParams = array();
+	private $additional_params = array();
 
-	public function returnResponse() {
+	public function returnResponse()
+	{
 		return $this->response;
 	}
 
-	public function responseToArray() {
-		$data = json_decode($this->response, true);
+	public function responseToArray()
+	{
+		$data = Tools::jsonDecode($this->response, true);
 
 		return $data;
 	}
 
-	public function setAdditionalParam($key, $val) {
-	    $this->additionalParams[$key] = $val;
+	public function setAdditionalParam($key, $val)
+	{
+		$this->additional_params[$key] = $val;
 	}
 
-	protected function generateUrl($url) {
-	    $apiUrl = $this->useSandbox ? $this->apiSandboxUrl : $this->apiUrl;
+	protected function generateUrl($url)
+	{
+		$api_url = $this->use_sandbox ? $this->api_sandbox_url : $this->api_url;
 
-	    $returnUrl = $apiUrl . $url . '/' . $this->apiKey . "?"
-			    . "version=1&channel=" . $this->shopSoftwareType;
+		$return_url = $api_url.$url.'/'.$this->api_key.'?version=1&channel='.$this->shop_software_type;
 
-	    if(count($this->additionalParams)) {
-			
-			foreach($this->additionalParams as $key => $val) {
-				$returnUrl .= "&$key=$val";
-			}
+		if (count($this->additional_params))
+		{
+			foreach ($this->additional_params as $key => $val)
+				$return_url .= "&$key=$val";
 
-			$this->additionalParams = array();
-	    }
+			$this->additional_params = array();
+		}
 
-	    return $returnUrl;
+		return $return_url;
 	}
 
-	public function post($url, $data = array()) {
+	public function post($url, $data = array())
+	{
 		$url = $this->generateUrl($url);
 		$this->postStream($url, $data);
 
 		if ($this->response === false || $this->response === null)
-			throw new \FailedRemoteConnectionException('Post Request failed: ' . $url);
+			throw new YousticeFailedRemoteConnectionException('Post Request failed: '.$url);
 
-		if(strpos($this->response, "Invalid api key") !== false || strpos($this->response, "Invalid api key") !== false)
-			throw new InvalidApiKeyException;
+		if (strpos($this->response, 'Invalid api key') !== false || strpos($this->response, 'Invalid api key') !== false)
+			throw new YousticeInvalidApiKeyException;
 
 		return $this->response;
 	}
 
-	public function get($url) {
+	public function get($url)
+	{
 		$url = $this->generateUrl($url);
 		$this->getStream($url);
 
 		if ($this->response === false || $this->response === null)
-			throw new \FailedRemoteConnectionException('get Request failed: ' . $url);
+			throw new YousticeFailedRemoteConnectionException('get Request failed: '.$url);
 
-		if(strpos($this->response, "Invalid api key") !== false || strpos($this->response, "Invalid api key") !== false)
-			throw new InvalidApiKeyException;
+		if (strpos($this->response, 'Invalid api key') !== false || strpos($this->response, 'Invalid api key') !== false)
+			throw new YousticeInvalidApiKeyException;
 
 		return $this->response;
 	}
 
-	protected function getStream($url) {
+	protected function getStream($url)
+	{
 		$request = stream_context_create(array(
 			'http' => array(
-				'method'        => 'GET',
+				'method' => 'GET',
 				'ignore_errors' => true,
-				'timeout'       => 30.0,
-				'header'        => "Content-Type: application/json\r\n" .
-				"Accept-Language: " . $this->lang . "\r\n",
+				'timeout' => 30.0,
+				'header' => "Content-Type: application/json\r\n".'Accept-Language: '.$this->lang."\r\n",
 			)
 		));
 
-		$url = str_replace("://", "://" . $this->authLogin . ":" . $this->authPassw . "@", $url);
-		$this->response = @file_get_contents($url, false, $request);
+		$url = str_replace('://', '://'.$this->auth_login.':'.$this->auth_passw.'@', $url);
+
+		$this->response = Tools::file_get_contents($url, false, $request);
 	}
 
-	protected function postStream($url, $data) {
+	protected function postStream($url, $data)
+	{
 		$request = stream_context_create(array(
 			'http' => array(
-				'method'        => 'POST',
+				'method' => 'POST',
 				'ignore_errors' => true,
-				'timeout'       => 30.0,
-				'content'       => json_encode($data),
-				'header'        => "Content-Type: application/json\r\n" .
-				"Accept-Language: " . $this->lang . "\r\n",
+				'timeout' => 30.0,
+				'content' => Tools::jsonEncode($data),
+				'header' => "Content-Type: application/json\r\n".'Accept-Language: '.$this->lang."\r\n",
 			)
 		));
 
-		$this->response = @file_get_contents(str_replace("://", "://" . $this->authLogin . ":" . $this->authPassw . "@", $url), false, $request);
+		$url = str_replace('://', '://'.$this->auth_login.':'.$this->auth_passw.'@', $url);
+
+		$this->response = Tools::file_get_contents($url, false, $request);
 	}
 
 }

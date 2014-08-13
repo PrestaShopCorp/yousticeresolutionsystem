@@ -7,47 +7,42 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
-namespace Youstice;
+class YousticeShopOrder extends YousticeShopItem {
 
-class ShopOrder extends ShopItem {
-
-	public static function create($description = array(), $name = "", $currency = "EUR", $price = 0.0,
-			$productId = null, $deliveryDate = null, $orderDate = null, $image = null,
-			$otherInfo = "", $products = array()) {
-
-		return new self($description, $name, $currency, $price, $productId, $deliveryDate, $orderDate, $image, $otherInfo, $products);
+	public static function create($description = array(), $name = '', $currency = 'EUR', $price = 0.0, $product_id = null,
+			$delivery_date = null, $order_date = null, $image = null, $other_info = '', $products = array())
+	{
+		return new self($description, $name, $currency, $price, $product_id, $delivery_date, $order_date,
+				$image, $other_info, $products);
 	}
 
-	public function __construct($description, $name = "", $currency = "EUR", $price = 0.0,
-			$productId = null, $deliveryDate = null, $orderDate = null, $image = null,
-			$otherInfo = "", $products = array()) {
-
-		parent::__construct($description, $name, $currency, $price, $productId, $deliveryDate, $orderDate, $image, $otherInfo, $products);
+	protected function parseOneArrayParameter($array)
+	{
+		return new self($array['description'], $array['name'], $array['currency'], $array['price'], $array['productId'],
+				$array['deliveryDate'], $array['orderDate'], $array['image'], $array['otherInfo'], $array['products']);
 	}
 
-	protected function parseOneArrayParameter($array) {
-		return new self($array['description'], $array['name'], $array['currency'],
-					$array['price'], $array['productId'], $array['deliveryDate'],
-					$array['orderDate'], $array['image'], $array['otherInfo'], $array['products']);
-	}
-
-        /**
+	/**
 	 * Add product related to this order
-	 * @param \Youstice\ShopProduct $product of order
+	 * @param YousticeShopProduct $product of order
 	 */
-	public function addProduct(ShopProduct $product) {
+	public function addProduct(YousticeShopProduct $product)
+	{
 		$this->data['products'][] = $product;
 	}
 
-	public function getCode() {
+	public function getCode()
+	{
 		return $this->data['id'];
 	}
 
-	public function getImage() {
-		if( trim($this->data['image']) )
+	public function getImage()
+	{
+		if (trim($this->data['image']))
 			return $this->data['image'];
 
-		elseif( count($this->data['products']) )
+		elseif (count($this->data['products']))
 			return $this->data['products'][0]->getImage();
 	}
+
 }

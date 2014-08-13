@@ -7,66 +7,66 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
-namespace Youstice\Widgets;
-
-use Youstice\Helpers\HelperFunctions;
-
-class WebReportButton {
+class YousticeWidgetsWebReportButton {
 
 	protected $href;
 	protected $translator;
 	protected $report;
 
-	public function __construct($href, $lang, \Youstice\Reports\WebReport $report) {
+	public function __construct($href, $lang, YousticeReportsWebReport $report)
+	{
 		$this->href = $href;
-		$this->translator = new \Youstice\Translator($lang);
+		$this->translator = new YousticeTranslator($lang);
 		$this->report = $report;
 	}
 
-	public function toString() {
+	public function toString()
+	{
 		if (!$this->report->exists())
 			return $this->renderUnreportedButton();
 
-		if($this->report->getRemainingTime() == 0)
+		if ($this->report->getRemainingTime() == 0)
 			return $this->renderReportedButton();
 		else
 			return $this->renderReportedButtonWithTimeString();
 	}
 
-	protected function renderReportedButton() {
+	protected function renderReportedButton()
+	{
 		$status = $this->report->getStatus();
-		$statusCssClass = "";
-		if($status == "Problem reported")
-			$statusCssClass = "yrsButton-problem-reported";
+		$status_css_class = '';
+		if ($status == 'Problem reported')
+			$status_css_class = 'yrsButton-problem-reported';
 
 		$message = $this->translator->t($status);
 
-		$output = '<a class="yrsButton ' . $statusCssClass . '" target="_blank" '
-				. 'href="' . $this->href . '">'  . HelperFunctions::sh($message) . '</a>';
+		$output = '<a class="yrsButton '.$status_css_class.'" target="_blank" 
+					href="'.YousticeHelpersHelperFunctions::sh($this->href).'">'.YousticeHelpersHelperFunctions::sh($message).'</a>';
 
 		return $output;
 	}
 
-	protected function renderReportedButtonWithTimeString() {
-
+	protected function renderReportedButtonWithTimeString()
+	{
 		$message = $this->translator->t($this->report->getStatus());
-		$remainingTimeString = \Youstice\Helpers\HelperFunctions::remainingTimeToString($this->report->getRemainingTime(), $this->translator);
+		$remaining_time_string = YousticeHelpersHelperFunctions::remainingTimeToString($this->report->getRemainingTime(), $this->translator);
 
-		$output = '<a class="yrsButton yrsButton-with-time" target="_blank" '
-				. 'href="' . $this->href . '">'
-				. '<span>' . HelperFunctions::sh($message) . '</span>'
-				. '<span>' . HelperFunctions::sh($remainingTimeString) . '</span></a>';
+		$output = '<a class="yrsButton yrsButton-with-time" target="_blank" 
+					href="'.YousticeHelpersHelperFunctions::sh($this->href).'">
+					<span>'.YousticeHelpersHelperFunctions::sh($message).'</span>
+					<span>'.YousticeHelpersHelperFunctions::sh($remaining_time_string).'</span></a>';
 
 		return $output;
 	}
 
-	protected function renderUnreportedButton() {
-
+	protected function renderUnreportedButton()
+	{
 		$message = $this->translator->t('Report a problem unrelated to your orders');
 
-		$output = '<a class="yrsButton" target="_blank" '
-				. 'href="' . $this->href . '">' . HelperFunctions::sh($message) . '</a>';
+		$output = '<a class="yrsButton" target="_blank" 
+					href="'.YousticeHelpersHelperFunctions::sh($this->href).'">'.YousticeHelpersHelperFunctions::sh($message).'</a>';
 
 		return $output;
 	}
+
 }

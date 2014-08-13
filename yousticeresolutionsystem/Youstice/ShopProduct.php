@@ -7,38 +7,32 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
-namespace Youstice;
+class YousticeShopProduct extends YousticeShopItem {
 
-class ShopProduct extends ShopItem {
-
-	public static function create($description = array(), $name = "", $currency = "EUR", $price = 0.0,
-			$productId = null, $deliveryDate = null, $orderDate = null, $image = null, $otherInfo = "") {
-
-		return new self($description, $name, $currency, $price, $productId, $deliveryDate, $orderDate, $image, $otherInfo);
+	public static function create($description = array(), $name = '', $currency = 'EUR', $price = 0.0, $product_id = null,
+			$delivery_date = null, $order_date = null, $image = null, $other_info = '')
+	{
+		return new self($description, $name, $currency, $price, $product_id, $delivery_date, $order_date, $image, $other_info);
 	}
 
-	public function __construct($description, $name = "", $currency = "EUR", $price = 0.0,
-			$productId = null, $deliveryDate = null, $orderDate = null, $image = null, $otherInfo = "") {
-
-		parent::__construct($description, $name, $currency, $price, $productId, $deliveryDate, $orderDate, $image, $otherInfo);
+	protected function parseOneArrayParameter($array)
+	{
+		return new self($array['description'], $array['name'], $array['currency'], $array['price'], $array['productId'],
+				$array['deliveryDate'], $array['orderDate'], $array['image'], $array['otherInfo']);
 	}
 
-	protected function parseOneArrayParameter($array) {
-		return new self($array['description'], $array['name'], $array['currency'],
-					$array['price'], $array['productId'], $array['deliveryDate'],
-					$array['orderDate'], $array['image'], $array['otherInfo']);
-	}
-        
 	/**
 	 * Set related order id to this product
 	 * @param string $id
 	 */
-	public function setOrderId($id) {
+	public function setOrderId($id)
+	{
 		$this->data['orderId'] = $id;
 	}
 
-	public function getCode() {
-		return $this->data['orderId']."__".$this->data['id'];
+	public function getCode()
+	{
+		return $this->data['orderId'].'__'.$this->data['id'];
 	}
 
 }

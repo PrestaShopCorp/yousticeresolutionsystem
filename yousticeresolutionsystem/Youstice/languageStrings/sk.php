@@ -9,6 +9,11 @@
 
 return array(
 	"Would you like to file a complaint?"		=> "Chceli by ste nahlásiť sťažnosť?",
+	"Order number"								=> "Číslo objednávky",
+	"Claims reporting for logged out users is available at" => "Nahlásanie sťažností pre neprihlásených užívateľov je na adrese",
+	"Report a claim"							=> "Nahlásiť sťažnosť",
+	"If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below." => "Vyplňte, prosím vašu emailovú adresu a referenčné číslo objednávky ak chcete nahlásiť nejakú sťažnosť.",
+	"Continue"									=> "Pokračovať",
 	//orderDetail
 	"Products in your order (%d)"				=> "Produkty objednávky (%d)",
 	//buttons
@@ -17,7 +22,7 @@ return array(
 	"Problem reported"							=> "Problém bol nahlásený",
 	"%d days %d hours"							=> "%d dní %d hodín",
 	"%d ongoing cases"                          => "Nahlásenia: %d",
-	//button"s statuses
+	//button's statuses
 	"To be implemented"							=> "To be implemented",
 	"Respond to retailer"						=> "Zaslaná odpoveď obchodníkovi",
 	"Waiting for decision"						=> "Čakanie na rozhodnutie",

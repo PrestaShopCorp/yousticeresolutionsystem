@@ -7,29 +7,31 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
-namespace Youstice;
-
-class Translator {
+class YousticeTranslator {
 
 	private $strings = array();
 
-	public function __construct($lang = 'sk') {
-		$file = __DIR__ . "/languageStrings/{$lang}.php";
-		if (file_exists($file)) {
+	public function __construct($lang = 'sk')
+	{
+		$file = dirname(__FILE__)."/languageStrings/{$lang}.php";
+
+		if (file_exists($file))
 			$this->strings = include $file;
-		}
 	}
 
-	public function setLanguageStrings($strings) {
+	public function setLanguageStrings($strings)
+	{
 		$this->strings = $strings;
 	}
 
-	public function t($string) {
+	public function t($string)
+	{
 		$variables = func_get_args();
 		array_shift($variables);
-		if (array_key_exists($string, $this->strings)) {
+
+		if (array_key_exists($string, $this->strings))
 			return vsprintf($this->strings[$string], $variables);
-		}
+
 		return vsprintf($string, $variables);
 	}
 

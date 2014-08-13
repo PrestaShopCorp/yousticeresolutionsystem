@@ -9,6 +9,11 @@
 
 return array(
 	"Would you like to file a complaint?"		=> "Would you like to file a complaint?",
+	"Order number"								=> "Order number",
+	"Claims reporting for logged out users is available at" => "Claims reporting for logged out users is available at",
+	"Report a claim"							=> "Report a claim",
+	"If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below." => "If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below.",
+	"Continue"									=> "Continue",
 	//orderDetail
 	"Products in your order (%d)"				=> "Products in your order (%d)",
 	//buttons
@@ -17,7 +22,7 @@ return array(
 	"Problem reported"							=> "Problem reported",
 	"%d days %d hours"							=> "%d days %d hours",
 	"%d ongoing cases"                          => "%d ongoing cases",
-	//button"s statuses
+	//button's statuses
 	"To be implemented"							=> "To be implemented",
 	"Respond to retailer"						=> "Respond to retailer",
 	"Waiting for decision"						=> "Waiting for decision",

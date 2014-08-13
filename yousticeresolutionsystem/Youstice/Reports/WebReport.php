@@ -7,20 +7,19 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
-namespace Youstice\Reports;
+class YousticeReportsWebReport extends YousticeReportsBaseReport {
 
-class WebReport extends BaseReport {
+	public function getCode()
+	{
+		if (count($this->data) && isset($this->data['code']))
+			return $this->data['code'];
 
-    public function getCode() {
-        if (count($this->data) && isset($this->data['code'])) {
-            return $this->data['code'];
-        }
+		return 'WEB_REPORT__';
+	}
 
-        return "WEB_REPORT__";
-    }
-
-    public function setCode($userId) {
-        $this->data['code'] = 'WEB_REPORT__' . $userId;
-    }
+	public function setCode($user_id)
+	{
+		$this->data['code'] = 'WEB_REPORT__'.$user_id;
+	}
 
 }

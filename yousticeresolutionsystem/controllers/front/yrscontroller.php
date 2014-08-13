@@ -10,20 +10,95 @@
 class YrsController extends FrontController {
 
 	private $yapi = null;
-	public $theme_file = '';
-
-	const URL_ORDERS = 'index.php?controller=history';
+	private $order_history_url;
 	private $url_yrs;
+	private $customer_id;
 
-	public function __construct(\Youstice\Api $yapi)
+	public function __construct(YousticeApi $yapi)
 	{
 		parent::__construct();
 
-		$this->url_yrs = _PS_BASE_URL_.'/modules/yousticeresolutionsystem/';
+		$this->order_history_url = '//'.Tools::getShopDomainSsl(false).'/index.php?controller=history';
+		$this->url_yrs = '//'.Tools::getShopDomainSsl(false).'/modules/yousticeresolutionsystem/';
 
-		$yapi->setUserId($this->context->customer->id);
+		//at logged out reporting
+		$this->authenticateUser();
+		$yapi->setUserId($this->customer_id);
 		$yapi->run();
 		$this->yapi = $yapi;
+	}
+
+	public function getReportClaimsPage()
+	{
+		if ($this->context->customer->id !== null)
+			Tools::redirect($this->order_history_url);
+
+		$widget_html = $this->yapi->getReportClaimsFormHtml();
+		$this->setTemplate('eval:'.$widget_html);
+
+		parent::init();
+		parent::setMedia();
+		$this->addJS($this->url_yrs.'public/js/yrs_report_claims.js');
+		parent::initHeader();
+		parent::initContent();
+		parent::initFooter();
+
+		$this->display();
+	}
+
+	# ajax call
+	public function getReportClaimsPagePost()
+	{
+		$order_number = $this->getOrderNumber();
+
+		if (!$this->customer_id)
+		{
+			echo Tools::jsonEncode(array('error' => 'Invalid email'));
+			exit;
+		}
+
+		$order = $this->getOrderByReference($order_number);
+
+		if ($order)
+		{
+			$shop_order = $this->createShopOrder($order);
+
+			$html = $this->yapi->getOrderDetailHtml($shop_order);
+			echo Tools::jsonEncode(array('orderDetail' => $html));
+			exit;
+		}
+
+		//order number not found in customer's orders
+		echo Tools::jsonEncode(array('error' => 'Email or order number not found'));
+		exit;
+	}
+
+	protected function authenticateUser()
+	{
+		if ($this->context->customer->id !== null)
+		{
+			$this->customer_id = $this->context->customer->id;
+			return;
+		}
+
+		$email = Tools::getValue('email');
+
+		if (!Validate::isEmail($email))
+			return;
+
+		//get customer
+		$customer = new Customer();
+		$result = $customer->getByEmail($email);
+
+		if (!$result || !Validate::isLoadedObject($customer))
+			return false;
+
+		$this->customer_id = $customer->id;
+	}
+
+	protected function getOrderNumber()
+	{
+		return preg_replace('/[^\w\d]/ui', '', Tools::getValue('orderNumber'));
 	}
 
 	public function getShowButtonsHtml()
@@ -34,24 +109,29 @@ class YrsController extends FrontController {
 
 	public function logoWidget()
 	{
-		echo $this->yapi->getLogoWidgetHtml();
+		echo $this->yapi->getLogoWidgetHtml($this->url_yrs.'index.php?section=getReportClaimsPage');
 	}
 
 	# AJAX
 	public function getOrdersButtons($in)
 	{
 		$reports = array();
-		foreach ($in['order_ids'] as $order_id)
+
+		if (!empty($in['order_ids']))
 		{
-			$order = $this->getOrder($order_id);
-			if ($order->id_customer != $this->context->customer->id)
-				continue;
+			foreach ($in['order_ids'] as $order_id)
+			{
+				$order = $this->getOrder($order_id);
 
-			$shop_order = $this->createShopOrder($order_id);
+				if (empty($order) || $order['id_customer'] != $this->customer_id)
+					continue;
 
-			$reports[$order_id] = $this->yapi->getOrderDetailButtonHtml(
-					$this->url_yrs.'index.php?section=getOrderDetail&order_id='.$order_id, $shop_order
-			);
+				$shop_order = $this->createShopOrder($order);
+
+				$reports[$order_id] = $this->yapi->getOrderDetailButtonHtml(
+						$this->url_yrs.'index.php?section=getOrderDetail&order_id='.$order_id, $shop_order
+				);
+			}
 		}
 
 		echo Tools::jsonEncode($reports);
@@ -62,16 +142,19 @@ class YrsController extends FrontController {
 	{
 		$reports = array();
 		$order_id = $in['order_id'];
+		$order = $this->getOrder($order_id);
 
-		foreach ($in['products_ids'] as $product_order_id)
+		if (!empty($in['products_ids']))
 		{
-			$order = $this->getOrder($order_id);
-			if ($order->id_customer != $this->context->customer->id)
-				continue;
+			foreach ($in['products_ids'] as $product_order_id)
+			{
+				if (empty($order) || $order['id_customer'] != $this->customer_id)
+					continue;
 
-			$href = $this->url_yrs.'index.php?section=productReportPost&order_id='.$order_id.'&amp;id_order_detail='.$product_order_id;
+				$href = $this->url_yrs.'index.php?section=productReportPost&order_id='.$order_id.'&id_order_detail='.$product_order_id;
 
-			$reports[$product_order_id] = $this->yapi->getProductReportButtonHtml($href, $product_order_id, $order_id);
+				$reports[$product_order_id] = $this->yapi->getProductReportButtonHtml($href, $product_order_id, $order_id);
+			}
 		}
 
 		echo Tools::jsonEncode($reports);
@@ -107,12 +190,18 @@ class YrsController extends FrontController {
 
 	public function orderReportPost($in)
 	{
-		$shop_order = $this->createShopOrder((int)$in['order_id']);
+		//logged out reporting
+		if ($this->context->customer->id !== $this->customer_id)
+			$order = $this->getOrderByReference($this->getOrderNumber());
+		else
+			$order = $this->getOrder((int)$in['order_id']);
+
+		$shop_order = $this->createShopOrder($order);
 
 		try {
 			$redirect_url = $this->yapi->createOrderReport($shop_order);
 		}
-		catch(\Exception $e) {
+		catch(\Exception $e) {var_dump($e);
 			exit('Connection to remote server failed, please <a href="" onClick="history.go(0)">try again</a> later');
 		}
 
@@ -121,7 +210,13 @@ class YrsController extends FrontController {
 
 	public function productReportPost($in)
 	{
-		$shop_order = $this->createShopOrder((int)$in['order_id']);
+		//logged out reporting
+		if ($this->context->customer->id !== $this->customer_id)
+			$order = $this->getOrderByReference($this->getOrderNumber());
+		else
+			$order = $this->getOrder((int)$in['order_id']);
+
+		$shop_order = $this->createShopOrder($order);
 
 		$shop_products = $shop_order->getProducts();
 
@@ -129,7 +224,6 @@ class YrsController extends FrontController {
 		{
 			if ($shop_product->getId() == $in['id_order_detail'])
 			{
-
 				try {
 					$redirect_url = $this->yapi->createProductReport($shop_product);
 				}
@@ -144,22 +238,125 @@ class YrsController extends FrontController {
 		exit('Product not found');
 	}
 
-	private function getOrder($order_id)
+	protected function getOrder($order_id)
 	{
-		$order = null;
-		if ($orders = Order::getCustomerOrders($this->context->customer->id))
+		if ($orders = Order::getCustomerOrders($this->customer_id))
 		{
-			foreach ($orders as &$o)
+			foreach ($orders as $o)
 			{
 				if ($order_id == (int)$o['id_order'])
-				{
-					$order = new Order((int)$o['id_order']);
-					if (Validate::isLoadedObject($order))
-						$o['virtual'] = $order->isVirtual(false);
-				}
+					return $o;
 			}
 		}
-		return $order;
+		return null;
+	}
+
+	protected function getOrderByReference($order_reference)
+	{
+		if ($orders = Order::getCustomerOrders($this->customer_id))
+		{
+			foreach ($orders as $o)
+			{
+				if ($o['reference'] == $order_reference)
+					return $o;
+			}
+		}
+		return null;
+	}
+
+	public function createShopOrder($order)
+	{
+		if (!is_array($order))
+			$order = $this->getOrder($order);
+
+		$order_id = $order['id_order'];
+
+		$currency = Currency::getCurrencyInstance((int)$order['id_currency']);
+
+		$shop_order = YousticeShopOrder::create();
+		$shop_order->setDescription('');
+
+		if (empty($order))
+			exit('Operation not allowed');
+
+		$shop_order->setName('Order #'.$order_id);
+		$shop_order->setCurrency($currency->iso_code);
+		$shop_order->setPrice((float)$order['total_paid']);
+		$shop_order->setId($order_id);
+		$shop_order->setDeliveryDate($order['delivery_date']);
+		$shop_order->setOrderDate($order['date_add']);
+
+		$shop_order->setOtherInfo(Tools::jsonEncode($this->buildDataArray($order)));
+
+		$shop_order->setHref($this->createOrderReportHref($order_id));
+		$order_object = new Order((int)$order_id);
+		$products = $order_object->getProducts();
+
+		foreach ($products as $product)
+		{
+			$shop_product = $this->createShopProduct($product, $order_id);
+			$shop_product->setCurrency($currency->iso_code);
+			$shop_product->setDeliveryDate($order['delivery_date']);
+			$shop_product->setOrderDate($order['date_add']);
+
+			$shop_order->addProduct($shop_product);
+		}
+
+		return $shop_order;
+	}
+
+	public function createShopProduct(array $product, $order_id)
+	{
+		$shop_product = YousticeShopProduct::create();
+		$shop_product->setName($product['product_name']);
+		$shop_product->setId($product['id_order_detail']);
+		$shop_product->setPrice((float)$product['unit_price_tax_incl']);
+
+		$product_obj = new Product($product['product_id'], false, Context::getContext()->language->id);
+		$shop_product->setDescription($product_obj->description);
+		$shop_product->setOtherInfo(Tools::jsonEncode($this->buildDataArray(null, $product_obj)));
+
+		//add image if exists
+		if (count($product['image']->id_image) > 0)
+		{
+			$image_path = _PS_PROD_IMG_DIR_.$product['image']->getExistingImgPath().'.jpg';
+			$shop_product->setImagePath($image_path);
+		}
+
+		$shop_product->setOrderId($order_id);
+		$shop_product->setHref($this->createProductReportHref($order_id, $product['id_order_detail']));
+
+		return $shop_product;
+	}
+
+	protected function createOrderReportHref($order_id)
+	{
+		$href = $this->url_yrs.'index.php?section=orderReportPost';
+		//logged out reporting
+		if ($this->customer_id !== $this->context->customer->id)
+		{
+			$href .= '&email='.Tools::getValue('email');
+			$href .= '&orderNumber='.Tools::getValue('orderNumber');
+		}
+		else
+			$href .= '&order_id='.$order_id;
+
+		return $href;
+	}
+
+	protected function createProductReportHref($order_id, $product_id)
+	{
+		$href = $this->url_yrs.'index.php?section=productReportPost&id_order_detail='.$product_id;
+		//logged out reporting
+		if ($this->customer_id !== $this->context->customer->id)
+		{
+			$href .= '&email='.Tools::getValue('email');
+			$href .= '&orderNumber='.Tools::getValue('orderNumber');
+		}
+		else
+			$href .= '&order_id='.$order_id;
+
+		return $href;
 	}
 
 	private function buildDataArray($order = null, $product_obj = null)
@@ -184,32 +381,32 @@ class YrsController extends FrontController {
 			)
 		);
 
-		if ($order)
+		if (!empty($order))
 		{
 			$date_invoice = null;
 			$date_delivery = null;
 			if ($order->invoice_date > 0)
 			{
-				$date_invoice = new DateTime($order->invoice_date);
+				$date_invoice = new DateTime($order['invoice_date']);
 				$date_invoice = $date_invoice->format(DateTime::ISO8601);
 			}
 			if ($order->delivery_date > 0)
 			{
-				$date_delivery = new DateTime($order->delivery_date);
+				$date_delivery = new DateTime($order['delivery_date']);
 				$date_delivery = $date_delivery->format(DateTime::ISO8601);
 			}
 			$request_data['order'] = array(
-				'id' => $order->id,
-				'payment' => $order->payment,
-				'reference' => $order->reference,
+				'id' => $order['id_order'],
+				'payment' => $order['payment'],
+				'reference' => $order['reference'],
 				'delivery_date' => $date_delivery,
 				'invoice_date' => $date_invoice,
-				'date_add' => $order->date_add,
-				'date_upd' => $order->date_upd,
-				'total_paid' => $order->total_paid,
-				'total_paid_tax_incl' => $order->total_paid_tax_incl,
-				'total_paid_tax_excl' => $order->total_paid_tax_excl,
-				'currency' => Currency::getCurrencyInstance((int)$order->id_currency),
+				'date_add' => $order['date_add'],
+				'date_upd' => $order['date_upd'],
+				'total_paid' => $order['total_paid'],
+				'total_paid_tax_incl' => $order['total_paid_tax_incl'],
+				'total_paid_tax_excl' => $order['total_paid_tax_excl'],
+				'currency' => Currency::getCurrencyInstance((int)$order['id_currency']),
 			);
 		}
 
@@ -232,62 +429,6 @@ class YrsController extends FrontController {
 			);
 		}
 		return $request_data;
-	}
-
-	public function createShopOrder($order_id)
-	{
-		$order = $this->getOrder($order_id);
-		$products = $order->getProducts();
-		$currency = Currency::getCurrencyInstance((int)$order->id_currency);
-
-		$shop_order = \Youstice\ShopOrder::create();
-		$shop_order->setDescription('not provided');
-		$shop_order->setName('Order #'.$order_id);
-		$shop_order->setCurrency($currency->iso_code);
-		$shop_order->setPrice((float)$order->total_paid);
-		$shop_order->setId($order_id);
-		$shop_order->setDeliveryDate($order->delivery_date);
-		$shop_order->setOrderDate($order->date_add);
-		//$shop_order->setImage(NULL);
-		$shop_order->setOtherInfo(Tools::jsonEncode($this->buildDataArray($order)));
-		$shop_order->setHref($this->url_yrs.'index.php?section=orderReportPost&amp;order_id='.$order_id);
-
-		foreach ($products as $product)
-		{
-			$shop_product = $this->createShopProduct($product, $order_id);
-			$shop_product->setCurrency($currency->iso_code);
-			$shop_product->setDeliveryDate($order->delivery_date);
-			$shop_product->setOrderDate($order->date_add);
-
-			$shop_order->addProduct($shop_product);
-		}
-
-		return $shop_order;
-	}
-
-	public function createShopProduct(array $product, $order_id)
-	{
-		$shop_product = Youstice\ShopProduct::create();
-		$shop_product->setName($product['product_name']);
-		$shop_product->setId($product['id_order_detail']);
-		$shop_product->setPrice((float)$product['unit_price_tax_incl']);
-
-		$product_obj = new Product($product['product_id'], false, Context::getContext()->language->id);
-		$shop_product->setDescription($product_obj->description);
-		$shop_product->setOtherInfo(Tools::jsonEncode($this->buildDataArray(null, $product_obj)));
-
-		//add image if exists
-		if (count($product['image']->id_image) > 0)
-		{
-			$image_path = _PS_PROD_IMG_DIR_.$product['image']->getExistingImgPath().'.jpg';
-			$shop_product->setImagePath($image_path);
-		}
-
-		$shop_product->setOrderId($order_id);
-		$shop_product->setHref($this->url_yrs.'index.php?section=productReportPost&amp;order_id='.$order_id
-				.'&amp;id_order_detail='.$product['id_order_detail']);
-
-		return $shop_product;
 	}
 
 }

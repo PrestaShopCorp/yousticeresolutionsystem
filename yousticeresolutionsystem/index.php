@@ -24,7 +24,7 @@ $db = array(
 	'prefix' => _DB_PREFIX_
 );
 
-$y_api = \Youstice\Api::create();
+$y_api = YousticeApi::create();
 
 $y_api->setDbCredentials($db);
 $y_api->setLanguage(Context::getContext()->language->iso_code);

@@ -1,3 +1,28 @@
+form#yReportClaims {
+    width: 230px;
+}
+
+form#yReportClaims label, form#yReportClaims input[type="submit"] {
+    clear: left;
+    display: block;
+    margin: 4px 0;
+}
+
+form#yReportClaims input {
+    width: calc(100% - 14px);
+    padding: 6px;
+}
+
+form#yReportClaims input[type="submit"] {
+    width: auto;
+    margin: 6px 0 0;
+}
+
+form#yReportClaims p {
+    margin: 14px 0;
+    color: #ED1C2D;
+}
+
 .orderDetailButtonWrap {
     position: absolute;
 }
