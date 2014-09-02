@@ -9,12 +9,18 @@
 jQuery(function($) {
     $('form#yReportClaims').submit(function(e) {
 	e.preventDefault();
+	
+	$('form#yReportClaims').find('p').remove();
+	$('.y-ajax-spinner').remove();
+	$(this).append('<div class="y-ajax-spinner"></div>');
+	
 	$.ajax({
-	    url: '/modules/yousticeresolutionsystem/index.php?section=getReportClaimsPagePost',
+	    url: baseDir + 'modules/yousticeresolutionsystem/index.php?section=getReportClaimsPagePost',
 	    type: 'post',
 	    dataType: 'json',
 	    data: $(this).serialize(),
 	    success: function(data) {
+		$('.y-ajax-spinner').remove();
 		//error occured
 		if(data.orderDetail == undefined) {
 		    $('form#yReportClaims').find('p').remove();
@@ -22,7 +28,6 @@ jQuery(function($) {
 		}
 		//ok, show order detail
 		else {
-		    $('form#yReportClaims').find('p').remove();
 		    $.fancybox({
                         autoDimension: true,
                         content: data.orderDetail,
@@ -32,6 +37,7 @@ jQuery(function($) {
 	    },
 	    error: function(data) {
 		$('form#yReportClaims').find('p').remove();
+		$('.y-ajax-spinner').remove();
 		$('form#yReportClaims').append('<p>An error occured while sending data, try again later</p>');		
 	    }
 	});

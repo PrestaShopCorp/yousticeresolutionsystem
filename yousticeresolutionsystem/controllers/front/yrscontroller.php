@@ -18,8 +18,8 @@ class YrsController extends FrontController {
 	{
 		parent::__construct();
 
-		$this->order_history_url = '//'.Tools::getShopDomainSsl(false).'/index.php?controller=history';
-		$this->url_yrs = '//'.Tools::getShopDomainSsl(false).'/modules/yousticeresolutionsystem/';
+		$this->order_history_url = '//'.Tools::getShopDomainSsl().__PS_BASE_URI__.'index.php?controller=history';
+		$this->url_yrs = '//'.Tools::getShopDomainSsl().__PS_BASE_URI__.'modules/yousticeresolutionsystem/';
 
 		//at logged out reporting
 		$this->authenticateUser();
@@ -38,7 +38,8 @@ class YrsController extends FrontController {
 
 		parent::init();
 		parent::setMedia();
-		$this->addJS($this->url_yrs.'public/js/yrs_report_claims.js');
+		$base_url = Tools::getCurrentUrlProtocolPrefix().Tools::getShopDomainSsl().__PS_BASE_URI__;
+		$this->addJS($base_url.'modules/yousticeresolutionsystem/public/js/yrs_report_claims.js');
 		parent::initHeader();
 		parent::initContent();
 		parent::initFooter();
@@ -174,7 +175,7 @@ class YrsController extends FrontController {
 		try {
 			$redirect_url = $this->yapi->createWebReport();
 		}
-		catch(\Exception $e) {
+		catch(Exception $e) {
 			exit('Connection to remote server failed, please <a href="#" onClick="history.go(0)">try again</a> later');
 		}
 
@@ -201,7 +202,7 @@ class YrsController extends FrontController {
 		try {
 			$redirect_url = $this->yapi->createOrderReport($shop_order);
 		}
-		catch(\Exception $e) {var_dump($e);
+		catch(Exception $e) {
 			exit('Connection to remote server failed, please <a href="" onClick="history.go(0)">try again</a> later');
 		}
 
@@ -227,7 +228,7 @@ class YrsController extends FrontController {
 				try {
 					$redirect_url = $this->yapi->createProductReport($shop_product);
 				}
-				catch(\Exception $e) {
+				catch(Exception $e) {
 					exit('Connection to remote server failed, please <a href="" onClick="history.go(0)">try again</a> later');
 				}
 

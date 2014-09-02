@@ -1,2 +1,0 @@
-0:50
-- license is now Apache v2.0

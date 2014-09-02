@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.3.6';
+		$this->version                = '1.4.2';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -50,6 +50,7 @@ class YousticeResolutionSystem extends Module
 		$this->y_api->setShopSoftwareType('prestashop');
 		$this->y_api->setThisShopSells(Configuration::get('YRS_ITEM_TYPE'));
 		$this->y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
+		$this->y_api->setSession(new YousticeProvidersSessionPrestashopProvider());
 
 	}
 
@@ -70,14 +71,14 @@ class YousticeResolutionSystem extends Module
 
 	protected function addReportClaimsPageMetaTags()
 	{
-		$title_string = $this->context->shop->name.' - Youstice - '.$this->y_api->t('Report a claim');
+		$title_string = $this->context->shop->name.' - Youstice - '.$this->y_api->t('File a complaint');
 		$html = '<meta property="og:title" content="'.$title_string.'" />';
 		$html .= '<meta property="og:type" content="website" />';
 		$html .= '<meta property="og:url" content="'._PS_BASE_URL_.$this->_path.'index.php?section=getReportClaimsPage" />';
 		$html .= '<meta property="og:image" content="'._PS_BASE_URL_.$this->_path.'logo.png" />';
-		$description_text = "If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below.";
-		$description_text2 = $this->y_api->t($description_text);
-		$html .= '<meta property="og:description" content="'.$description_text2.'" />';
+
+		$description_text = $this->y_api->t('In case you want to complain about a product or service, please follow this link.');
+		$html .= '<meta property="og:description" content="'.$description_text.'" />';
 		return $html;
 	}
 

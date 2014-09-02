@@ -11,8 +11,9 @@ return array(
 	"Would you like to file a complaint?"		=> "Would you like to file a complaint?",
 	"Order number"								=> "Order number",
 	"Claims reporting for logged out users is available at" => "Claims reporting for logged out users is available at",
-	"Report a claim"							=> "Report a claim",
-	"If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below." => "If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below.",
+	"File a complaint"							=> "File a complaint",
+	"Would you like to file a complaint and report on your shopping issue? Simply enter the details below:" => "Would you like to file a complaint and report on your shopping issue? Simply enter the details below:",
+	"In case you want to complain about a product or service, please follow this link."	=> "In case you want to complain about a product or service, please follow this link.",
 	"Continue"									=> "Continue",
 	//orderDetail
 	"Products in your order (%d)"				=> "Products in your order (%d)",

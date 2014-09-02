@@ -34,6 +34,12 @@ class YousticeApi {
 
 	/**
 	 *
+	 * @var SessionProviderInterface 
+	 */
+	protected $session;
+
+	/**
+	 *
 	 * @var type YousticeLocalInterface
 	 */
 	protected $local;
@@ -83,7 +89,7 @@ class YousticeApi {
 	 * @param integer $user_id unique integer for user
 	 * @param boolean $use_sandbox true if testing implementation
 	 * @param string $shop_software_type prestashop|magento|ownSoftware
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public static function create(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
 			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
@@ -100,15 +106,12 @@ class YousticeApi {
 	 * @param integer $user_id unique integer for user
 	 * @param boolean $use_sandbox true if testing implementation
 	 * @param string $shop_software_type prestashop|magento|ownSoftware
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public function __construct(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
 			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
 	{
 		$this->registerAutoloader();
-		/*if (!Helpers\HelperFunctions::isSessionStarted())
-			session_start();
-		 */
 
 		$this->setDbCredentials($db_credentials);
 		$this->setLanguage($language);
@@ -122,7 +125,7 @@ class YousticeApi {
 
 	/**
 	 * Start Youstice API
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public function run()
 	{
@@ -333,7 +336,7 @@ class YousticeApi {
 
 	/**
 	 * Action when user viewed order history (for changing report statuses count)
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public function orderHistoryViewed()
 	{
@@ -361,7 +364,7 @@ class YousticeApi {
 			if (Tools::strlen($remote_link))
 				return $remote_link;
 			else
-				return $this->_createWebReport($this->user_id);
+				return $this->createWebReportExecute($this->user_id);
 		}
 	}
 
@@ -400,7 +403,7 @@ class YousticeApi {
 			if (Tools::strlen($remote_link))
 				return $remote_link;
 			else
-				return $this->_createOrderReport($order);
+				return $this->createOrderReportExecute($order);
 		}
 	}
 
@@ -440,7 +443,7 @@ class YousticeApi {
 			if (Tools::strlen($remote_link))
 				return $remote_link;
 			else
-				return $this->_createProductReport($product);
+				return $this->createProductReportExecute($product);
 		}
 	}
 
@@ -490,19 +493,19 @@ class YousticeApi {
 
 	public function setOftenUpdates()
 	{
-		$_SESSION['YRS']['last_often_update'] = time();
+		$this->session->set('last_often_update', time());
 	}
 
 	/**
 	 * Connect to remote and update local data
 	 * @param boolean $force update also if data are acutal
 	 */
-	protected function updateData($force = false)
+	protected function updateData($force_update = false)
 	{
-		if ($force || $this->canUpdate())
+		if ($force_update || $this->canUpdate())
 		{
 			if ($this->updateDataExecute())
-				$_SESSION['YRS']['last_update'] = time();
+				$this->session->set('last_update', time());
 		}
 	}
 
@@ -516,16 +519,16 @@ class YousticeApi {
 			return false;
 
 		$last_often_update = 0;
-		if (isset($_SESSION['YRS']['last_often_update']))
-			$last_often_update = $_SESSION['YRS']['last_often_update'];
+		if ($this->session->get('last_often_update'))
+			$last_often_update = $this->session->get('last_often_update');
 
 		//setOftenUpdates() was called 5 minutes before or earlier
 		if ($last_often_update + $this->often_update_interval > time())
 			return true;
 
 		$last_update = 0;
-		if (isset($_SESSION['YRS']['last_update']))
-			$last_update = $_SESSION['YRS']['last_update'];
+		if ($this->session->get('last_update'))
+			$last_update = $this->session->get('last_update');
 
 		return $last_update + $this->update_interval < time();
 	}
@@ -581,12 +584,28 @@ class YousticeApi {
 	/**
 	 * Set database params in associative array for PDO
 	 * @param array $db_credentials associative array for PDO connection with must fields: driver, host, name, user, pass
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public function setDbCredentials(array $db_credentials)
 	{
 		if (count($db_credentials))
-			$this->local = new YousticeLocal($db_credentials);
+			$this->setLocal(new YousticeLocal($db_credentials));
+
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @param YousticeProvidersSessionProviderInterface $session
+	 * @return YousticeApi
+	 */
+	public function setSession(YousticeProvidersSessionProviderInterface $session)
+	{
+		$this->session = $session;
+		$this->session->start();
+
+		if ($this->local !== null)
+			$this->local->setSession($this->session);
 
 		return $this;
 	}
@@ -594,16 +613,22 @@ class YousticeApi {
 	/**
 	 * 
 	 * @param YousticeLocalInterface $local
+	 * @return YousticeApi
 	 */
 	public function setLocal(YousticeLocalInterface $local)
 	{
 		$this->local = $local;
+
+		if ($this->session !== null)
+			$this->local->setSession($this->session);
+
+		return $this;
 	}
 
 	/**
 	 * Set eshop language
 	 * @param string ISO 639-1 char code "en|sk|cz|es"
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 * @throws InvalidArgumentException
 	 */
 	public function setLanguage($lang = null)
@@ -624,7 +649,7 @@ class YousticeApi {
 	/**
 	 * Set API key
 	 * @param string $api_key if true api is in playground mode, data are not real
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public function setApiKey($api_key, $use_sandbox = false)
 	{
@@ -641,7 +666,7 @@ class YousticeApi {
 	/**
 	 * Set what type of goods is eshop selling
 	 * @param string $shop_sells "product|service"
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 * @throws InvalidArgumentException
 	 */
 	public function setThisShopSells($shop_sells)
@@ -668,7 +693,7 @@ class YousticeApi {
 	/**
 	 * Set on which software is eshop running
 	 * @param string $shop_type "prestashop|magento|ownSoftware"
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public function setShopSoftwareType($shop_type)
 	{
@@ -681,7 +706,7 @@ class YousticeApi {
 	/**
 	 * Set user id, unique for eshop
 	 * @param integer $user_id
-	 * @return YousticeApi
+	 * @return \Youstice\Api
 	 */
 	public function setUserId($user_id)
 	{

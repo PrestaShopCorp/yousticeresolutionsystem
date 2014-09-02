@@ -16,6 +16,7 @@ class YousticeLocal implements YousticeLocalInterface {
 	private $connection = null;
 	private $table_prefix;
 	private $db_driver;
+	private $session;
 
 	/**
 	 * Initialize connection
@@ -54,31 +55,43 @@ class YousticeLocal implements YousticeLocalInterface {
 	}
 
 	/**
+	 * 
+	 * @param YousticeProvidersSessionProviderInterface $session
+	 * @return YousticeApi
+	 */
+	public function setSession(YousticeProvidersSessionProviderInterface &$session)
+	{
+		$this->session = $session;
+
+		return $this;
+	}
+
+	/**
 	 *
 	 * @param string $code
 	 * @return string remote link | null
 	 */
 	public function getCachedRemoteReportLink($code)
 	{
-		if (isset($_SESSION['YRS']['report'.$code]) && Tools::strlen($_SESSION['YRS']['report'.$code]['remoteLink']))
-			return $_SESSION['YRS']['report'.$code]['remoteLink'];
+		if ($this->session->get('report'.$code) && $this->session->get('report'.$code.'remoteLink'))
+			return $this->session->get('report'.$code.'remoteLink');
 
 		return null;
 	}
 
 	public function setCachedRemoteReportLink($code, $link)
 	{
-		$_SESSION['YRS']['report'.$code] = array('remoteLink' => $link);
+		$this->session->set('report'.$code.'remoteLink', $link);
 	}
 
 	public function getChangedReportStatusesCount()
 	{
-		return isset($_SESSION['YRS']['changedReportStatusesCount']) ? $_SESSION['YRS']['changedReportStatusesCount'] : 0;
+		return $this->session->get('changedReportStatusesCount') ? $this->session->get('changedReportStatusesCount') : 0;
 	}
 
 	public function setChangedReportStatusesCount($value)
 	{
-		$_SESSION['YRS']['changedReportStatusesCount'] = $value;
+		$this->session->set('changedReportStatusesCount', $value);
 	}
 
 	public function getWebReport($user_id)
@@ -247,7 +260,7 @@ class YousticeLocal implements YousticeLocalInterface {
 
 	public function uninstall()
 	{
-		$_SESSION['YRS'] = null;
+		$this->session->destroy();
 		return $this->connection->query('DROP TABLE IF EXISTS `'.$this->table_prefix.'yrs_reports`');
 	}
 

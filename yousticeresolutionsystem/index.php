@@ -31,6 +31,7 @@ $y_api->setLanguage(Context::getContext()->language->iso_code);
 $y_api->setShopSoftwareType('prestashop');
 $y_api->setThisShopSells(Configuration::get('YRS_ITEM_TYPE'));
 $y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
+$y_api->setSession(new YousticeProvidersSessionPrestashopProvider());
 
 if (Tools::getIsset('section'))
 {

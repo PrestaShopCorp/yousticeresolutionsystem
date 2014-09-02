@@ -20,9 +20,9 @@ class YousticeWidgetsReportClaimsForm {
 	public function toString()
 	{
 		$order_number_text = $this->translator->t('Order number');
-		$description_text = "If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below.";
+		$description_text = 'Would you like to file a complaint and report on your shopping issue? Simply enter the details below:';
 
-		$output = '<h2>'.$this->translator->t('Report a claim').'</h2>';
+		$output = '<h2>'.$this->translator->t('File a complaint').'</h2>';
 		$output .= '<img style="float:left; margin-right:15px;" src="'.$this->getImageData().'"/>';
 		$output .= '<p style="clear:left;max-width:300px;padding-top:8px">'.$this->translator->t($description_text).'</p>';
 		$output .= '<form action="" method="post" id="yReportClaims">';

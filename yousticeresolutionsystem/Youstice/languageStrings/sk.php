@@ -11,8 +11,9 @@ return array(
 	"Would you like to file a complaint?"		=> "Chceli by ste nahlásiť sťažnosť?",
 	"Order number"								=> "Číslo objednávky",
 	"Claims reporting for logged out users is available at" => "Nahlásanie sťažností pre neprihlásených užívateľov je na adrese",
-	"Report a claim"							=> "Nahlásiť sťažnosť",
-	"If you'd like to file a claim on one of your orders, please enter your e-mail address and order reference number below." => "Vyplňte, prosím vašu emailovú adresu a referenčné číslo objednávky ak chcete nahlásiť nejakú sťažnosť.",
+	"File a complaint"							=> "Nahlásiť sťažnosť",
+	"Would you like to file a complaint and report on your shopping issue? Simply enter the details below:" => "Chcete podať sťažnosť a nahlásiť váš problém s nakupovaním? Jednoducho vyplňte údaje nižšie:",
+	"In case you want to complain about a product or service, please follow this link."	=> "Ak si želáte nahlásiť produkt alebo službu, prosím pokračujte týmto odkazom.",
 	"Continue"									=> "Pokračovať",
 	//orderDetail
 	"Products in your order (%d)"				=> "Produkty objednávky (%d)",
