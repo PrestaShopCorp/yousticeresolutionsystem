@@ -15,7 +15,7 @@ jQuery(function($) {
 	$(this).append('<div class="y-ajax-spinner"></div>');
 	
 	$.ajax({
-	    url: baseDir + 'modules/yousticeresolutionsystem/index.php?section=getReportClaimsPagePost',
+	    url: baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getReportClaimsPagePost',
 	    type: 'post',
 	    dataType: 'json',
 	    data: $(this).serialize(),

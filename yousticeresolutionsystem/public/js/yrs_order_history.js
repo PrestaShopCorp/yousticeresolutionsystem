@@ -33,7 +33,7 @@ function showProductsButtons() {
 	    $(this).find('td:first').append('<div id="y-id-' + id_order + '-' + id_order_detail + '"></div>');
 	    showAjaxSpinner('#y-id-' + id_order + '-' + id_order_detail);
 	});
-	$.get(baseDir + 'modules/yousticeresolutionsystem/index.php?section=getProductsButtons', {"order_id": id_order, "products_ids": products_ids}, function(data) {
+	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getProductsButtons', {"order_id": id_order, "products_ids": products_ids}, function(data) {
 	    for (key in data) {
 		removeAjaxSpinner('#y-id-' + id_order + '-' + key);
 		$('#y-id-' + id_order + '-' + key).html(data[key]);
@@ -53,7 +53,7 @@ jQuery(function($) {
 	if ($('#yousticeLogoWidget').length)
 	    return;
 
-	$.get(baseDir + 'modules/yousticeresolutionsystem/index.php?section=logoWidget', function(data) {
+	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getLogoWidget', function(data) {
 	    $('body').append(data);
 	});
     });
@@ -65,7 +65,7 @@ jQuery(function($) {
     //button to start showing buttons
     $('#center_column h1:first').after('<div id="y-main" \>');
     showAjaxSpinner('#y-main');
-    $.get(baseDir + 'modules/yousticeresolutionsystem/index.php?section=getShowButtonsHtml', function(data) {
+    $.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getShowButtonsHtml', function(data) {
 	removeAjaxSpinner('#y-main');
 	$('#y-main').append(data);
 
@@ -85,7 +85,7 @@ jQuery(function($) {
 	showAjaxSpinner('#y-main');
 
 	//load web report button
-	$.get(baseDir + 'modules/yousticeresolutionsystem/index.php?section=getWebReportButton', function(data) {
+	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getWebReportButton', function(data) {
 	    removeAjaxSpinner('#y-main');
 	    $('#y-main').after(data);
 	});
@@ -110,7 +110,7 @@ jQuery(function($) {
 		showAjaxSpinner('#report-order-' + order_id);
 	    });
 
-	    $.get(baseDir + 'modules/yousticeresolutionsystem/index.php?section=getOrdersButtons', {"order_ids": order_ids}, function(data) {
+	    $.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getOrdersButtons', {"order_ids": order_ids}, function(data) {
 		for (key in data) {
 		    $('#report-order-' + key).html(data[key]);
 		}

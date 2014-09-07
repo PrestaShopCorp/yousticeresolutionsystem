@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.4.2';
+		$this->version                = '1.4.5';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -27,13 +27,10 @@ class YousticeResolutionSystem extends Module
 		parent::__construct();
 
 		$this->displayName		= $this->l('Youstice Resolution Module');
-		$this->description		= $this->l('Your online justice.');
+		$this->description		= $this->l('Your online justice');
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
-		if (!Configuration::get('YRS_API_KEY'))
-			$this->warning = $this->l('No API KEY');
-
-		require_once('Youstice/Api.php');
+		require_once('SDK/Api.php');
 		$db = array(
 			'driver' => 'mysql',
 			'host' => _DB_SERVER_,
@@ -61,23 +58,36 @@ class YousticeResolutionSystem extends Module
 			return;
 
 		$this->context->controller->addCSS($this->_path.'public/css/youstice.css', 'all');
-		$this->context->controller->addCSS($this->_path.'public/css/jquery.fancybox.css', 'all');
 		$this->context->controller->addJS($this->_path.'public/js/yrs_order_history.js');
-		$this->context->controller->addJS($this->_path.'public/js/fancybox/jquery.fancybox.pack.js');
+
+		if (version_compare(_PS_VERSION_, '1.6.0') <= 0)
+		{
+			$this->context->controller->addCSS($this->_path.'public/css/jquery.fancybox.css', 'all');
+			$this->context->controller->addJS($this->_path.'public/js/fancybox/jquery.fancybox.pack.js');
+		}
 
 		if (Tools::getValue('section') == 'getReportClaimsPage')
 			return $this->addReportClaimsPageMetaTags();
 	}
 
+	public function hookDisplayFooter()
+	{
+		//if ajax call
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && Tools::strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+			return;
+
+		return '<a class="yousticeShowLogoWidget">Youstice - show logo</a>';
+	}
+
 	protected function addReportClaimsPageMetaTags()
 	{
-		$title_string = $this->context->shop->name.' - Youstice - '.$this->y_api->t('File a complaint');
+		$title_string = $this->context->shop->name.' - Youstice - '.$this->l('File a complaint');
 		$html = '<meta property="og:title" content="'.$title_string.'" />';
 		$html .= '<meta property="og:type" content="website" />';
-		$html .= '<meta property="og:url" content="'._PS_BASE_URL_.$this->_path.'index.php?section=getReportClaimsPage" />';
+		$html .= '<meta property="og:url" content="'.$this->getReportClaimsPageLink().'" />';
 		$html .= '<meta property="og:image" content="'._PS_BASE_URL_.$this->_path.'logo.png" />';
 
-		$description_text = $this->y_api->t('In case you want to complain about a product or service, please follow this link.');
+		$description_text = $this->l->t('In case you want to complain about a product or service, please follow this link.');
 		$html .= '<meta property="og:description" content="'.$description_text.'" />';
 		return $html;
 	}
@@ -99,7 +109,7 @@ class YousticeResolutionSystem extends Module
 			else
 			{
 				Configuration::updateValue('YRS_API_KEY', $yrs_apikey);
-				$output .= $this->displayConfirmation($this->l('Settings updated'));
+				$output .= $this->displayConfirmation($this->l('Settings were saved successfully.'));
 			}
 
 			$yrs_sandbox = (string)Tools::getValue('YRS_SANDBOX');
@@ -211,37 +221,16 @@ class YousticeResolutionSystem extends Module
 
 		$output .= $this->addReportClaimsInfo();
 		$output .= $this->displayForm();
-		$output .= $this->checkFooterLink();
-
-		return $output;
-	}
-
-	protected function checkFooterLink()
-	{
-		$output = '';
-		$footer_file = _PS_ROOT_DIR_._THEME_DIR_.'footer.tpl';
-		$footer_content = Tools::file_get_contents($footer_file);
-		$anchor_found = false;
-
-		if ($footer_content !== false && strpos($footer_content, 'yousticeShowLogoWidget') !== false)
-			$anchor_found = true;
-
-		if (!$anchor_found)
-		{
-			$output .= $this->displayError($this->y_api->t('No logo widget anchor found! Please add following code to file').'<b>'.$footer_file
-					.'</b><br><br><b>'.htmlspecialchars('<a class="yousticeShowLogoWidget">Youstice - show logo</a>').'</b>');
-		}
 
 		return $output;
 	}
 
 	protected function addReportClaimsInfo()
 	{
-		$report_claims_text = $this->y_api->t('Claims reporting for logged out users is available at');
-		$report_claims_link = _PS_BASE_URL_.$this->_path.'index.php?section=getReportClaimsPage';
+		$report_claims_text = $this->l('Claims reporting for logged out users is available at');
 
 		return '<p>'.$report_claims_text.' <input type="text" style="min-width:500px" onclick="select()"
-				value="'.$report_claims_link.'"></p>';
+				value="'.$this->getReportClaimsPageLink().'"></p>';
 	}
 
 	public function displayForm()
@@ -252,22 +241,22 @@ class YousticeResolutionSystem extends Module
 		$options_sandbox = array(
 			array(
 				'id_option' => '0',
-				'name' => $this->y_api->t('No')
+				'name' => $this->l('No')
 			),
 			array(
 				'id_option' => '1',
-				'name' => $this->y_api->t('Yes')
+				'name' => $this->l('Yes')
 			),
 		);
 
 		$options_item_types = array(
 			array(
 				'id_option' => 'product',
-				'name' => $this->y_api->t('Products')
+				'name' => $this->l('Products')
 			),
 			array(
 				'id_option' => 'service',
-				'name' => $this->y_api->t('Services')
+				'name' => $this->l('Services')
 			)
 		);
 
@@ -275,19 +264,19 @@ class YousticeResolutionSystem extends Module
 		$fields_form = array();
 		$fields_form[0]['form'] = array(
 			'legend' => array(
-				'title' => $this->y_api->t('Settings'),
+				'title' => $this->l('Settings'),
 			),
 			'input' => array(
 				array(
 					'type'  => 'text',
-					'label' => $this->y_api->t('API Key'),
+					'label' => $this->l('Api Key'),
 					'name'  => 'YRS_API_KEY',
 					'size'  => 40,
 					'required' => true
 				),
 				array(
 					'type' => 'select',
-					'label' => $this->y_api->t('Use sandbox environment'),
+					'label' => $this->l('Use sandbox environment'),
 					'name' => 'YRS_SANDBOX',
 					'required' => true,
 					'options' => array(
@@ -298,7 +287,7 @@ class YousticeResolutionSystem extends Module
 				),
 				array(
 					'type' => 'select',
-					'label' => $this->y_api->t('This e-shop sells'),
+					'label' => $this->l('This e-shop sells'),
 					'name' => 'YRS_ITEM_TYPE',
 					'required' => true,
 					'options' => array(
@@ -309,7 +298,7 @@ class YousticeResolutionSystem extends Module
 				),
 			),
 			'submit' => array(
-				'title' => $this->y_api->t('Save'),
+				'title' => $this->l('Save'),
 				'class' => 'button'
 			)
 		);
@@ -349,6 +338,12 @@ class YousticeResolutionSystem extends Module
 		return $helper->generateForm($fields_form);
 	}
 
+	protected function getReportClaimsPageLink()
+	{
+		$base = Tools::getShopDomainSsl(true).__PS_BASE_URI__;
+		return $base.'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getReportClaimsPage';
+	}
+
 	public function install()
 	{
 		if (Shop::isFeatureActive())
@@ -374,10 +369,10 @@ class YousticeResolutionSystem extends Module
 
 		return parent::install() &&
 			$this->registerHook('header') &&
+			$this->registerHook('footer') &&
 			$this->registerHook('orderDetail') &&
 			Configuration::updateValue('YRS_ITEM_TYPE', 'product') &&
-			Configuration::updateValue('YRS_API_KEY', '') &&
-			Configuration::updateValue('YRS_HASH', Tools::passwdGen(8));
+			Configuration::updateValue('YRS_API_KEY', '');
 	}
 
 	public function uninstall()
@@ -386,8 +381,7 @@ class YousticeResolutionSystem extends Module
 
 		if (!parent::uninstall() ||
 				!Configuration::deleteByName('YRS_ITEM_TYPE') ||
-				!Configuration::deleteByName('YRS_API_KEY') ||
-				!Configuration::deleteByName('YRS_HASH'))
+				!Configuration::deleteByName('YRS_API_KEY'))
 			return false;
 
 		return true;
