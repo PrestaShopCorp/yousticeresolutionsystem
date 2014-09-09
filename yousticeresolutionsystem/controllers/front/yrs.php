@@ -370,7 +370,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		$shop_product->setOtherInfo(Tools::jsonEncode($this->buildDataArray(null, $product_obj)));
 
 		//add image if exists
-		if (count($product['image']->id_image) > 0)
+		if (count($product['image']) > 0)
 		{
 			$image_path = _PS_PROD_IMG_DIR_.$product['image']->getExistingImgPath().'.jpg';
 			$shop_product->setImagePath($image_path);
