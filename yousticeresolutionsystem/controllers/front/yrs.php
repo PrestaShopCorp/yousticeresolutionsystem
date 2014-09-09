@@ -31,7 +31,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		$yapi->setUserId($this->customer_id);
 		$yapi->run();
 		$this->yapi = $yapi;
-		define('YRS_TEMPLATE_PATH', $this->getTemplatePath());
+		define('YRS_TEMPLATE_PATH', _PS_MODULE_DIR_.$this->module->name.'/views/templates/front/');
 
 		$action = Tools::getValue('action');
 
