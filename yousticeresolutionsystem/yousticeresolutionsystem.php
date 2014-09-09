@@ -87,7 +87,7 @@ class YousticeResolutionSystem extends Module
 		$html .= '<meta property="og:url" content="'.$this->getReportClaimsPageLink().'" />';
 		$html .= '<meta property="og:image" content="'._PS_BASE_URL_.$this->_path.'logo.png" />';
 
-		$description_text = $this->l->t('In case you want to complain about a product or service, please follow this link.');
+		$description_text = $this->l('In case you want to complain about a product or service, please follow this link.');
 		$html .= '<meta property="og:description" content="'.$description_text.'" />';
 		return $html;
 	}
