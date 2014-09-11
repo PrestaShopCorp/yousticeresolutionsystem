@@ -21,8 +21,8 @@ class YousticeWidgetsShowButtons {
 
 	public function toString()
 	{
-		$smarty = getSmarty();
-		$smarty->assign(array('hasReports' => $this->has_reports));
+		$smarty = Context::getContext()->smarty;
+		$smarty->assign('hasReports', $this->has_reports);
 		return $smarty->fetch(YRS_TEMPLATE_PATH.'showButtons.tpl');
 	}
 

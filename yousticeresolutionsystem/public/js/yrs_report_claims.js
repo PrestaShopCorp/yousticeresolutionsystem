@@ -28,6 +28,7 @@ jQuery(function($) {
 		}
 		//ok, show order detail
 		else {
+		    $('form#yReportClaims').find('p').remove();
 		    $.fancybox({
                         autoDimension: true,
                         content: data.orderDetail,

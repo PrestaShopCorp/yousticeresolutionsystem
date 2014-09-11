@@ -26,13 +26,13 @@ class YousticeWidgetsOrderDetail {
 	{
 		$products = $this->order->getProducts();
 		
-		$smarty = getSmarty();
-		$smarty->assign(array('orderName' => $this->order->getName()));
-		$smarty->assign(array('orderButton' =>  $this->api->getOrderReportButtonHtml($this->order->getHref(), $this->order->getCode())));
-		$smarty->assign(array('productsMessage' =>  'Products in your order (%d)'));
-		$smarty->assign(array('productsMessageCount' =>  count($products)));
-		$smarty->assign(array('products' =>  $products));
-		$smarty->assign(array('api' =>  $this->api));
+		$smarty = Context::getContext()->smarty;
+		$smarty->assign('orderName', $this->order->getName());
+		$smarty->assign('orderButton', $this->api->getOrderReportButtonHtml($this->order->getHref(), $this->order->getCode()));
+		$smarty->assign('productsMessage', 'Products in your order (%d)');
+		$smarty->assign('productsMessageCount', count($products));
+		$smarty->assign('products', $products);
+		$smarty->assign('api', $this->api);
 		
 		return $smarty->fetch(YRS_TEMPLATE_PATH.'orderDetail.tpl');
 	}

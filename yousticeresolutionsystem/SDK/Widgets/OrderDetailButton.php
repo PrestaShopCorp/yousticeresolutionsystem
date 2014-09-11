@@ -73,25 +73,25 @@ class YousticeWidgetsOrderDetailButton {
 			}
 		}
 
-		$smarty = getSmarty();
+		$smarty = Context::getContext()->smarty;
 
-		$smarty->assign(array('href' => YousticeHelpersHelperFunctions::sh($this->href)));
-		$smarty->assign(array('statusClass' => 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus())));
-		$smarty->assign(array('message' => '%d ongoing cases'));
-		$smarty->assign(array('messageCount' => $count));
-		$smarty->assign(array('popup' => $popup));
+		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
+		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
+		$smarty->assign('message', '%d ongoing cases');
+		$smarty->assign('messageCount', $count);
+		$smarty->assign('popup', $popup);
 
-		return $smarty->fetch(YRS_TEMPLATE_PATH.'reportedButtonWithCount.tpl');
+		return $smarty->fetch(YRS_TEMPLATE_PATH.'orderDetailButton/reportedButtonWithCount.tpl');
 	}
 
 	protected function renderReportedButton($status)
 	{
-		$smarty = getSmarty();
-		$smarty->assign(array('href' => YousticeHelpersHelperFunctions::sh($this->href)));
-		$smarty->assign(array('statusClass' => 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus())));
-		$smarty->assign(array('message' => $status));
+		$smarty = Context::getContext()->smarty;
+		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
+		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
+		$smarty->assign('message', $status);
 		
-		return $smarty->fetch(YRS_TEMPLATE_PATH.'reportedButton.tpl');
+		return $smarty->fetch(YRS_TEMPLATE_PATH.'orderDetailButton/reportedButton.tpl');
 	}
 
 	protected function renderReportedButtonWithStatus($status)
@@ -99,20 +99,20 @@ class YousticeWidgetsOrderDetailButton {
 		if ($this->report->getRemainingTime() == 0)
 			return $this->renderReportedButton($status);
 		
-		$smarty = getSmarty();
-		$smarty->assign(array('href' => YousticeHelpersHelperFunctions::sh($this->href)));
-		$smarty->assign(array('statusClass' => 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus())));
-		$smarty->assign(array('message' => $status));
-		$smarty->assign(array('remainingTime' => YousticeHelpersHelperFunctions::remainingTimeToString($this->report->getRemainingTime())));
+		$smarty = Context::getContext()->smarty;
+		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
+		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
+		$smarty->assign('message', $status);
+		$smarty->assign('remainingTime', YousticeHelpersHelperFunctions::remainingTimeToString($this->report->getRemainingTime(), $this->translator));
 		
-		return $smarty->fetch(YRS_TEMPLATE_PATH.'reportedButtonWithStatus.tpl');
+		return $smarty->fetch(YRS_TEMPLATE_PATH.'orderDetailButton/reportedButtonWithStatus.tpl');
 	}
 
 	protected function renderUnreportedButton()
 	{
-		$smarty = getSmarty();
-		$smarty->assign(array('href' => YousticeHelpersHelperFunctions::sh($this->href)));
-		return $smarty->fetch(YRS_TEMPLATE_PATH.'unreportedButton.tpl');
+		$smarty = Context::getContext()->smarty;
+		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
+		return $smarty->fetch(YRS_TEMPLATE_PATH.'orderDetailButton/unreportedButton.tpl');
 	}
 
 }

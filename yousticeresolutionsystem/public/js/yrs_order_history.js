@@ -87,7 +87,7 @@ jQuery(function($) {
 	//load web report button
 	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getWebReportButton', function(data) {
 	    removeAjaxSpinner('#y-main');
-	    $('#y-main').after(data);
+	    $('#y-main').append(data);
 	});
 
 	showOrdersButtons();

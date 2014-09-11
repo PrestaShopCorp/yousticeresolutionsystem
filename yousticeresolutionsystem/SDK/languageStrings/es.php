@@ -50,6 +50,6 @@ return array(
 	"Settings were saved successfully."	=> "Las configuraciones se han guardado con éxito.",
 	"Invalid API KEY"		=> "LLAVE API inválida",
 	"Invalid Configuration value"	=> "Valor de configuración inválido",
-	"Youstice - show logo"		=> "Youstice: mostrar logotipo",
+	"Youstice - show logo"		=> "Youstice - mostrar logotipo",
 	"No logo widget anchor found! Please add following code to file"	=> "No logo widget anchor found! Please add following code to file "
 );
