@@ -67,7 +67,7 @@ class YousticeHelpersLanguageCodes {
 		'fr' => 'French',
 		'fy' => 'Western Frisian',
 		'ga' => 'Irish',
-		'gb' => 'United Kingdom'
+		'gb' => 'United Kingdom',
 		'gd' => 'Scottish Gaelic',
 		'gl' => 'Galician',
 		'gn' => 'Guarani',
