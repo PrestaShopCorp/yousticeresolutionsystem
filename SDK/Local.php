@@ -34,7 +34,7 @@ class YousticeLocal implements YousticeLocalInterface {
 				PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 			));
 		} catch (PDOException $e) {
-			throw new InvalidArgumentException('PDOException thrown with message: '.$e->getMessage());
+			throw new InvalidArgumentException('PDOException was thrown while connecting');
 		}
 
 		$this->connection = $pdo;
@@ -86,7 +86,7 @@ class YousticeLocal implements YousticeLocalInterface {
 	 */
 	public function getCachedRemoteReportLink($code)
 	{
-		if ($this->session->get('report'.$code) && $this->session->get('report'.$code.'remoteLink'))
+		if ($this->session->get('report'.$code.'remoteLink'))
 			return $this->session->get('report'.$code.'remoteLink');
 
 		return null;

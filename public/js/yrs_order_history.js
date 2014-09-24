@@ -102,7 +102,7 @@ jQuery(function($) {
 	    var order_ids = new Array();
 	    $('#order-list tbody tr').each(function() {
 		var order_href = $(this).find('.history_detail a:last').attr('href');
-		var order_id = order_href.split('id_order=')[1];
+		var order_id = parseInt(order_href.split('id_order=')[1]);
 		order_ids.push(order_id);
 		$this = $(this).find('td.history_link');
 		$('#report-order-' + order_id).remove();
