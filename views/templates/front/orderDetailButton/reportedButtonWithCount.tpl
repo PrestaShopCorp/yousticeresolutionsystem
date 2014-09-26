@@ -24,7 +24,7 @@
 *}
 <div class="orderDetailButtonWrap">
     <a class="yrsButton yrsButton-order-detail" 
-       href="{$href}">{l s=$message sprintf=$messageCount|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+       href="{$href}">{l s='%d ongoing cases' sprintf=$messageCount|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
 
     <a class="yrsButton yrsButton-plus" href="{$href|escape:'false'}">+</a>
 

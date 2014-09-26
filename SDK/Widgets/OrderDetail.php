@@ -10,13 +10,11 @@
 class YousticeWidgetsOrderDetail {
 
 	protected $api;
-	protected $lang;
 	protected $report;
 	protected $order;
 
-	public function __construct($lang, YousticeShopOrder $order, YousticeReportsOrderReport $report, $api)
+	public function __construct(YousticeShopOrder $order, YousticeReportsOrderReport $report, $api)
 	{
-		$this->translator = new YousticeTranslator($lang);
 		$this->order = $order;
 		$this->report = $report;
 		$this->api = $api;
@@ -29,7 +27,6 @@ class YousticeWidgetsOrderDetail {
 		$smarty = Context::getContext()->smarty;
 		$smarty->assign('orderName', $this->order->getName());
 		$smarty->assign('orderButton', $this->api->getOrderReportButtonHtml($this->order->getHref(), $this->order->getCode()));
-		$smarty->assign('productsMessage', 'Products in your order (%d)');
 		$smarty->assign('productsMessageCount', count($products));
 		$smarty->assign('products', $products);
 		$smarty->assign('api', $this->api);

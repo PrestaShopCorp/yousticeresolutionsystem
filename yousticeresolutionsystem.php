@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.5.0';
+		$this->version                = '1.5.4';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -26,8 +26,12 @@ class YousticeResolutionSystem extends Module
 
 		parent::__construct();
 
-		$this->displayName		= $this->l('Youstice Resolution Module');
-		$this->description		= $this->l('Your online justice');
+		$this->displayName		= $this->l('Youstice');
+		//preloading string to translation
+		$this->l('Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks');
+		$description = 'Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks';
+		//must be translating function or string, on other cases validator screams
+		$this->description		= $this->l($description);
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
 		require_once('SDK/Api.php');
@@ -103,9 +107,9 @@ class YousticeResolutionSystem extends Module
 	{
 		$output = null;
 
-		if (Tools::isSubmit('submit'.$this->name))
+		if (Tools::isSubmit('save'.$this->name))
 		{
-			$yrs_apikey = (string)Tools::getValue('YRS_API_KEY');
+			$yrs_apikey = (string)Tools::getValue('api_key');
 			if (!$yrs_apikey	|| empty($yrs_apikey) || !Validate::isGenericName($yrs_apikey))
 				$output .= $this->displayError( $this->l('Invalid API KEY') );
 			else
@@ -114,137 +118,29 @@ class YousticeResolutionSystem extends Module
 				$output .= $this->displayConfirmation($this->l('Settings were saved successfully.'));
 			}
 
-			$yrs_sandbox = (string)Tools::getValue('YRS_SANDBOX');
+			$yrs_sandbox = (string)Tools::getValue('use_sandbox');
 			if (!in_array($yrs_sandbox, array(0,1)))
 				$output .= $this->displayError( $this->l('Invalid Configuration value') );
 			else
 				Configuration::updateValue('YRS_SANDBOX', $yrs_sandbox);
 
-			$yrs_item_type = (string)Tools::getValue('YRS_ITEM_TYPE');
-			if (!$yrs_item_type	|| empty($yrs_item_type) || !Validate::isGenericName($yrs_item_type))
-				$output .= $this->displayError( $this->l('Invalid Configuration value') );
-			else
-				Configuration::updateValue('YRS_ITEM_TYPE', $yrs_item_type);
-
-			$this->y_api->setThisShopSells($yrs_item_type);
 			$this->y_api->setApiKey($yrs_apikey, $yrs_sandbox);
 
 			$this->y_api->install();
 		}
 
 		$smarty = Context::getContext()->smarty;
-		$smarty->assign('displayName', $this->displayName);
-		$smarty->assign('reportClaimsLink', $this->getReportClaimsPageLink());
 
-		$output .= $smarty->fetch(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/head.tpl');
-		$output .= $this->displayForm();
+		$smarty->assign('saveHref', AdminController::$currentIndex.'&configure='.$this->name.'&save'.$this->name.
+				'&token='.Tools::getAdminTokenLite('AdminModules'));
+		$smarty->assign('api_key', Configuration::get('YRS_API_KEY'));
+		$smarty->assign('use_sandbox', Configuration::get('YRS_SANDBOX'));
+		$smarty->assign('reportClaimsPageLink', $this->getReportClaimsPageLink());
+		$smarty->assign('cssFile', $this->_path.'public/css/admin.css');
+
+		$output .= $smarty->fetch(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/main.tpl');
 
 		return $output;
-	}
-
-	public function displayForm()
-	{
-		// Get default Language
-		$default_lang = (int)Configuration::get('PS_LANG_DEFAULT');
-
-		$options_sandbox = array(
-			array(
-				'id_option' => '0',
-				'name' => $this->l('No')
-			),
-			array(
-				'id_option' => '1',
-				'name' => $this->l('Yes')
-			),
-		);
-
-		$options_item_types = array(
-			array(
-				'id_option' => 'product',
-				'name' => $this->l('Products')
-			),
-			array(
-				'id_option' => 'service',
-				'name' => $this->l('Services')
-			)
-		);
-
-		// Init Fields form array
-		$fields_form = array();
-		$fields_form[0]['form'] = array(
-			'legend' => array(
-				'title' => $this->l('Settings'),
-			),
-			'input' => array(
-				array(
-					'type'  => 'text',
-					'label' => $this->l('Api Key'),
-					'name'  => 'YRS_API_KEY',
-					'size'  => 40,
-					'required' => true
-				),
-				array(
-					'type' => 'select',
-					'label' => $this->l('Use sandbox environment'),
-					'name' => 'YRS_SANDBOX',
-					'required' => true,
-					'options' => array(
-					'query' => $options_sandbox,
-					'id'	=> 'id_option',
-					'name'	=> 'name'
-					)
-				),
-				array(
-					'type' => 'select',
-					'label' => $this->l('This e-shop sells'),
-					'name' => 'YRS_ITEM_TYPE',
-					'required' => true,
-					'options' => array(
-					'query' => $options_item_types,
-					'id'	=> 'id_option',
-					'name'	=> 'name'
-					)
-				),
-			),
-			'submit' => array(
-				'title' => $this->l('Save'),
-				'class' => 'button'
-			)
-		);
-
-		$helper = new HelperForm();
-
-		// Module, token and currentIndex
-		$helper->module          = $this;
-		$helper->name_controller = $this->name;
-		$helper->token           = Tools::getAdminTokenLite('AdminModules');
-		$helper->currentIndex    = AdminController::$currentIndex.'&configure='.$this->name;
-
-		$helper->default_form_language    = $default_lang;
-		$helper->allow_employee_form_lang = $default_lang;
-
-		// Title and toolbar
-		$helper->show_toolbar   = false;
-		$helper->toolbar_scroll = true;
-		$helper->submit_action  = 'submit'.$this->name;
-		$helper->toolbar_btn = array(
-			'save' => array(
-				'desc' => $this->l('Save'),
-				'href' => AdminController::$currentIndex.'&configure='.$this->name.'&save'.$this->name.
-				'&token='.Tools::getAdminTokenLite('AdminModules'),
-			),
-			'back' => array(
-				'href' => AdminController::$currentIndex.'&token='.Tools::getAdminTokenLite('AdminModules'),
-				'desc' => $this->l('Back to list')
-			)
-		);
-
-		// current values
-		$helper->fields_value['YRS_API_KEY']		 = Configuration::get('YRS_API_KEY');
-		$helper->fields_value['YRS_SANDBOX']		 = Configuration::get('YRS_SANDBOX');
-		$helper->fields_value['YRS_ITEM_TYPE']		 = Configuration::get('YRS_ITEM_TYPE');
-
-		return $helper->generateForm($fields_form);
 	}
 
 	protected function getReportClaimsPageLink()

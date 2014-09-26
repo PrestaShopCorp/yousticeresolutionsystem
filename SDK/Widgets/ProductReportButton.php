@@ -10,13 +10,11 @@
 class YousticeWidgetsProductReportButton {
 
 	protected $href;
-	protected $translator;
 	protected $report;
 
-	public function __construct($href, $lang, YousticeReportsProductReport $report)
+	public function __construct($href, YousticeReportsProductReport $report)
 	{
 		$this->href = $href;
-		$this->translator = new YousticeTranslator($lang);
 		$this->report = $report;
 	}
 
@@ -51,7 +49,9 @@ class YousticeWidgetsProductReportButton {
 		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
 		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
 		$smarty->assign('message', $status);
-		$smarty->assign('remainingTime', YousticeHelpersHelperFunctions::remainingTimeToString($this->report->getRemainingTime(), $this->translator));
+		$remainingTime = $this->report->getRemainingTime();
+		$smarty->assign('remainingTimeDays', YousticeHelpersHelperFunctions::remainingTimeToDays($remainingTime));
+		$smarty->assign('remainingTimeHours', YousticeHelpersHelperFunctions::remainingTimeToHours($remainingTime));
 		
 		return $smarty->fetch(YRS_TEMPLATE_PATH.'productButton/reportedButtonWithStatus.tpl');
 	}

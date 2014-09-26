@@ -28,12 +28,6 @@ class YousticeApi {
 
 	/**
 	 *
-	 * @var type YousticeTranslator
-	 */
-	protected $translator;
-
-	/**
-	 *
 	 * @var SessionProviderInterface 
 	 */
 	protected $session;
@@ -169,20 +163,6 @@ class YousticeApi {
 		}, true, true);  //prepend our autoloader
 	}
 
-	/**
-	 * Renders form with fields email and orderNumber for reporting claims
-	 * @return string html
-	 */
-	public function getReportClaimsFormHtml()
-	{
-		if (!trim($this->api_key))
-			return "Invalid shop's api key";
-
-		$widget = new YousticeWidgetsReportClaimsForm($this->language);
-
-		return $widget->toString();
-	}
-
 	public function getShowButtonsWidgetHtml()
 	{
 		if (!trim($this->api_key))
@@ -190,7 +170,7 @@ class YousticeApi {
 
 		$reports_count = count($this->local->getReportsByUser($this->user_id));
 
-		$widget = new YousticeWidgetsShowButtons($this->language, $reports_count > 0);
+		$widget = new YousticeWidgetsShowButtons($reports_count > 0);
 
 		return $widget->toString();
 	}
@@ -229,7 +209,7 @@ class YousticeApi {
 				$href = $remote_link;
 		}
 
-		$web_button = new YousticeWidgetsWebReportButton($href, $this->language, $report);
+		$web_button = new YousticeWidgetsWebReportButton($href, $report);
 
 		return $web_button->toString();
 	}
@@ -257,7 +237,7 @@ class YousticeApi {
 				$href = $remote_link;
 		}
 
-		$product_button = new YousticeWidgetsProductReportButton($href, $this->language, $report);
+		$product_button = new YousticeWidgetsProductReportButton($href, $report);
 
 		return $product_button->toString();
 	}
@@ -284,7 +264,7 @@ class YousticeApi {
 				$href = $remote_link;
 		}
 
-		$order_button = new YousticeWidgetsOrderReportButton($href, $this->language, $report);
+		$order_button = new YousticeWidgetsOrderReportButton($href, $report);
 
 		return $order_button->toString();
 	}
@@ -307,7 +287,7 @@ class YousticeApi {
 
 		$report = $this->local->getOrderReport($order->getId(), $product_codes);
 
-		$order_button = new YousticeWidgetsOrderDetailButton($href, $this->language, $order, $report, $this);
+		$order_button = new YousticeWidgetsOrderDetailButton($href, $order, $report, $this);
 
 		return $order_button->toString();
 	}
@@ -329,7 +309,7 @@ class YousticeApi {
 
 		$report = $this->local->getOrderReport($order->getCode(), $product_codes);
 
-		$order_detail = new YousticeWidgetsOrderDetail($this->language, $order, $report, $this);
+		$order_detail = new YousticeWidgetsOrderDetail($order, $report, $this);
 
 		return $order_detail->toString();
 	}
@@ -460,17 +440,6 @@ class YousticeApi {
 		$this->setOftenUpdates();
 
 		return $redirect_link;
-	}
-
-	/**
-	 * 
-	 * @param string $string to translate
-	 * @param array $variables
-	 * @return string translated
-	 */
-	public function t($string, $variables = array())
-	{
-		return $this->translator->t($string, $variables);
 	}
 
 	/**
@@ -638,7 +607,6 @@ class YousticeApi {
 		if ($lang && YousticeHelpersLanguageCodes::check($lang))
 		{
 			$this->language = $lang;
-			$this->translator = new YousticeTranslator($this->language);
 		}
 		else
 			throw new InvalidArgumentException('Language code "'.$lang.'" is not allowed.');

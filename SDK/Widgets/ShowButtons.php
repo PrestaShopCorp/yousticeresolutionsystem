@@ -13,10 +13,9 @@ class YousticeWidgetsShowButtons {
 	protected $has_reports;
 	protected $translator;
 
-	public function __construct($lang, $has_reports)
+	public function __construct($has_reports)
 	{
 		$this->has_reports = $has_reports;
-		$this->translator = new YousticeTranslator($lang);
 	}
 
 	public function toString()
