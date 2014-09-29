@@ -14,7 +14,6 @@ class YousticeWidgetsReportClaimsForm {
 
 	public function __construct($lang)
 	{
-		$this->translator = new YousticeTranslator($lang);
 	}
 
 	public function toString()
