@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.5.2';
+		$this->version                = '1.5.4';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -27,7 +27,10 @@ class YousticeResolutionSystem extends Module
 		parent::__construct();
 
 		$this->displayName		= $this->l('Youstice');
+		//preloading string to translation
+		$this->l('Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks');
 		$description = 'Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks';
+		//must be translating function or string, on other cases validator screams
 		$this->description		= $this->l($description);
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
@@ -133,7 +136,7 @@ class YousticeResolutionSystem extends Module
 		$smarty->assign('api_key', Configuration::get('YRS_API_KEY'));
 		$smarty->assign('use_sandbox', Configuration::get('YRS_SANDBOX'));
 		$smarty->assign('reportClaimsPageLink', $this->getReportClaimsPageLink());
-		$smarty->assign('cssFile', _PS_BASE_URL_.$this->_path.'public/css/admin.css');
+		$smarty->assign('cssFile', $this->_path.'public/css/admin.css');
 
 		$output .= $smarty->fetch(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/main.tpl');
 

@@ -354,7 +354,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		if (empty($order))
 			exit('Operation not allowed');
 
-		$shop_order->setName('Order #'.$order_id);
+		$shop_order->setName('#'.$order_id);
 		$shop_order->setCurrency($currency->iso_code);
 		$shop_order->setPrice((float)$order['total_paid']);
 		$shop_order->setId($order_id);

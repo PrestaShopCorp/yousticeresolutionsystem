@@ -11,13 +11,11 @@ class YousticeWidgetsOrderDetailButton {
 
 	protected $api;
 	protected $href;
-	protected $translator;
 	protected $report;
 
-	public function __construct($href, $lang, YousticeShopOrder $order, YousticeReportsOrderReport $report, $api)
+	public function __construct($href, YousticeShopOrder $order, YousticeReportsOrderReport $report, $api)
 	{
 		$this->href = $href;
-		$this->translator = new YousticeTranslator($lang);
 		$this->order = $order;
 		$this->report = $report;
 		$this->api = $api;
@@ -77,7 +75,6 @@ class YousticeWidgetsOrderDetailButton {
 
 		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
 		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
-		$smarty->assign('message', '%d ongoing cases');
 		$smarty->assign('messageCount', $count);
 		$smarty->assign('popup', $popup);
 
@@ -103,7 +100,9 @@ class YousticeWidgetsOrderDetailButton {
 		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
 		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
 		$smarty->assign('message', $status);
-		$smarty->assign('remainingTime', YousticeHelpersHelperFunctions::remainingTimeToString($this->report->getRemainingTime(), $this->translator));
+		$remainingTime = $this->report->getRemainingTime();
+		$smarty->assign('remainingTimeDays', YousticeHelpersHelperFunctions::remainingTimeToDays($remainingTime));
+		$smarty->assign('remainingTimeHours', YousticeHelpersHelperFunctions::remainingTimeToHours($remainingTime));
 		
 		return $smarty->fetch(YRS_TEMPLATE_PATH.'orderDetailButton/reportedButtonWithStatus.tpl');
 	}

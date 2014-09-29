@@ -25,13 +25,16 @@ class YousticeHelpersHelperFunctions {
 		return htmlspecialchars($string, ENT_QUOTES);
 	}
 
-	public static function remainingTimeToString($time = 0, YousticeTranslator $translator)
+	public static function remainingTimeToDays($time = 0)
+	{
+		return floor($time / (60 * 60 * 24));
+	}
+
+	public static function remainingTimeToHours($time = 0)
 	{
 		$days = floor($time / (60 * 60 * 24));
 
-		$hours = floor(($time - ($days * 60 * 60 * 24)) / (60 * 60));
-
-		return $translator->t('%d days %d hours', $days, $hours);
+		return floor(($time - ($days * 60 * 60 * 24)) / (60 * 60));
 	}
 
 	public static function isSessionStarted()
