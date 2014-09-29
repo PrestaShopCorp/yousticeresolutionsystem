@@ -231,6 +231,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 
 		try {
 			$redirect_url = $this->yapi->createWebReport();
+			Configuration::updateValue('YOUSTICERESOLUTIONSYSTEM_CONF_OK', true);
 		}
 		catch(Exception $e) {
 			exit('Connection to remote server failed, please <a href="#" onClick="history.go(0)">try again</a> later');
@@ -270,6 +271,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 
 		try {
 			$redirect_url = $this->yapi->createOrderReport($shop_order);
+			Configuration::updateValue('YOUSTICERESOLUTIONSYSTEM_CONF_OK', true);
 		}
 		catch(Exception $e) {
 			exit('Connection to remote server failed, please <a href="" onClick="history.go(0)">try again</a> later');
