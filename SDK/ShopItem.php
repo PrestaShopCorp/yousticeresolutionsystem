@@ -161,8 +161,10 @@ abstract class YousticeShopItem {
 
 	public function setDeliveryDate($delivery_date)
 	{
-		if (Tools::strlen($delivery_date > 1))
+		if (Tools::strlen($delivery_date > 1)) {
 			$this->data['deliveryDate'] = $delivery_date;
+			return $this;
+		}
 
 		$zero_date = new Datetime();
 		$zero_date->setTimestamp(0);
