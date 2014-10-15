@@ -57,14 +57,14 @@
     <div class="loginDetail">
         <h2>{l s='Sign up for free trial'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
         <div class="hideable">
-            <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_" target="_blank" class="roundedAnchor">SIGN UP</a>
+            <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_" target="_blank" class="roundedAnchor">{l s='SIGN UP'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
             <p>{l s='Once you have a Youstice account, fill in the information below.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
         </div>
     </div>
 
     <hr>
 
-    <div class="configuration">
+    <div class="yConfiguration">
         <h2>{l s='Reporting for logged out users'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
         <div class="row">
             <label for="reportClaimsPageLink">{l s='Claims reporting for logged out users is available at'|escape:'htmlall' mod='yousticeresolutionsystem'}</label>
@@ -74,7 +74,7 @@
 
     <hr>
 
-    <div class="configuration">
+    <div class="yConfiguration">
         <h2>{l s='Configure Youstice for your website'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
         <div class="row">
             <label for="useSandbox">{l s='Is the API key for Live or Sandbox environment?'|escape:'htmlall' mod='yousticeresolutionsystem'}*</label>
@@ -89,8 +89,7 @@
         </div>
     </div>
 
-    <p>* {l s='For testing purposes use our Sandbox environment. Please keep in mind that there are different API keys for Sandbox and Live 
-        environments. To start using Sandbox and get the matching API key'|escape:'htmlall' mod='yousticeresolutionsystem'} 
+    <p>* {l s='For testing purposes use our Sandbox environment. Please keep in mind that there are different API keys for Sandbox and Live environments. To start using Sandbox and get the matching API key'|escape:'htmlall' mod='yousticeresolutionsystem'} 
         <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/en/app2/_subscription_" target="_blank">{l s='register here'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>.
     </p>
     <p>

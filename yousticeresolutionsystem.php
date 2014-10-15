@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.5.4';
+		$this->version                = '1.5.6';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -27,7 +27,7 @@ class YousticeResolutionSystem extends Module
 		parent::__construct();
 
 		$this->displayName		= $this->l('Youstice');
-		//preloading string to translation
+		//preload string for translation
 		$this->l('Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks');
 		$description = 'Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks';
 		//must be translating function or string, on other cases validator screams
