@@ -166,17 +166,15 @@ abstract class YousticeShopItem {
 			return $this;
 		}
 
-		$zero_date = new Datetime();
-		$zero_date->setTimestamp(0);
-
-		$this->data['deliveryDate'] = $zero_date->format(Datetime::ISO8601);
-
 		return $this;
 	}
 
 	public function setOrderDate($order_date)
 	{
-		$this->data['orderDate'] = $order_date;
+		if (Tools::strlen($order_date > 1)) {
+			$this->data['orderDate'] = $order_date;
+			return $this;
+		}
 
 		return $this;
 	}
