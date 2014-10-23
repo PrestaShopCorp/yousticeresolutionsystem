@@ -596,21 +596,13 @@ class YousticeApi {
 
 	/**
 	 * Set eshop language
-	 * @param string ISO 639-1 char code "en|sk|cz|es"
+	 * @param string
 	 * @return YousticeApi
 	 * @throws InvalidArgumentException
 	 */
 	public function setLanguage($lang = null)
-	{
-		$lang = trim(Tools::strtolower($lang));
-
-		if ($lang && YousticeHelpersLanguageCodes::check($lang))
-		{
-			$this->language = $lang;
-		}
-		else
-			throw new InvalidArgumentException('Language code "'.$lang.'" is not allowed.');
-
+	{		
+		$this->language = $lang;
 		return $this;
 	}
 
