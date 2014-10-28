@@ -162,7 +162,8 @@ abstract class YousticeShopItem {
 	public function setDeliveryDate($delivery_date)
 	{
 		if (Tools::strlen($delivery_date > 1)) {
-			$this->data['deliveryDate'] = $delivery_date;
+			$timestamp = strtotime($delivery_date);
+			$this->data['deliveryDate'] = date('c', $timestamp);
 			return $this;
 		}
 
@@ -172,7 +173,8 @@ abstract class YousticeShopItem {
 	public function setOrderDate($order_date)
 	{
 		if (Tools::strlen($order_date > 1)) {
-			$this->data['orderDate'] = $order_date;
+			$timestamp = strtotime($order_date);
+			$this->data['orderDate'] = date('c', $timestamp);
 			return $this;
 		}
 

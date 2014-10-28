@@ -82,7 +82,7 @@ class YousticeRemote extends YousticeRequest {
 			'itemCurrency' => $data['currency'],
 			'itemPrice' => $data['price'],
 			'itemCode' => $data['id'],
-			'deliveryDate' => $data['deliveryDate'] ? $data['deliveryDate'] : $now->format(Datetime::ISO8601),
+			'deliveryDate' => $data['deliveryDate'],
 			'orderDate' => $data['orderDate'] ? $data['orderDate'] : $now->format(Datetime::ISO8601),
 			'shopType' => $this->shop_software_type,
 			'image' => $order->getImage(),
@@ -99,6 +99,7 @@ class YousticeRemote extends YousticeRequest {
 	public function createProductReport(YousticeShopProduct $product, $code)
 	{
 		$data = $product->toArray();
+		$now = new Datetime();
 
 		$request_data = array(
 			'itemType' => $this->shop_sells,
@@ -109,7 +110,7 @@ class YousticeRemote extends YousticeRequest {
 			'itemPrice' => $data['price'],
 			'itemCode' => $data['id'],
 			'deliveryDate' => $data['deliveryDate'],
-			'orderDate' => $data['orderDate'],
+			'orderDate' => $data['orderDate'] ? $data['orderDate'] : $now->format(Datetime::ISO8601),
 			'shopType' => $this->shop_software_type,
 			'image' => $data['image'],
 			'other' => $data['other'],
@@ -120,6 +121,19 @@ class YousticeRemote extends YousticeRequest {
 		$response = $this->responseToArray();
 
 		return $response['redirect_link'];
+	}
+	
+	public function checkApiKey()
+	{
+		$request_data = array(
+			'shopType' => $this->shop_software_type
+		);
+		
+		$this->post('Api/auth', $request_data);
+		
+		$response = $this->responseToArray();
+
+		return $response && $response['result'] == 'true';
 	}
 
 }
