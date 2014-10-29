@@ -133,6 +133,19 @@ class YousticeApi {
 	}
 
 	/**
+	 * Start Youstice API and do not run updates
+	 * @return YousticeApi
+	 */
+	public function runWithoutUpdates()
+	{
+		$this->checkShopSells();
+
+		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type);
+
+		return $this;
+	}
+
+	/**
 	 * Helper function for autoloading classes (called in constructor)
 	 */
 	protected function registerAutoloader()
@@ -621,6 +634,11 @@ class YousticeApi {
 		$this->use_sandbox = ($use_sandbox == true ? true : false);
 
 		return $this;
+	}
+	
+	public function checkApiKey()
+	{
+		return $this->remote->checkApiKey();
 	}
 
 	/**

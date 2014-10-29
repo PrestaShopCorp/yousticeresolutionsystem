@@ -47,15 +47,10 @@ jQuery(function($) {
     if (window.location != window.parent.location) {
 	return;
     }
-
+    
     //show logoWidget
-    $('.yousticeShowLogoWidget').click(function() {
-	if ($('#yousticeLogoWidget').length)
-	    return;
-
-	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getLogoWidget', function(data) {
-	    $('body').append(data);
-	});
+    $.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getLogoWidget', function(data) {
+	$('body').append(data);
     });
 
     if ($('body').attr('id') !== 'history') {
