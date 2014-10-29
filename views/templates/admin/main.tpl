@@ -28,22 +28,12 @@
         <p>{l s='Resolve customer complaints in a few clicks.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
     </div>
     <div class="logoRight">
-        <ul>
-            <li>{l s='Connect with your customers'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-            <li>{l s='Personalized approach for everyone'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-            <li>{l s='Minimize negative reviews'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-            <li>{l s='Negotiate first, comment later'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-            <li>{l s='Just two easy steps'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-            <li>{l s='Negotiate and resolve'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-            <li>{l s='Expand your business'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-            <li>{l s='Global, multilingual ecosystem'|escape:'htmlall' mod='yousticeresolutionsystem'}</li>
-        </ul>
+        <a href="//www.youstice.com" class="roundedAnchor" target="_blank">{l s='For more information about'|escape:'htmlall' mod='yousticeresolutionsystem'}<br /> {l s='Youstice visit'|escape:'htmlall' mod='yousticeresolutionsystem'}<br /><span>www.youstice.com</span></a>
     </div>
 
     <hr>
 
     <div class="loginInfo">
-        <a href="//www.youstice.com" class="roundedAnchor" target="_blank">{l s='For more information about'|escape:'htmlall' mod='yousticeresolutionsystem'}<br /> {l s='Youstice visit'|escape:'htmlall' mod='yousticeresolutionsystem'}<br /><span>www.youstice.com</span></a>
         <p>{l s='It only takes a few minutes to get started with Youstice.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
         <p>{l s='Already have a Youstice account?'|escape:'htmlall' mod='yousticeresolutionsystem'}
             <input type="radio" name="have_account" id="haveAccountNo" value="0" checked="checked">
@@ -52,68 +42,193 @@
             <label for="haveAccountYes">{l s='Yes'|escape:'htmlall' mod='yousticeresolutionsystem'}</label></p>
     </div>
 
-    <hr>
+    <div class="yBlock stopScathingReviews">
+        <hr>
+        <h2>{l s='Stop scathing reviews'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
+        <a href="//www.youstice.com" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+        <div class="left">
+            <h3>{l s='Stop scathing reviews. Handle customer complaints fast and right.'|escape:'htmlall' mod='yousticeresolutionsystem'}</h3>
+            <p>{l s='It’s a storeowner’s worst nightmare.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
+            <p>{l s='A disgruntled customer criticizes your business on social media. You are instantly thrown into crisis mode, trying as best you can to save your reputation.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
+            <p>{l s='It matters little whether the criticism is justified. Prevention is the best cure.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
 
-    <div class="loginDetail">
-        <h2>{l s='Sign up for free trial'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
-        <div class="hideable">
-            <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_" target="_blank" class="roundedAnchor">{l s='SIGN UP'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
-            <p>{l s='Once you have a Youstice account, fill in the information below.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
+            <h3>{l s='You can resolve customer complaints effectively. You just need the right tool.'|escape:'htmlall' mod='yousticeresolutionsystem'}</h3>
+            <p>{l s='Resolving complaints rapidly and effectively can place a heavy burden on your small business. The longer customers wait for your reply, the angrier they get. Yet you can’t be behind your computer screen 24/7.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
+            <p>{l s='Let us take the pain out of handling customer complaints. Thanks to our award-winning app, your customers know that you stand by your products and they trust your business.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
         </div>
+        <div class="right">
+            <div class="imgHelper"></div>
+            <img src="//www.youstice.com/images/yousticeimg/screenshots/laptop_with_coffee.jpg">
+        </div>
+        <div class="clear"></div>
+        <a href="//www.youstice.com" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
     </div>
 
-    <hr>
-
     <div class="yConfiguration">
-        <h2>{l s='Reporting for logged out users'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
-        <div class="row">
-            <label for="reportClaimsPageLink">{l s='Claims reporting for logged out users is available at'|escape:'htmlall' mod='yousticeresolutionsystem'}</label>
-            <input id="reportClaimsPageLink" type="text" name="anonymous_report" onclick="select()" value="{$reportClaimsPageLink|escape:'htmlall'}">
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="yConfiguration">
+        <hr>
         <h2>{l s='Configure Youstice for your website'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
         <div class="row">
-            <label for="useSandbox">{l s='Is the API key for Live or Sandbox environment?'|escape:'htmlall' mod='yousticeresolutionsystem'}*</label>
+            <label for="useSandbox">{l s='Is the API key for Live or Sandbox environment?'|escape:'htmlall' mod='yousticeresolutionsystem'}</label>
             <select id="useSandbox" name="use_sandbox">
                 <option{if $use_sandbox == 1} selected{/if} value="1">{l s='Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}</option>
                 <option{if $use_sandbox != 1} selected{/if} value="0">{l s='Live'|escape:'htmlall' mod='yousticeresolutionsystem'}</option>
             </select>
         </div>
-        <div class="row">
-            <label for="apiKey">{l s='API Key of your shop'|escape:'htmlall' mod='yousticeresolutionsystem'}**</label>
-            <input id="apiKey" type="text" name="api_key" value="{$api_key|escape:'htmlall'}">
+        <div class="row onSandbox">
+            <p>
+                {l s='For testing purposes use our Sandbox environment. Please keep in mind that there are different API keys for Sandbox and Live environments. To start using Sandbox and get the matching API key you need to'|escape:'htmlall' mod='yousticeresolutionsystem'}
+                <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_" target="_blank">{l s='register specifically for Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}.</a>
+            </p>
         </div>
+        <div class="row">
+            <label for="apiKey">{l s='API Key of your shop'|escape:'htmlall' mod='yousticeresolutionsystem'}</label>
+            <input id="apiKey" type="text" name="api_key" value="{$api_key|escape:'htmlall'}">
+            <a class="roundedAnchor style2" href="#" id="yGetApiKey">{l s='GET YOUR API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+        </div>
+        <div class="row">
+            <label></label>
+            <a class="roundedAnchor style2 save" href="#">{l s='SAVE'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+        </div>
+        <p>
+            {l s='Your API key can be found in Youstice application. Log in to Youstice'|escape:'htmlall' mod='yousticeresolutionsystem'}
+            (<a href="https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_" target="_blank">{l s='Live'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+            {l s='or'|escape:'htmlall' mod='yousticeresolutionsystem'}
+            <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_" target="_blank">{l s='Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>),
+            {l s='go to menu SHOPS, click on your shop and see API key on the bottom of the page.'|escape:'htmlall' mod='yousticeresolutionsystem'}
+        </p>
     </div>
 
-    <p>* {l s='For testing purposes use our Sandbox environment. Please keep in mind that there are different API keys for Sandbox and Live environments. To start using Sandbox and get the matching API key'|escape:'htmlall' mod='yousticeresolutionsystem'} 
-        <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/en/app2/_subscription_" target="_blank">{l s='register here'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>.
-    </p>
-    <p>
-        ** {l s='Your API key can be found in Youstice application. Log in to Youstice'|escape:'htmlall' mod='yousticeresolutionsystem'} 
-        (<a href="https://app.youstice.com/blox-odr/generix/odr" target="_blank">{l s='Live'|escape:'htmlall' mod='yousticeresolutionsystem'}</a> 
-        {l s='or'|escape:'htmlall' mod='yousticeresolutionsystem'} 
-        <a href="https://app-sand.youstice.com/blox-odr13/generix/odr" target="_blank">{l s='Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>), 
-        {l s='go to menu SHOPS, click on your shop and see API key on the bottom of the page.'|escape:'htmlall' mod='yousticeresolutionsystem'}
-    </p>
-    
-    <a class="roundedAnchor save" href="#">{l s='SAVE'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+    <div class="yConfiguration">
+        <hr>
+        <h2>{l s='Filing a claim without login'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
+        <label for="reportClaimsPageLink">{l s='Optionally, copy & paste the code below to any place on your website if you want to allow your customers to file claims without logging in based on the customer’s email address and order reference.'|escape:'htmlall' mod='yousticeresolutionsystem'}</label>
+        <input id="reportClaimsPageLink" type="text" name="anonymous_report" onclick="select()" value="{$reportClaimsPageLink|escape:'htmlall'}">
+        <div class="clear"></div>
+    </div>
+
+    <div class="yBlock howItWorks">
+        <hr>
+        <h2>{l s='How the Youstice plugin works'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
+        <p>
+            <a href="{$modulePath|escape:'false'}img/screenshot_1.png" target="_blank" rel="screenshot">
+                <img src="{$modulePath|escape:'false'}img/screenshot_1.png">
+            </a>
+            <span>{l s='New button ‘Would you like to file a complaint?’ appears in an order history of each customer.'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
+        </p>
+        <p class="right">
+            <a href="{$modulePath|escape:'false'}img/screenshot_2.png" target="_blank" rel="screenshot">
+                <img src="{$modulePath|escape:'false'}img/screenshot_2.png">
+            </a>
+            <span>{l s='The customer can use this option to report a problem, whether related to a specific order or not.'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
+        </p>
+        <p>
+            <a href="{$modulePath|escape:'false'}img/screenshot_3.png" target="_blank" rel="screenshot">
+                <img src="{$modulePath|escape:'false'}img/screenshot_3.png">
+            </a>
+            <span>{l s='It is also possible to report a problem with a specific item within an order.'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
+        </p>
+        <div class="yBlock howItWorks clear"></div>
+    </div>
+
+    <div class="yBlock screenshots">
+        <hr>
+        <h2>{l s='Screenshots'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
+        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_1.jpg" target="_blank" rel="screenshotRemote">
+            <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_1.jpg">
+        </a>
+        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_2.jpg" targer="_blank" rel="screenshotRemote">
+            <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_2.jpg">
+        </a>
+        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_3.jpg" target="_blank" rel="screenshotRemote">
+            <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_3.jpg">
+        </a>
+        <div class="yBlock screenshots inblock"></div>
+    </div>
 </form>
 
-<link href="{$cssFile|escape:'false'}" rel="stylesheet" type="text/css" media="all" />
+<link href="{$modulePath|escape:'false'}css/admin.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript">
-    $('input[name="have_account"]').change(function() {
-        if($(this).val() == 1)
-            $('.loginDetail').addClass('yHidden');
-        else
-            $('.loginDetail').removeClass('yHidden');
+    $(document).ready(function() {
+        $('input[name="have_account"]').change(function() {
+            changeBlocksVisibility($(this).val() == 1);
+        });
+
+        $('select#useSandbox').change(function() {
+            changeSandboxText();
+        });
+
+        function changeSandboxText() {
+            if ($('select#useSandbox').val() == 1) {
+                $('.row.onSandbox').show();
+            }
+            else {
+                $('.row.onSandbox').hide()
+            }
+        }
+        changeSandboxText();
+
+        changeBlocksVisibility($('input[name="have_account"]').val() == 1);
+
+        $('#yGetApiKey').click(function(e) {
+            var sandUrl = 'https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_';
+            var liveUrl = 'https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_';
+            var win;
+
+            if ($('#useSandbox').val() == 1) {
+                win = window.open(sandUrl, '_blank');
+            }
+            else {
+                win = window.open(liveUrl, '_blank');
+            }
+
+            win.focus();
+        });
+
+        $('.yBlock.screenshots a[rel="screenshotRemote"]').fancybox();
+        $('.yBlock.howItWorks a[rel="screenshot"]').fancybox();
+
+        $('a.save').click(function(e) {
+            e.preventDefault();
+            var that = this;
+    {if $is1_5Version}
+            var errorHtml = '<div class="error">{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div>';
+    {else}
+            var errorHtml = '<div class="bootstrap"><div class="module_error alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
+            errorHtml += '{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div></div>';
+    {/if}
+
+            $('.yConfiguration .error, .yConfiguration .bootstrap').remove();
+
+            $.post('{$checkForApiKeyHref|escape:'false'}',
+                    { 'api_key': $('#apiKey').val(), 'use_sandbox': $('#useSandbox').val()},
+            function(response) {
+                if (response.result !== true) {
+                    $('.roundedAnchor.save').after(errorHtml);
+
+                    $('html, body').animate({
+                        scrollTop: $(".yConfiguration").first().offset().top
+                    }, 2000);
+                }
+                else {
+                    $(that).parents('form').submit();
+                }
+            }, 'json');
+        });
+
+    {if strlen(trim($api_key))}
+        $('#haveAccountYes').click();
+    {/if}
+
     });
-    
-    $('a.save').click(function(e) {
-        e.preventDefault();
-        $(this).parents('form').submit();
-    });
+
+    function changeBlocksVisibility(haveAccount) {
+        $('.yBlock, .yConfiguration').show();
+
+        if (haveAccount) {
+            $('.yBlock.screenshots, .yBlock.stopScathingReviews').hide();
+        }
+        else {
+            $('.yConfiguration').hide();
+        }
+    }
 </script>

@@ -86,12 +86,13 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		parent::init();
 		parent::setMedia();
 		$base_url = Tools::getCurrentUrlProtocolPrefix().Tools::getShopDomainSsl().__PS_BASE_URI__;
-		$this->addJS($base_url.'modules/yousticeresolutionsystem/public/js/yrs_report_claims.js');
+		$this->addJS($base_url.'modules/yousticeresolutionsystem/js/yrs_report_claims.js');
 		parent::initHeader();
 		parent::initContent();
 		parent::initFooter();
 
 		$this->display();
+		exit;
 	}
 
 	# ajax call

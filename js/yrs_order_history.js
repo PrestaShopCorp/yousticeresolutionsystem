@@ -47,15 +47,16 @@ jQuery(function($) {
     if (window.location != window.parent.location) {
 	return;
     }
-
+    
+    //load fancybox if is not present
+    if(!jQuery.fn.fancybox) {
+	$('body').append('<script type="text/javascript" src="'+baseDir+'modules/yousticeresolutionsystem/js/fancybox/jquery.fancybox.pack.js" />');
+	$('body').append('<link href="'+baseDir+'modules/yousticeresolutionsystem/css/jquery.fancybox.css" rel="stylesheet" type="text/css" media="all" />');
+    }
+    
     //show logoWidget
-    $('.yousticeShowLogoWidget').click(function() {
-	if ($('#yousticeLogoWidget').length)
-	    return;
-
-	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getLogoWidget', function(data) {
-	    $('body').append(data);
-	});
+    $.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getLogoWidget', function(data) {
+	$('body').append(data);
     });
 
     if ($('body').attr('id') !== 'history') {

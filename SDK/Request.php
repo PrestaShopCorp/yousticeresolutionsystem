@@ -56,7 +56,7 @@ class YousticeRequest {
 		if ($this->response === false || $this->response === null)
 			throw new YousticeFailedRemoteConnectionException('Post Request failed: '.$url);
 
-		if (strpos($this->response, 'Invalid api key') !== false || strpos($this->response, 'Invalid api key') !== false)
+		if (strpos($this->response, 'Invalid api key') !== false)
 			throw new YousticeInvalidApiKeyException;
 
 		return $this->response;
@@ -70,7 +70,7 @@ class YousticeRequest {
 		if ($this->response === false || $this->response === null)
 			throw new YousticeFailedRemoteConnectionException('get Request failed: '.$url);
 
-		if (strpos($this->response, 'Invalid api key') !== false || strpos($this->response, 'Invalid api key') !== false)
+		if (strpos($this->response, 'Invalid api key') !== false)
 			throw new YousticeInvalidApiKeyException;
 
 		return $this->response;
@@ -81,7 +81,7 @@ class YousticeRequest {
 		$request = stream_context_create(array(
 			'http' => array(
 				'method' => 'GET',
-				'ignore_errors' => true,
+				'ignore_errors' => false,
 				'timeout' => 30.0,
 				'header' => "Content-Type: application/json\r\n".'Accept-Language: '.$this->lang."\r\n",
 			)
@@ -97,7 +97,7 @@ class YousticeRequest {
 		$request = stream_context_create(array(
 			'http' => array(
 				'method' => 'POST',
-				'ignore_errors' => true,
+				'ignore_errors' => false,
 				'timeout' => 30.0,
 				'content' => Tools::jsonEncode($data),
 				'header' => "Content-Type: application/json\r\n".'Accept-Language: '.$this->lang."\r\n",
