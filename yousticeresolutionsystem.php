@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.6.4';
+		$this->version                = '1.6.6';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -64,13 +64,6 @@ class YousticeResolutionSystem extends Module
 		$this->context->controller->addCSS($this->_path.'css/youstice.css', 'all');
 		$this->context->controller->addCSS($this->_path.'css/youstice_prestashop.css', 'all');
 		$this->context->controller->addJS($this->_path.'js/yrs_order_history.js');
-
-		//add fancybox (to 1.5 only)
-		if (version_compare(_PS_VERSION_, '1.6.0') <= 0)
-		{
-			$this->context->controller->addCSS($this->_path.'css/jquery.fancybox.css', 'all');
-			$this->context->controller->addJS($this->_path.'js/fancybox/jquery.fancybox.pack.js');
-		}
 
 		if (Tools::getValue('section') == 'getReportClaimsPage')
 			return $this->addReportClaimsPageMetaTags();
@@ -159,7 +152,7 @@ class YousticeResolutionSystem extends Module
 
 		$this->y_api->setApiKey($api_key, $use_sandbox);
 		$this->y_api->runWithoutUpdates();
-		
+
 		$result = false;
 
 		try {
@@ -197,8 +190,8 @@ class YousticeResolutionSystem extends Module
 
 		return parent::install() &&
 			$this->registerHook('header') &&
-			$this->registerHook('footer') &&
 			$this->registerHook('orderDetail') &&
+			Configuration::updateValue('YRS_SANDBOX', '0') &&
 			Configuration::updateValue('YRS_ITEM_TYPE', 'product') &&
 			Configuration::updateValue('YRS_API_KEY', '');
 	}
@@ -208,6 +201,7 @@ class YousticeResolutionSystem extends Module
 		$this->y_api->uninstall();
 
 		if (!parent::uninstall() ||
+				!Configuration::deleteByName('YRS_SANDBOX') ||
 				!Configuration::deleteByName('YRS_ITEM_TYPE') ||
 				!Configuration::deleteByName('YRS_API_KEY'))
 			return false;

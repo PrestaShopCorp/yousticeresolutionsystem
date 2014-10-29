@@ -127,7 +127,7 @@
             </a>
             <span>{l s='It is also possible to report a problem with a specific item within an order.'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
         </p>
-        <div style="clear:both;width:100%"></div>
+        <div class="yBlock howItWorks clear"></div>
     </div>
 
     <div class="yBlock screenshots">
@@ -142,7 +142,7 @@
         <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_3.jpg" target="_blank" rel="screenshotRemote">
             <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_3.jpg">
         </a>
-        <div style="width:100%;display: inline-block"></div>
+        <div class="yBlock screenshots inblock"></div>
     </div>
 </form>
 
@@ -216,7 +216,7 @@
         });
 
     {if strlen(trim($api_key))}
-        $('label[for="haveAccountYes"').click();
+        $('#haveAccountYes').click();
     {/if}
 
     });
