@@ -205,6 +205,11 @@
     margin: 0 0 0 50px;
 }
 
+.yContainer .yBlock.howItWorks.clear {
+        clear:both;
+        width:100%;
+}
+
 .yContainer .yBlock.screenshots {
     text-align: justify;
     margin-top: 20px;
@@ -220,6 +225,12 @@
 
 .yContainer .yBlock.screenshots a img {
     width: 350px;
+}
+
+.yContainer .YBlock.screenshots.inblock {
+        width:100%;
+        display: inline-block;
+
 }
 
 .yContainer .yConfiguration {
