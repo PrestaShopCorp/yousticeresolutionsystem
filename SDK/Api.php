@@ -16,19 +16,19 @@ class YousticeApi {
 
 	/**
 	 * Because updateData function is called every request, update only every 10 minutes
-	 * @var int 
+	 * @var int
 	 */
 	protected $update_interval = 600;
 
 	/**
 	 * When setOftenUpdates was called, next 5 minutes updates occurs
-	 * @var int 
+	 * @var int
 	 */
 	protected $often_update_interval = 300;
 
 	/**
 	 *
-	 * @var SessionProviderInterface 
+	 * @var SessionProviderInterface
 	 */
 	protected $session;
 
@@ -40,39 +40,45 @@ class YousticeApi {
 
 	/**
 	 * ISO 639-1 char code "en|sk|cz|es"
-	 * @var string 
+	 * @var string
 	 */
 	protected $language;
 
 	/**
 	 * string from youstice service
-	 * @var string 
+	 * @var string
 	 */
 	protected $api_key;
 
 	/**
 	 * product|service
-	 * @var string 
+	 * @var string
 	 */
 	protected $shop_sells;
 
 	/**
 	 * unique integer identifier
-	 * @var type 
+	 * @var type
 	 */
 	protected $user_id;
 
 	/**
 	 * true for testing environment
-	 * @var boolean 
+	 * @var boolean
 	 */
 	protected $use_sandbox;
 
 	/**
 	 * prestashop|magento|ownSoftware
-	 * @var string 
+	 * @var string
 	 */
 	protected $shop_software_type;
+
+	/**
+	 * e.g. 1.9.4.2
+	 * @var string
+	 */
+	protected $shop_software_version;
 
 	/**
 	 *
@@ -83,12 +89,13 @@ class YousticeApi {
 	 * @param integer $user_id unique integer for user
 	 * @param boolean $use_sandbox true if testing implementation
 	 * @param string $shop_software_type prestashop|magento|ownSoftware
+	 * @param string $shop_software_version e.g. 1.9.4.2
 	 * @return YousticeApi
 	 */
 	public static function create(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
-			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '')
 	{
-		return new self($db_credentials, $language, $api_key, $shop_sells, $user_id, $use_sandbox, $shop_software_type);
+		return new self($db_credentials, $language, $api_key, $shop_sells, $user_id, $use_sandbox, $shop_software_type, $shop_software_version);
 	}
 
 	/**
@@ -100,10 +107,11 @@ class YousticeApi {
 	 * @param integer $user_id unique integer for user
 	 * @param boolean $use_sandbox true if testing implementation
 	 * @param string $shop_software_type prestashop|magento|ownSoftware
+	 * @param string $shop_software_version e.g. 1.9.4.2
 	 * @return YousticeApi
 	 */
 	public function __construct(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
-			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '')
 	{
 		$this->registerAutoloader();
 
@@ -112,7 +120,7 @@ class YousticeApi {
 		$this->setUserId($user_id);
 		$this->setApiKey($api_key, $use_sandbox);
 		$this->setThisShopSells($shop_sells);
-		$this->setShopSoftwareType($shop_software_type);
+		$this->setShopSoftwareType($shop_software_type, $shop_software_version);
 
 		return $this;
 	}
@@ -123,9 +131,7 @@ class YousticeApi {
 	 */
 	public function run()
 	{
-		$this->checkShopSells();
-
-		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type);
+		$this->runWithoutUpdates();
 
 		$this->updateData();
 
@@ -140,7 +146,7 @@ class YousticeApi {
 	{
 		$this->checkShopSells();
 
-		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type);
+		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type, $this->shop_software_version);
 
 		return $this;
 	}
@@ -577,7 +583,7 @@ class YousticeApi {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param YousticeProvidersSessionProviderInterface $session
 	 * @return YousticeApi
 	 */
@@ -593,7 +599,7 @@ class YousticeApi {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param YousticeLocalInterface $local
 	 * @return YousticeApi
 	 */
@@ -614,7 +620,7 @@ class YousticeApi {
 	 * @throws InvalidArgumentException
 	 */
 	public function setLanguage($lang = null)
-	{		
+	{
 		$this->language = $lang;
 		return $this;
 	}
@@ -635,7 +641,7 @@ class YousticeApi {
 
 		return $this;
 	}
-	
+
 	public function checkApiKey()
 	{
 		return $this->remote->checkApiKey();
@@ -671,12 +677,16 @@ class YousticeApi {
 	/**
 	 * Set on which software is eshop running
 	 * @param string $shop_type "prestashop|magento|ownSoftware"
+	 * @param string $shop_version full version string
 	 * @return YousticeApi
 	 */
-	public function setShopSoftwareType($shop_type)
+	public function setShopSoftwareType($shop_type, $shop_version = '')
 	{
 		if (Tools::strlen($shop_type))
 			$this->shop_software_type = $shop_type;
+
+		if (Tools::strlen($shop_version))
+			$this->shop_software_version = $shop_version;
 
 		return $this;
 	}

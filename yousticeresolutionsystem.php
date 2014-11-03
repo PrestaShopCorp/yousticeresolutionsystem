@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.6.6';
+		$this->version                = '1.6.7';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -48,7 +48,7 @@ class YousticeResolutionSystem extends Module
 
 		$this->y_api->setDbCredentials($db);
 		$this->y_api->setLanguage($this->context->language->iso_code);
-		$this->y_api->setShopSoftwareType('prestashop');
+		$this->y_api->setShopSoftwareType('prestashop', _PS_VERSION_);
 		$this->y_api->setThisShopSells(Configuration::get('YRS_ITEM_TYPE'));
 		$this->y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 		$this->y_api->setSession(new YousticeProvidersSessionPrestashopProvider());
