@@ -39,7 +39,7 @@ class YousticeRemote extends YousticeRequest {
 	public function getLogoWidgetData($updates_count, $claim_url = '', $is_logged_in = false)
 	{
 		$this->setAdditionalParam('numberOfUpdates', $updates_count);
-		$this->setAdditionalParam('claimUrl', urlencode($claim_url));
+		$this->setAdditionalParam('claimUrl', $claim_url);
 		$this->setAdditionalParam('isLoggedIn', $is_logged_in);
 
 		$this->get('Api/logo');
