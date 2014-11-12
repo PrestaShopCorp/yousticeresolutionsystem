@@ -39,9 +39,11 @@ class YousticeRequest {
 
 		if (count($this->additional_params))
 		{
-			foreach ($this->additional_params as $key => $val)
-				$return_url .= "&$key=$val";
-
+			foreach ($this->additional_params as $key => $val) {
+				$return_url .= '&' . urlencode($key) . '=' . urlencode($val);
+			}
+			
+			//reset params for next calls
 			$this->additional_params = array();
 		}
 

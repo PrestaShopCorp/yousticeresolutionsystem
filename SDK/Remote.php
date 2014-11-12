@@ -20,24 +20,26 @@ class YousticeRemote extends YousticeRequest {
 	protected $lang;
 	protected $shop_sells;
 	protected $shop_software_type;
+	protected $shop_software_version;
 
-	public function __construct($api_key, $use_sandbox, $lang, $shop_sells, $shop_software_type)
+	public function __construct($api_key, $use_sandbox, $lang, $shop_sells, $shop_software_type, $shop_software_version = '')
 	{
 		$this->api_key = $api_key;
 		$this->use_sandbox = $use_sandbox;
 		$this->lang = $lang;
 		$this->shop_sells = $shop_sells;
 		$this->shop_software_type = $shop_software_type;
+		$this->shop_software_version = $shop_software_version;
 	}
 
 	/**
 	 *
 	 * @return string html
 	 */
-	public function getLogoWidgetData($updates_count, $claims_url = '', $is_logged_in = false)
+	public function getLogoWidgetData($updates_count, $claim_url = '', $is_logged_in = false)
 	{
 		$this->setAdditionalParam('numberOfUpdates', $updates_count);
-		$this->setAdditionalParam('claimsUrl', $claims_url);
+		$this->setAdditionalParam('claimUrl', $claim_url);
 		$this->setAdditionalParam('isLoggedIn', $is_logged_in);
 
 		$this->get('Api/logo');
@@ -126,11 +128,12 @@ class YousticeRemote extends YousticeRequest {
 	public function checkApiKey()
 	{
 		$request_data = array(
-			'shopType' => $this->shop_software_type
+			'platform' => $this->shop_software_type,
+			'version' => $this->shop_software_version
 		);
 		
 		$this->post('Api/auth', $request_data);
-		
+
 		$response = $this->responseToArray();
 
 		return $response && $response['result'] == 'true';
