@@ -75,6 +75,12 @@ class YousticeApi {
 	protected $shop_software_type;
 
 	/**
+	 * e.g. 1.9.4.2
+	 * @var string 
+	 */
+	protected $shop_software_version;
+
+	/**
 	 *
 	 * @param array $db_credentials associative array for PDO connection with must fields: driver, host, name, user, pass
 	 * @param string $language ISO 639-1 char code "en|sk|cz|es"
@@ -86,9 +92,9 @@ class YousticeApi {
 	 * @return YousticeApi
 	 */
 	public static function create(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
-			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '')
 	{
-		return new self($db_credentials, $language, $api_key, $shop_sells, $user_id, $use_sandbox, $shop_software_type);
+		return new self($db_credentials, $language, $api_key, $shop_sells, $user_id, $use_sandbox, $shop_software_type, $shop_software_version);
 	}
 
 	/**
@@ -103,7 +109,7 @@ class YousticeApi {
 	 * @return YousticeApi
 	 */
 	public function __construct(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
-			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom')
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '')
 	{
 		$this->registerAutoloader();
 
@@ -112,7 +118,7 @@ class YousticeApi {
 		$this->setUserId($user_id);
 		$this->setApiKey($api_key, $use_sandbox);
 		$this->setThisShopSells($shop_sells);
-		$this->setShopSoftwareType($shop_software_type);
+		$this->setShopSoftwareType($shop_software_type, $shop_software_version);
 
 		return $this;
 	}
@@ -123,9 +129,7 @@ class YousticeApi {
 	 */
 	public function run()
 	{
-		$this->checkShopSells();
-
-		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type);
+		$this->runWithoutUpdates();
 
 		$this->updateData();
 
@@ -140,7 +144,7 @@ class YousticeApi {
 	{
 		$this->checkShopSells();
 
-		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type);
+		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type, $this->shop_software_version);
 
 		return $this;
 	}
@@ -671,12 +675,16 @@ class YousticeApi {
 	/**
 	 * Set on which software is eshop running
 	 * @param string $shop_type "prestashop|magento|ownSoftware"
+	 * @param string $shop_version full version string
 	 * @return YousticeApi
 	 */
-	public function setShopSoftwareType($shop_type)
+	public function setShopSoftwareType($shop_type, $shop_version = '')
 	{
 		if (Tools::strlen($shop_type))
 			$this->shop_software_type = $shop_type;
+
+		if (Tools::strlen($shop_version))
+			$this->shop_software_version = $shop_version;
 
 		return $this;
 	}

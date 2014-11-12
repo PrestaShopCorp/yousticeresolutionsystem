@@ -2,6 +2,8 @@
     max-width: 960px;
     margin: 0 auto;
     display: block;
+    background: #fff;
+    padding: 20px;
 }
 
 .yContainer label {
@@ -10,7 +12,7 @@
 }
 
 .yContainer a {
-    color: #1f4e79;
+    color: #3668c9;
     text-decoration: underline;
 }
 
@@ -32,7 +34,17 @@
 }
 
 .yContainer p {
-    font-size: 1.1em;        
+    font-size: 1.1em;
+}
+
+.yContainer p.empty {
+    margin: 0;
+    padding: 0;
+}
+
+.yContainer p:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .yContainer .logoLeft {
@@ -42,33 +54,49 @@
 }
 
 .yContainer .logoLeft p {
-    padding: 14px 0 0 12px;
+    padding: 0 0 0 12px;
 }
 
 .yContainer .logoRight {
     float: right;
-    margin-bottom: 2px;
+    margin-bottom: 20px;
 }
 
 .yContainer .logoRight a {
-    float: right;
+	display: block;
     margin-top: 16px;
-    padding: 6px 32px;
+    padding: 6px 22px;
     -webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.76);
     -moz-box-shadow:    0px 0px 10px 0px rgba(50, 50, 50, 0.76);
     box-shadow:         0px 0px 10px 0px rgba(50, 50, 50, 0.76);
+    font-weight: normal;
 }
 
 .yContainer .logoRight a span {
     display: block;
+    padding-top: 4px;
+    color: #585A69;
+}
+
+.yContainer .logoRight a span:first-child {
+    color: #7d277d;
+    font-weight: bold;
+    display: block;
+    padding: 0;
+}
+
+.yContainer .logoRight a span.anchor {
+    display: block;
     clear: left;
     font-weight: normal;
-    padding-top: 4px;        
-    color: #268CCD;
+    color: #3668c9;
     text-decoration: underline;
 }
 
 .yContainer hr {
+    width: calc(100% + 20px);
+    position: relative;
+    left: -10px;
     display: block;
     clear: both;
     height: 0;
@@ -173,6 +201,8 @@
 
 .yContainer .yBlock.howItWorks {
     height: 512px;
+    padding: 0;
+    margin-bottom: 50px;
 }
 
 .yContainer .yBlock.howItWorks p {
@@ -182,17 +212,21 @@
 }
 
 .yContainer .yBlock.howItWorks p + p {
-    top: -80px;
+    top: -53px;
 }
 
 .yContainer .yBlock.howItWorks p + p + p {
-    top: -260px;
+    top: -230px;
 }
 
-.yContainer .yBlock.howItWorks p img {    
+.yContainer .yBlock.howItWorks p img {
     width: 40%;
     margin-right: 50px;
     float: left;
+}
+
+.yContainer .yBlock.howItWorks p a {
+    padding: 0;
 }
 
 .yContainer .yBlock.howItWorks p span {
@@ -200,14 +234,13 @@
     display: block;
 }
 
+.yContainer .yBlock.howItWorks p:first-of-type span {
+    margin: 55px 0 72px;
+}
+
 .yContainer .yBlock.howItWorks p.right img {
     float: right;
     margin: 0 0 0 50px;
-}
-
-.yContainer .yBlock.howItWorks.clear {
-        clear:both;
-        width:100%;
 }
 
 .yContainer .yBlock.screenshots {
@@ -225,12 +258,6 @@
 
 .yContainer .yBlock.screenshots a img {
     width: 350px;
-}
-
-.yContainer .YBlock.screenshots.inblock {
-        width:100%;
-        display: inline-block;
-
 }
 
 .yContainer .yConfiguration {
@@ -269,12 +296,13 @@
     display: block;
     width: auto;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 .yContainer .yConfiguration input#reportClaimsPageLink {
     display: block;
     width: 72%;
-    margin-top: 20px;
+    margin-top: 15px;
     text-align: center;
     float: left;
 }
@@ -299,3 +327,9 @@
     border-radius: 6px;
 }
 
+
+.clear {
+    width: 100%;
+    display: block;
+    clear: both;
+}
