@@ -28,14 +28,14 @@
         <p>{l s='Resolve customer complaints in a few clicks.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
     </div>
     <div class="logoRight">
-		<a href="http://www.youstice.com/?utm_source=eshop&utm_medium=cpc&utm_content=presta_weblink&utm_campaign=plugins" class="roundedAnchor" target="_blank">
+		<a href="http://www.youstice.com/?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_weblink&amp;utm_campaign=plugins" class="roundedAnchor" target="_blank">
 			<span>{l s='For more information'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
 			<span>{l s='about Youstice visit'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
 			<span class="anchor">www.youstice.com</span>
 		</a>
-        <a href="http://support.youstice.com/?utm_source=eshop&utm_medium=cpc&utm_content=presta_weblink&utm_campaign=plugins" class="roundedAnchor" target="_blank">
+        <a href="http://support.youstice.com/?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_weblink&amp;utm_campaign=plugins" class="roundedAnchor" target="_blank">
             <span>{l s='Need some help?'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
-            <span>{l s='Our support team is here for you.'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
+            <span>{l s='Our support team is here for you'|escape:'htmlall' mod='yousticeresolutionsystem'}.</span>
             <span class="anchor">support.youstice.com</span>
         </a>
     </div>
@@ -54,7 +54,7 @@
     <div class="yBlock stopScathingReviews">
         <hr>
         <h2>{l s='Stop scathing reviews'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
-        <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+        <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
         <div class="left">
             <h3>{l s='Stop scathing reviews. Handle customer complaints fast and right.'|escape:'htmlall' mod='yousticeresolutionsystem'}</h3>
             <p>{l s='It’s a storeowner’s worst nightmare.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
@@ -70,7 +70,7 @@
             <img src="//www.youstice.com/images/yousticeimg/screenshots/laptop_with_coffee.jpg">
         </div>
         <div class="clear"></div>
-        <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+        <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
     </div>
 
     <div class="yConfiguration">
@@ -86,7 +86,7 @@
         <div class="row onSandbox">
             <p>
                 {l s='For testing purposes use our Sandbox environment. Please keep in mind that there are different API keys for Sandbox and Live environments. To start using Sandbox and get the matching API key you need to'|escape:'htmlall' mod='yousticeresolutionsystem'}
-                <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins" target="_blank">{l s='register specifically for Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}.</a>
+                <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins" target="_blank">{l s='register specifically for Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}.</a>
             </p>
         </div>
         <div class="row">
@@ -100,15 +100,15 @@
         </div>
         <p>
             {l s='Your API key can be found in Youstice application. Log in to Youstice'|escape:'htmlall' mod='yousticeresolutionsystem'}
-            (<a href="https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins" target="_blank">{l s='Live'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+            (<a href="https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins" target="_blank">{l s='Live'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
             {l s='or'|escape:'htmlall' mod='yousticeresolutionsystem'}
-            <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins" target="_blank">{l s='Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>),
+            <a href="https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins" target="_blank">{l s='Sandbox'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>),
             {l s='go to menu SHOPS, click on your shop and see API key on the bottom of the page.'|escape:'htmlall' mod='yousticeresolutionsystem'}
         </p>
         <p class="empty">&nbsp;</p>
         <p>
             <b>{l s='Need some help?'|escape:'htmlall' mod='yousticeresolutionsystem'}</b><br />
-            {l s='Our support team is here for you:'|escape:'htmlall' mod='yousticeresolutionsystem'} <a href="//support.youstice.com/?utm_source=eshop&utm_medium=cpc&utm_content=presta_weblink&utm_campaign=plugins" target="_blank">http://support.youstice.com</a>
+            {l s='Our support team is here for you'|escape:'htmlall' mod='yousticeresolutionsystem'}: <a href="http://support.youstice.com/?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_weblink&amp;utm_campaign=plugins" target="_blank">support.youstice.com</a>
         </p>
     </div>
 
@@ -148,13 +148,13 @@
     <div class="yBlock screenshots">
         <hr>
         <h2>{l s='Screenshots'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
-        <a href="http://www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_1.jpg" target="_blank" rel="screenshotRemote">
+        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_1.jpg" target="_blank" rel="screenshotRemote">
             <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_1.jpg">
         </a>
-        <a href="http://www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_2.jpg" targer="_blank" rel="screenshotRemote">
+        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_2.jpg" targer="_blank" rel="screenshotRemote">
             <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_2.jpg">
         </a>
-        <a href="http://www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_3.jpg" target="_blank" rel="screenshotRemote">
+        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_3.jpg" target="_blank" rel="screenshotRemote">
             <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_3.jpg">
         </a>
         <div class="clear"></div>
