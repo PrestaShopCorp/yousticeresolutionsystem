@@ -186,8 +186,8 @@
 
         $('#yGetApiKey').click(function(e) {
             e.preventDefault();
-            var sandUrl = 'https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins';
-            var liveUrl = 'https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins';
+            var sandUrl = 'https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
+            var liveUrl = 'https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
             var win;
 
             if ($('#useSandbox').val() == 1) {
