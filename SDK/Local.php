@@ -17,6 +17,7 @@ class YousticeLocal implements YousticeLocalInterface {
 	private $table_prefix;
 	private $db_driver;
 	private $session;
+	private $cached = array();
 
 	/**
 	 * Initialize connection
@@ -110,16 +111,8 @@ class YousticeLocal implements YousticeLocalInterface {
 	public function getWebReport($user_id)
 	{
 		$code = 'WEB_REPORT__'.$user_id;
-
-		$query_count = 'SELECT count(1) count FROM '.$this->table_prefix.'yrs_reports WHERE code LIKE ?';
-		$result_count = $this->executeQueryFetch($query_count, array($code.'%'));
-
-		//add count to claim's code
-		$code .= '__'.$result_count['count'];
-
-		$query = 'SELECT * FROM '.$this->table_prefix.'yrs_reports WHERE code = ?';
-
-		$result = $this->executeQueryFetch($query, array($code));
+		
+		$result = $this->getReport($code.'__%');
 
 		return new YousticeReportsWebReport($result);
 	}
@@ -130,31 +123,15 @@ class YousticeLocal implements YousticeLocalInterface {
 
 		if (isset($order_code))
 			$code = $order_code.'__'.$product_id;
-
-		$query_count = 'SELECT count(1) count FROM '.$this->table_prefix.'yrs_reports WHERE code LIKE ?';
-		$result_count = $this->executeQueryFetch($query_count, array($code.'__%'));
-
-		//add count to claim's code
-		$code .= '__'.$result_count['count'];
-
-		$query = 'SELECT * FROM '.$this->table_prefix.'yrs_reports WHERE code = ?';
-
-		$result = $this->executeQueryFetch($query, array($code));
+		
+		$result = $this->getReport($code.'__%');
 
 		return new YousticeReportsProductReport($result);
 	}
 
 	public function getOrderReport($order_code, $product_codes = array())
 	{
-		$query_count = $this->prepareRegexpQuery('SELECT count(1) count FROM '.$this->table_prefix.'yrs_reports WHERE code REGEXP ?');
-		$result_count = $this->executeQueryFetch($query_count, array('^'.$order_code.'__[0-9]*$'));
-
-		//add count to claim's code
-		$order_code .= '__'.$result_count['count'];
-
-		$query = 'SELECT * FROM '.$this->table_prefix.'yrs_reports WHERE code = ?';
-
-		$result = $this->executeQueryFetch($query, array($order_code));
+		$result = $this->getReport('^'.$order_code.'__[0-9]*$', true);
 
 		if (count($product_codes))
 		{
@@ -170,6 +147,26 @@ class YousticeLocal implements YousticeLocalInterface {
 
 		return new YousticeReportsOrderReport($result);
 	}
+	
+	protected function getReport($searchValue, $useRegexp = false) {
+		if(isset($this->cached[$searchValue]))
+			return $this->cached[$searchValue];
+
+		$searchBy = $useRegexp ? "REGEXP" : "LIKE";
+		
+		//try to find filled report
+		$query_filled = 'SELECT * FROM '.$this->table_prefix.'yrs_reports WHERE code '.$searchBy.' ? AND status IS NOT NULL ORDER BY created_at DESC, code DESC LIMIT 1';
+		$query_res = $this->executeQueryFetch($query_filled, array($searchValue));
+
+		//otherwise select last
+		if(!$query_res) {
+			$query_last = 'SELECT * FROM '.$this->table_prefix.'yrs_reports WHERE code '.$searchBy.' ? ORDER BY created_at DESC, code DESC LIMIT 1';
+			
+			$query_res = $this->executeQueryFetch($query_last, array($searchValue));
+		}
+		
+		return $this->cached[$searchValue] = $query_res;
+	}
 
 	public function createWebReport($user_id)
 	{
@@ -178,17 +175,25 @@ class YousticeLocal implements YousticeLocalInterface {
 
 	public function createReport($code, $user_id, $remaining_time = 0)
 	{
+		$this->connection->beginTransaction();
+		$this->lockTable();
+		
 		$query_count = $this->prepareRegexpQuery('SELECT count(1) count FROM '.$this->table_prefix.'yrs_reports WHERE code REGEXP ?');
 		$result_count = $this->executeQueryFetch($query_count, array('^'.$code.'__[0-9]*$'));
 
 		$code .= '__'.($result_count['count'] + 1);
 
 		$stmt = $this->connection->prepare('INSERT INTO '.$this->table_prefix.'yrs_reports 
-				(code, user_id, status, remaining_time, created_at, updated_at) VALUES (?, ?, null, ?, ?, ?)');
+				(code, user_id, status, remaining_time, created_at, updated_at) VALUES (?, ?, null, ?, NOW(), NOW())');
 
 		try {
-			$stmt->execute(array($code, $user_id, $remaining_time, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')));
+			$stmt->execute(array($code, $user_id, $remaining_time));
+			
+			$this->unlockTable();
+			$this->connection->commit();
 		} catch (PDOException $e) {
+			$this->connection->rollBack();
+			
 			if ((int)$e->getCode() === 23000)
 				throw new Exception('Report with code '.$code.' already exists');
 			else
@@ -203,9 +208,9 @@ class YousticeLocal implements YousticeLocalInterface {
 		if (!trim($status))
 			return;
 
-		$stmt = $this->connection->prepare('UPDATE '.$this->table_prefix.'yrs_reports SET status = ?, updated_at = ? WHERE code = ?');
+		$stmt = $this->connection->prepare('UPDATE '.$this->table_prefix.'yrs_reports SET status = ?, updated_at = NOW() WHERE code = ?');
 
-		return $stmt->execute(array($status, date('Y-m-d H:i:s'), $code));
+		return $stmt->execute(array($status, $code));
 	}
 
 	public function updateReportRemainingTime($code, $time)
@@ -213,9 +218,9 @@ class YousticeLocal implements YousticeLocalInterface {
 		if ((int)$time < 0 || $time == null)
 			return;
 
-		$stmt = $this->connection->prepare('UPDATE '.$this->table_prefix.'yrs_reports SET remaining_time = ?, updated_at = ? WHERE code = ?');
+		$stmt = $this->connection->prepare('UPDATE '.$this->table_prefix.'yrs_reports SET remaining_time = ?, updated_at = NOW() WHERE code = ?');
 
-		return $stmt->execute(array($time, date('Y-m-d H:i:s'), $code));
+		return $stmt->execute(array($time, $code));
 	}
 
 	public function getReportsByUser($user_id)
@@ -236,10 +241,28 @@ class YousticeLocal implements YousticeLocalInterface {
 	
 	protected function prepareRegexpQuery($query = '')
 	{
-		if($this->db_driver === 'pgsql')
+		if ($this->db_driver === 'pgsql')
 			$query = str_replace('REGEXP', '~', $query);
 		
 		return $query;
+	}
+	
+	protected function lockTable()
+	{
+		if ($this->db_driver == 'pgsql')
+		{
+			$this->connection->exec('LOCK TABLE '.$this->table_prefix.'yrs_reports IN ACCESS EXCLUSIVE MODE');
+		}
+		else
+		{
+			$this->connection->exec('LOCK TABLES '.$this->table_prefix.'yrs_reports WRITE');
+		}
+	}
+	
+	protected function unlockTable()
+	{
+		if($this->db_driver !== 'pgsql')
+			$this->connection->exec('UNLOCK TABLES');
 	}
 
 	public function install()
