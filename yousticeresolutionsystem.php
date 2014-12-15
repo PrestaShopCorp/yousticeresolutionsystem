@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.7.3';
+		$this->version                = '1.7.5';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -89,42 +89,30 @@ class YousticeResolutionSystem extends Module
 
 	public function getContent()
 	{
-		$output = null;
+		$output = '';
 
 		//ajax
 		if (Tools::isSubmit('checkForApiKey'.$this->name))
 		{
 			$result = $this->checkForApiKey(Tools::getValue('api_key'), Tools::getValue('use_sandbox'));
+
+			if($result == true)
+			{
+				$this->saveForm();
+			}
+			
 			$response = Tools::jsonEncode(array('result' => $result));
 			exit($response);
 		}
-
-		if (Tools::isSubmit('save'.$this->name))
-		{
-			$yrs_sandbox = (string)Tools::getValue('use_sandbox');
-
-			$yrs_apikey = (string)Tools::getValue('api_key');
-			if (!$yrs_apikey || empty($yrs_apikey) || !Validate::isGenericName($yrs_apikey) || !$this->checkForApiKey($yrs_apikey, $yrs_sandbox))
-				$output .= $this->displayError( $this->l('Invalid API KEY') );
-			else
-			{
-				Configuration::updateValue('YRS_API_KEY', $yrs_apikey);
-				$output .= $this->displayConfirmation($this->l('Settings were saved successfully.'));
-			}
-
-			if (!in_array($yrs_sandbox, array(0,1)))
-				$output .= $this->displayError( $this->l('Invalid Configuration value') );
-			else
-				Configuration::updateValue('YRS_SANDBOX', $yrs_sandbox);
-
-			//Tools::redirectAdmin(AdminController::$currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules'));
-		}
+		
+		$output .= $this->displayErrorMessage();
+		$output .= $this->displayConfirmMessage();
 
 		$smarty = Context::getContext()->smarty;
 
 		$smarty->assign('saveHref', AdminController::$currentIndex.'&configure='.$this->name.'&save'.$this->name.
 				'&token='.Tools::getAdminTokenLite('AdminModules'));
-		$smarty->assign('checkForApiKeyHref', AdminController::$currentIndex.'&configure='.$this->name.'&checkForApiKey'.$this->name.
+		$smarty->assign('checkApiKeyUrl', AdminController::$currentIndex.'&configure='.$this->name.'&checkForApiKey'.$this->name.
 				'&token='.Tools::getAdminTokenLite('AdminModules'));
 		$smarty->assign('api_key', Configuration::get('YRS_API_KEY'));
 		$smarty->assign('use_sandbox', Configuration::get('YRS_SANDBOX'));
@@ -137,6 +125,56 @@ class YousticeResolutionSystem extends Module
 		$output .= $smarty->fetch(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/main.tpl');
 
 		return $output;
+	}
+	
+	protected function saveForm()
+	{
+		$output = '';
+		$yrs_sandbox = (string) Tools::getValue('use_sandbox');
+
+		$yrs_apikey = (string) Tools::getValue('api_key');
+		if (!$yrs_apikey || empty($yrs_apikey) || !Validate::isGenericName($yrs_apikey))
+			$this->saveErrorMessage($this->l('Invalid API KEY'));
+		else
+		{
+			Configuration::updateValue('YRS_API_KEY', $yrs_apikey);
+			$this->saveConfirmMessage($this->l('Settings were saved successfully.'));
+		}
+
+		if (!in_array($yrs_sandbox, array(0, 1)))
+			$this->saveErrorMessage($this->l('Invalid Configuration value'));
+		else
+			Configuration::updateValue('YRS_SANDBOX', $yrs_sandbox);
+
+		//Tools::redirectAdmin(AdminController::$currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules'));
+		
+		return $output;
+	}
+	
+	protected function saveErrorMessage($string)
+	{
+		$this->context->cookie->yAdminError = $string;
+	}
+	
+	protected function saveConfirmMessage($string)
+	{
+		$this->context->cookie->yAdminConfirm = $string;
+	}
+	
+	public function displayErrorMessage()
+	{
+		if($this->context->cookie->yAdminError)
+		{
+			return parent::displayError($this->context->cookie->yAdminError);
+		}
+	}
+	
+	public function displayConfirmMessage()
+	{
+		if($this->context->cookie->yAdminConfirm)
+		{
+			return parent::displayConfirmation($this->context->cookie->yAdminConfirm);
+		}
 	}
 
 	protected function getReportClaimsPageLink()
@@ -159,7 +197,7 @@ class YousticeResolutionSystem extends Module
 			$result = $this->y_api->checkApiKey();
 		}
 		catch(Exception $e) {
-			return false;
+			return 'fail';
 		}
 
 		return $result;

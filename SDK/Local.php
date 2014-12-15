@@ -50,6 +50,14 @@ class YousticeLocal implements YousticeLocalInterface {
 
 		if ($db['driver'] == 'mysqli')
 			$db['driver'] = 'mysql';
+		
+		//host can be socket, check first param of mysql_connect
+		if(isset($db['host']) && $db['host'][0] == ':')
+		{
+			$db['socket'] = $db['host'];
+			$db['host'] = null;
+		}
+			
 
 		$connection_string = $db['driver'].':dbname='.$db['name'];
 		

@@ -534,10 +534,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 
 	protected function getOrderHistoryUrl()
 	{
-		if (version_compare(_PS_VERSION_, '1.6.0') >= 0)
-			return Tools::getShopDomainSsl(true).__PS_BASE_URI__.'order-history';
-		else
-			return Tools::getShopDomainSsl(true).__PS_BASE_URI__.'index.php?controller=history';
+		return $this->context->link->getPageLink('history');
 	}
 
 }
