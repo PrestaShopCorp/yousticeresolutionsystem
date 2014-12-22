@@ -23,7 +23,7 @@ class YousticeReportsBaseReport {
 
 	public function exists()
 	{
-		return $this->exists;
+		return $this->exists && $this->getStatus() !== null;
 	}
 
 	/**
@@ -34,11 +34,13 @@ class YousticeReportsBaseReport {
 	{
 		if (!$this->exists())
 			return true;
+		
+		$status = $this->getStatus();
 
-		if (Tools::strtolower($this->getStatus()) == 'terminated')
+		if (Tools::strtolower($status) == 'terminated')
 			return true;
 
-		if ($this->getStatus() == 'Problem reported')
+		if ($status == 'Problem reported')
 			return true;
 
 		return false;
@@ -49,7 +51,10 @@ class YousticeReportsBaseReport {
 		if (count($this->data) && isset($this->data['status']))
 			return $this->data['status'];
 
-		return 'Problem reported';
+		if(isset($this->data['created_at']) && strtotime($this->data['created_at']) + 600 > time())
+			return 'Problem reported';
+		
+		return null;
 	}
 
 	public function getRemainingTime()

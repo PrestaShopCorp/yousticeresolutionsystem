@@ -84,7 +84,7 @@ class YousticeRequest {
 			'http' => array(
 				'method' => 'GET',
 				'ignore_errors' => false,
-				'timeout' => 30.0,
+				'timeout' => 10.0,
 				'header' => "Content-Type: application/json\r\n".'Accept-Language: '.$this->lang."\r\n",
 			)
 		));
@@ -100,7 +100,7 @@ class YousticeRequest {
 			'http' => array(
 				'method' => 'POST',
 				'ignore_errors' => false,
-				'timeout' => 30.0,
+				'timeout' => 10.0,
 				'content' => Tools::jsonEncode($data),
 				'header' => "Content-Type: application/json\r\n".'Accept-Language: '.$this->lang."\r\n",
 			)
