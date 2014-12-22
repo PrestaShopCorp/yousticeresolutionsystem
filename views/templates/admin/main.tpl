@@ -162,89 +162,23 @@
 </form>
 
 <link href="{$modulePath|escape:'false'}css/admin.css" rel="stylesheet" type="text/css" media="all" />
+<script src="{$modulePath|escape:'false'}js/admin.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('input[name="have_account"]').change(function() {
-            changeBlocksVisibility($(this).val() == 1);
-        });
-
-        $('select#useSandbox').change(function() {
-            changeSandboxText();
-        });
-
-        function changeSandboxText() {
-            if ($('select#useSandbox').val() == 1) {
-                $('.row.onSandbox').show();
-            }
-            else {
-                $('.row.onSandbox').hide()
-            }
-        }
-        changeSandboxText();
-
-        changeBlocksVisibility($('input[name="have_account"]').val() == 1);
-
-        $('#yGetApiKey').click(function(e) {
-            e.preventDefault();
-            var sandUrl = 'https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
-            var liveUrl = 'https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
-            var win;
-
-            if ($('#useSandbox').val() == 1) {
-                win = window.open(sandUrl, '_blank');
-            }
-            else {
-                win = window.open(liveUrl, '_blank');
-            }
-
-            win.focus();
-        });
-
-        $('.yBlock.screenshots a[rel="screenshotRemote"]').fancybox();
-        $('.yBlock.howItWorks a[rel="screenshot"]').fancybox();
-
-        $('a.save').click(function(e) {
-            e.preventDefault();
-            var that = this;
+    var sandUrl = 'https://app-sand.youstice.com/blox-odr13/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
+    var liveUrl = 'https://app.youstice.com/blox-odr/generix/odr/{$currentLanguage|escape:'htmlall'}/app2/_shopConfiguration_?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
+    var checkApiKeyUrl = '{$checkApiKeyUrl|escape:'false'}';
+    var errorMessagesSelector = '.yConfiguration .error, .yConfiguration .bootstrap';
     {if $is1_5Version}
-            var errorHtml = '<div class="error">{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div>';
+        var invalidApiKeyHtml = '<div class="error">{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div>';
     {else}
-            var errorHtml = '<div class="bootstrap"><div class="module_error alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
-            errorHtml += '{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div></div>';
+        var invalidApiKeyHtml = '<div class="bootstrap"><div class="module_error alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
+        invalidApiKeyHtml += '{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div></div>';
     {/if}
-
-            $('.yConfiguration .error, .yConfiguration .bootstrap').remove();
-
-            $.post('{$checkForApiKeyHref|escape:'false'}',
-                    { 'api_key': $('#apiKey').val(), 'use_sandbox': $('#useSandbox').val()},
-            function(response) {
-                if (response.result !== true) {
-                    $('.roundedAnchor.save').after(errorHtml);
-
-                    $('html, body').animate({
-                        scrollTop: $(".yConfiguration").first().offset().top
-                    }, 2000);
-                }
-                else {
-                    $(that).parents('form').submit();
-                }
-            }, 'json');
-        });
-
-    {if strlen(trim($api_key))}
-        $('#haveAccountYes').click();
-    {/if}
+    var requestFailedHtml = '<div class="error">{l s='Remote service unavailable, please try again later'|escape:'htmlall' mod='yousticeresolutionsystem'}</div>';
+    $(document).ready(function() {
+        {if strlen(trim($api_key))}
+            $('#haveAccountYes').click();
+        {/if}
 
     });
-
-    function changeBlocksVisibility(haveAccount) {
-        $('.yBlock, .yConfiguration').show();
-
-        if (haveAccount) {
-            $('.yBlock.screenshots, .yBlock.stopScathingReviews').hide();
-        }
-        else {
-            $('.yConfiguration').hide();
-        }
-    }
 </script>

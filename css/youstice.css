@@ -142,6 +142,7 @@ form#yReportClaims p {
     vertical-align: middle;
     text-align: left;
     border: 0;
+    color: #000;
 }
 
 .orderDetailWrap table tr td:last-child {
@@ -167,7 +168,7 @@ form#yReportClaims p {
     display: inline-block;
     background: #92278f 12px 9px no-repeat;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo2MkM5Q0U2RjNBQkFFMzExODRGM0MxMjYyNzhBOThDRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGMEI5QUJDN0NGQjIxMUUzOTI5Q0VGNEJENDkwMkE1NyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpGMEI5QUJDNkNGQjIxMUUzOTI5Q0VGNEJENDkwMkE1NyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1LjEgV2luZG93cyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkNDM0RBNTM1OUZDQkUzMTE4RDFDOTBDRDQyMEFCQjlEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjYyQzlDRTZGM0FCQUUzMTE4NEYzQzEyNjI3OEE5OENEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+PIkovQAAAwpJREFUeNqcVF1IFFEUvndnZsednXVHwiIrRWtNpCgokB6ChQjssQezoJIkUBB1/enF1x5LV1dTaB+ip8iHSujPoqcgqIcgSAp3W38yKdnZ2Z3dWWdm56dzJxVR14cuXObeO+d83z3nfOfiyNEwKjYs00LdsV6/ls43RM9E39iWjRDe2daFdhmheB8lJVLPWYGbbvvUEeya7cHFbHcFgmHTDP1Oy6iI8dGxcPVd+3+BaGQjhuYYsqZ2MywKRPIxWj+iG4YxQDEUkhbSAz1z/WxRRuIACSVs1vDhQRsGoCAETl4lqQS5PRxKxUVEe5i2e8ci7R1fu1wQooUxdq4BecTOhcDRk0qkXmWX5P7xE2NkXw6zmkwxJi6Is0nbVPUGwiDNpcbgcwBmJUxh/Pgoyiymb4P/I7RuRIYqq7aW1Ww9r9uWZTln8lKmExhLxVhynuxNw7S1nObYqRl13dVGkbow0uVCUFlRmtKLaecwPS9F4BOAWQ/hIAiZ3JQH6DpLt0+L8eQMsRPj4kdFzDcqmfw5FKl1BEniZOEfC8wJwqj8yV2GM2YkMOSQQV7Q8JFBJCWkZyBUIEvfWSsWKSnGm5Vt6ibCLoxa3rZOCtVCU24l1+Tb55sCkAIkn4FcPBaqhItaKt/sKeefAkmB2G8rP+WmUOhHXwnDMVNkz+/lPxOQUKKvBrYcRbtmCvkCip6NTkK4GyDFdFTQFf1mKiaugg7469M3JDj7AbeZcPP0B7fXjVrft18CQldRQRJNQagmSCTIV/g8EPoXhO1k9pfcw5ayVxiOfUmyWZBXr63lZgcgMCDC7PweqvNXCsiAEKD0Aw/PPwiUHvRHQZje7HJuyjZtZJpm40jtkGYZ1nYgQzUQSKc+u5z9Bh2f5cq9Jf5DwiDJG1RNgZzky2rKmlcz6gUgoq++aEl3x3vZdbANoN75Wy5NUqt8FT6EafwEWoCCMHWnFaBlSL9BlbT7p8Zfyz/l3/x+3g9uXrT2HuCtDxuEVjNxcixBqrO5KlseOzcsfZFAWMTUP5u/AgwAXbTAlNaE4y8AAAAASUVORK5CYII=);
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
@@ -182,9 +183,9 @@ form#yReportClaims p {
     white-space:nowrap;
 }
 
-.yrsButton:hover { text-decoration: none; color: #fff; }
+.yrsButton:hover { text-decoration: none; color: #fff !important; }
 
-.yrsButton:active, .yrsButton:visited { color: #fff; }
+.yrsButton:active, .yrsButton:link, .yrsButton:visited { color: #fff !important; }
 
 .yrsButton-with-time {
     padding: 5px 21px 5px 42px;

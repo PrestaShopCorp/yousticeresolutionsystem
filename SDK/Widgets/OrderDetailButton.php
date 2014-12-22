@@ -26,7 +26,7 @@ class YousticeWidgetsOrderDetailButton {
 		$reported_products_count = $this->report->getReportedProductsCount();
 
 		//nothing reported
-		if (!$this->report->exists())
+		if (!$this->report->orderReportExists() && $reported_products_count == 0)
 			return $this->renderUnreportedButton();
 
 		//exists report for order?
