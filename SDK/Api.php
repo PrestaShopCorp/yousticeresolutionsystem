@@ -191,18 +191,41 @@ class YousticeApi {
 
 		return $widget->toString();
 	}
+	
+	public function getOrdersPageWidgetHtml($webReportHref, $shopName, array $shopOrders)
+	{
+		if (!trim($this->api_key))
+			return '';
+		
+		if(empty($shopOrders))
+			return 'No orders have been found';
+
+		$widget = new YousticeWidgetsOrdersPage($webReportHref, $shopName, $shopOrders, $this);
+
+		return $widget->toString();
+	}
 
 	/**
 	 * Returns html string of logo widget
 	 * @param string $claims_url url to report claims form
 	 * @return string html
 	 */
-	public function getLogoWidgetHtml($claims_url = '')
+	public function getLogoWidgetHtml($claim_url = '', $is_on_order_history_page = false)
 	{
 		if (!trim($this->api_key))
 			return '';
+		
+		if($is_on_order_history_page)
+			$claim_url .= (parse_url($claim_url, PHP_URL_QUERY) ? '&' : '?') . 'ordersPage';
 
-		return $this->remote->getLogoWidgetData($this->local->getChangedReportStatusesCount(), $claims_url, $this->user_id !== null);
+		try {
+			$html = $this->remote->getLogoWidgetData($this->local->getChangedReportStatusesCount(), $claim_url, $this->user_id !== null);
+		}
+		catch (Exception $e) {
+			return '';
+		}
+		
+		return $html;
 	}
 
 	/**
@@ -610,6 +633,16 @@ class YousticeApi {
 
 		return $this;
 	}
+	
+	/**
+	 *
+	 * @return Youstice_LocalInterface $local
+	 */
+	public function getLocal()
+	{
+		return $this->local;
+	}
+
 
 	/**
 	 * Set eshop language

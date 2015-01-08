@@ -11,7 +11,7 @@ class YousticeReportsOrderReport extends YousticeReportsBaseReport {
 
 	public function orderReportExists()
 	{
-		return isset($this->data['code']) && isset($this->data['created_at']);
+		return isset($this->data['code']) && isset($this->data['created_at']) && $this->getStatus() !== null;
 	}
 
 	public function getProducts()

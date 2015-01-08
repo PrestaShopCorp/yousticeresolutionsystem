@@ -46,6 +46,9 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 			case 'getReportClaimsPagePost':
 				$this->getReportClaimsPagePost();
 				break;
+			case 'getOrdersPage':
+				$this->getOrdersPage();
+				break;
 			case 'getShowButtonsHtml':
 				$this->getShowButtonsHtml();
 				break;
@@ -79,7 +82,14 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 	public function getReportClaimsPage()
 	{
 		if ($this->context->customer->id !== null)
-			Tools::redirect($this->getOrderHistoryUrl());
+		{
+			$redirect_url = $this->getOrderHistoryUrl();
+
+			if (Tools::getIsset('ordersPage'))
+				$redirect_url .= (parse_url($redirect_url, PHP_URL_QUERY) ? '&' : '?').'ordersPage';
+
+			Tools::redirect($redirect_url);
+		}
 
 		$this->setTemplate('reportClaims.tpl');
 
@@ -122,6 +132,16 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		exit;
 	}
 
+	public function getOrdersPage()
+	{
+		$shop_orders = $this->createShopOrders();
+
+		$html = $this->yapi->getOrdersPageWidgetHtml($this->url_yrs.'&action=webReportPost', Configuration::get('PS_SHOP_NAME'), $shop_orders);
+
+		echo Tools::jsonEncode(array('ordersPage' => $html));
+		exit;
+	}
+
 	protected function authenticateUser()
 	{
 		if ($this->context->customer->id !== null)
@@ -159,7 +179,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 
 	public function getLogoWidget()
 	{
-		echo $this->yapi->getLogoWidgetHtml($this->url_yrs.'&action=getReportClaimsPage');
+		echo $this->yapi->getLogoWidgetHtml($this->url_yrs.'&action=getReportClaimsPage', true);
 		exit;
 	}
 
@@ -179,10 +199,9 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 					continue;
 
 				$shop_order = $this->createShopOrder($order);
+				$href = $this->createOrderDetailHref($order_id);
 
-				$reports[$order_id] = $this->yapi->getOrderDetailButtonHtml(
-						$this->url_yrs.'&action=getOrderDetail&order_id='.$order_id, $shop_order
-				);
+				$reports[$order_id] = $this->yapi->getOrderDetailButtonHtml($href, $shop_order);
 			}
 		}
 
@@ -205,7 +224,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		{
 			foreach ($in as $product_order_id)
 			{
-				$href = $this->url_yrs.'&action=productReportPost&order_id='.$order_id.'&id_order_detail='.$product_order_id;
+				$href = $this->createProductReportHref($order_id, $product_order_id);
 
 				$reports[$product_order_id] = $this->yapi->getProductReportButtonHtml($href, $product_order_id, $order_id);
 			}
@@ -314,9 +333,14 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		exit('Product not found');
 	}
 
+	protected function getOrders()
+	{
+		return Order::getCustomerOrders($this->customer_id);
+	}
+
 	protected function getOrder($order_id)
 	{
-		if ($orders = Order::getCustomerOrders($this->customer_id))
+		if ($orders = $this->getOrders())
 		{
 			foreach ($orders as $o)
 			{
@@ -340,7 +364,22 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		return null;
 	}
 
-	public function createShopOrder($order)
+	protected function createShopOrders()
+	{
+		$orders = $this->getOrders();
+
+		if (empty($orders))
+			return array();
+
+		$shop_orders = array();
+
+		foreach ($orders as $order)
+			$shop_orders[] = $this->createShopOrder($order);
+
+		return $shop_orders;
+	}
+
+	protected function createShopOrder($order)
 	{
 		if (!is_array($order))
 			$order = $this->getOrder($order);
@@ -355,16 +394,23 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		if (empty($order))
 			exit('Operation not allowed');
 
-		$shop_order->setName('#'.$order_id);
+		$shop_order->setName('#'.$order['reference']);
 		$shop_order->setCurrency($currency->iso_code);
 		$shop_order->setPrice((float)$order['total_paid']);
 		$shop_order->setId($order_id);
 		$shop_order->setDeliveryDate($order['delivery_date']);
 		$shop_order->setOrderDate($order['date_add']);
+		$shop_order->setHref($this->createOrderReportHref($order_id));
+		$shop_order->setOrderDetailHref($this->createOrderDetailHref($order_id));
+
+		if ($order['total_paid_real'] >= $order['total_paid'])
+			$shop_order->setPaymentState(YousticeShopOrder::PAID);
+
+		if (strtotime($order['delivery_date']) > 0)
+			$shop_order->setDeliveryState(YousticeShopOrder::DELIVERED);
 
 		$shop_order->setOtherInfo(Tools::jsonEncode($this->buildDataArray($order)));
 
-		$shop_order->setHref($this->createOrderReportHref($order_id));
 		$order_object = new Order((int)$order_id);
 		$products = $order_object->getProducts();
 
@@ -381,7 +427,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		return $shop_order;
 	}
 
-	public function createShopProduct(array $product, $order_id)
+	protected function createShopProduct(array $product, $order_id)
 	{
 		$shop_product = YousticeShopProduct::create();
 		$shop_product->setName($product['product_name']);
@@ -403,6 +449,11 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		$shop_product->setHref($this->createProductReportHref($order_id, $product['id_order_detail']));
 
 		return $shop_product;
+	}
+
+	protected function createOrderDetailHref($order_id)
+	{
+		return $this->url_yrs.'&action=getOrderDetail&order_id='.$order_id;
 	}
 
 	protected function createOrderReportHref($order_id)
