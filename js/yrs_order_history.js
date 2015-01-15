@@ -44,10 +44,10 @@ jQuery(function($) {
 	    if ($(data).data('has-reports'))
 		showButtons();
 	});
-    }    
+    }
     //can't show buttons
     else {
-	if(document.URL.indexOf('ordersPage') !== -1 && document.URL.indexOf('getReportClaimsPage') === -1) {
+	if (document.URL.indexOf('ordersPage') !== -1 && document.URL.indexOf('getReportClaimsPage') === -1) {
 	    showOrdersPage();
 	}
     }
@@ -108,32 +108,6 @@ jQuery(function($) {
 	}
     }
 
-    function showProductsButtons() {
-	if (!yousticeShowProductsButtons)
-	    return;
-
-	var table = $('#center_column').find('.order_qte_input').parents('table');
-
-	if (table.length) {
-	    var products_ids = new Array();
-
-	    $(table).find('tbody tr.item').each(function() {
-		id_order_detail = $(this).find('.order_qte_input').attr('name').replace("order_qte_input", "").replace("[", "").replace("]", "").replace(" ", "");
-		id_order = $('body').find('input[name=id_order]').val();
-		products_ids.push(id_order_detail);
-
-		$(this).find('td:first').append('<div id="y-id-' + id_order + '-' + id_order_detail + '"></div>');
-		showAjaxSpinner('#y-id-' + id_order + '-' + id_order_detail);
-	    });
-	    $.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getProductsButtons', {"order_id": id_order, "products_ids": products_ids}, function(data) {
-		for (key in data) {
-		    removeAjaxSpinner('#y-id-' + id_order + '-' + key);
-		    $('#y-id-' + id_order + '-' + key).html(data[key]);
-		}
-	    }, 'json');
-	}
-    }
-	
     function showOrdersPage() {
 	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getOrdersPage', function(data) {
 	    $.fancybox({
@@ -175,3 +149,29 @@ jQuery(function($) {
 	$.fancybox.close();
     });
 });
+
+function showProductsButtons() {
+    if (!yousticeShowProductsButtons)
+	return;
+
+    var table = $('#center_column').find('.order_qte_input').parents('table');
+
+    if (table.length) {
+	var products_ids = new Array();
+
+	$(table).find('tbody tr.item').each(function() {
+	    id_order_detail = $(this).find('.order_qte_input').attr('name').replace("order_qte_input", "").replace("[", "").replace("]", "").replace(" ", "");
+	    id_order = $('body').find('input[name=id_order]').val();
+	    products_ids.push(id_order_detail);
+
+	    $(this).find('td:first').append('<div id="y-id-' + id_order + '-' + id_order_detail + '"></div>');
+	    showAjaxSpinner('#y-id-' + id_order + '-' + id_order_detail);
+	});
+	$.get(baseDir + 'index.php?fc=module&module=yousticeresolutionsystem&controller=yrs&action=getProductsButtons', {"order_id": id_order, "products_ids": products_ids}, function(data) {
+	    for (key in data) {
+		removeAjaxSpinner('#y-id-' + id_order + '-' + key);
+		$('#y-id-' + id_order + '-' + key).html(data[key]);
+	    }
+	}, 'json');
+    }
+}
