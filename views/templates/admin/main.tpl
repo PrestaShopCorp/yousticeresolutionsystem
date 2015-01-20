@@ -1,5 +1,5 @@
 {*
-* 2007-2014 PrestaShop
+* 2007-2015 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,7 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author PrestaShop SA <contact@prestashop.com>
-*  @copyright  2007-2014 PrestaShop SA
+*  @copyright  2007-2015 PrestaShop SA
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -57,12 +57,12 @@
         <a href="https://app.youstice.com/blox-odr/generix/odr/en/app2/_subscription_?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_signup&amp;utm_campaign=plugins" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
         <div class="left">
             <h3>{l s='Stop scathing reviews. Handle customer complaints fast and right.'|escape:'htmlall' mod='yousticeresolutionsystem'}</h3>
-            <p>{l s='It’s a storeowner’s worst nightmare.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
+            <p>{l s='It’s a storeowner’s worst nightmare.'|escape:'false' mod='yousticeresolutionsystem'}</p>
             <p>{l s='A disgruntled customer criticizes your business on social media. You are instantly thrown into crisis mode, trying as best you can to save your reputation.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
             <p>{l s='It matters little whether the criticism is justified. Prevention is the best cure.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
 
             <h3>{l s='You can resolve customer complaints effectively. You just need the right tool.'|escape:'htmlall' mod='yousticeresolutionsystem'}</h3>
-            <p>{l s='Resolving complaints rapidly and effectively can place a heavy burden on your small business. The longer customers wait for your reply, the angrier they get. Yet you can’t be behind your computer screen 24/7.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
+            <p>{l s='Resolving complaints rapidly and effectively can place a heavy burden on your small business. The longer customers wait for your reply, the angrier they get. Yet you can’t be behind your computer screen 24/7.'|escape:'false' mod='yousticeresolutionsystem'}</p>
             <p>{l s='Let us take the pain out of handling customer complaints. Thanks to our award-winning app, your customers know that you stand by your products and they trust your business.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
         </div>
         <div class="right">
@@ -114,8 +114,8 @@
 
     <div class="yConfiguration">
         <hr>
-        <h2>{l s='Filing a claim without login'|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
-        <label for="reportClaimsPageLink"><b>{l s='Optionally, copy & paste the code below to any place on your website if you want to allow your customers to file claims without logging in based on the customer’s email address and order reference.'|escape:'htmlall' mod='yousticeresolutionsystem'}</b></label>
+        <h2>{l s='Filing a claim without login'|escape:'false' mod='yousticeresolutionsystem'}</h2>
+        <label for="reportClaimsPageLink"><b>{l s='Optionally, copy & paste the code below to any place on your website if you want to allow your customers to file claims without logging in based on the customer’s email address and order reference.'|escape:'false' mod='yousticeresolutionsystem'}</b></label>
         <p>{l s='Feel free to use this link on social networks. Post it proactively on Facebook, Google+, Twitter, etc. It will help to redirect negative opinions and potential complaints into Youstice and keep your wall clean.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
         <input id="reportClaimsPageLink" type="text" name="anonymous_report" onclick="select()" value="{$reportClaimsPageLink|escape:'htmlall'}">
         <div class="clear"></div>
@@ -128,7 +128,7 @@
             <a href="{$modulePath|escape:'false'}img/screenshot_1.png" target="_blank" rel="screenshot">
                 <img src="{$modulePath|escape:'false'}img/screenshot_1.png">
             </a>
-            <span>{l s='New button ‘Would you like to file a complaint?’ appears in an order history of each customer.'|escape:'htmlall' mod='yousticeresolutionsystem'}</span>
+            <span>{l s='New button ‘Would you like to file a complaint?’ appears in an order history of each customer.'|escape:'false' mod='yousticeresolutionsystem'}</span>
         </p>
         <p class="right">
             <a href="{$modulePath|escape:'false'}img/screenshot_2.png" target="_blank" rel="screenshot">
