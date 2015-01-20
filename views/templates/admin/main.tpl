@@ -115,7 +115,7 @@
     <div class="yConfiguration">
         <hr>
         <h2>{l s='Filing a claim without login'|escape:'false' mod='yousticeresolutionsystem'}</h2>
-        <label for="reportClaimsPageLink"><b>{l s='Optionally, copy & paste the code below to any place on your website if you want to allow your customers to file claims without logging in based on the customer’s email address and order reference.'|escape:'htmlall' mod='yousticeresolutionsystem'}</b></label>
+        <label for="reportClaimsPageLink"><b>{l s='Optionally, copy & paste the code below to any place on your website if you want to allow your customers to file claims without logging in based on the customer’s email address and order reference.'|escape:'false' mod='yousticeresolutionsystem'}</b></label>
         <p>{l s='Feel free to use this link on social networks. Post it proactively on Facebook, Google+, Twitter, etc. It will help to redirect negative opinions and potential complaints into Youstice and keep your wall clean.'|escape:'htmlall' mod='yousticeresolutionsystem'}</p>
         <input id="reportClaimsPageLink" type="text" name="anonymous_report" onclick="select()" value="{$reportClaimsPageLink|escape:'htmlall'}">
         <div class="clear"></div>
