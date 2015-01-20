@@ -3,7 +3,7 @@
  * Represents one order report.
  *
  * @author    Youstice
- * @copyright (c) 2014, Youstice
+ * @copyright (c) 2015, Youstice
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
@@ -11,7 +11,7 @@ class YousticeReportsOrderReport extends YousticeReportsBaseReport {
 
 	public function orderReportExists()
 	{
-		return isset($this->data['code']) && isset($this->data['created_at']);
+		return isset($this->data['code']) && isset($this->data['created_at']) && $this->getStatus() !== null;
 	}
 
 	public function getProducts()

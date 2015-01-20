@@ -22,20 +22,25 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<div class="orderDetailWrap"><h1>{l s='Order'|escape:'htmlall' mod='yousticeresolutionsystem'} {$orderName|escape:'htmlall'}</h1>
+
+<div class="orderDetailWrap ordersPageWrap"><h1>{l s='Report claims on'|escape:'htmlall' mod='yousticeresolutionsystem'} {$shopName|escape:'htmlall'}</h1>
     <div class="topRightWrap">
-        {$orderButton|escape:'false'}
+        {$webReportButton|escape:'false'}
         <span class="space"></span>
         <a class="yrsButton yrsButton-close">x</a>
     </div>
-    <h2>{l s='Products in your order (%d)' sprintf=$productsMessageCount|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
-    {if !empty($products)}
+    <h2>{l s='Your orders (%d)' sprintf=$ordersCount|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
+    {if !empty($orders)}
         <table class="orderDetail">
 
-            {foreach from=$products item=product}
+            {foreach from=$orders item=order}
                 <tr>
-                    <td>{$product->getName()|escape:'htmlall'}</td>
-                    <td>{$api->getProductReportButtonHtml($product->getHref(), $product->getId(), $product->getOrderId())|escape:'false'}</td>
+                    <td>
+                        <b>{$order->getName()|escape:'htmlall'}</b> ({($order->isPaid() == true) ? 'paid' : 'unpaid'}, {($order->isDelivered() == true) ? 'delivered' : 'undelivered'})<br>
+                        {l s='Order date'|escape:'htmlall' mod='yousticeresolutionsystem'}: {date($orderDateFormat, strtotime($order->getOrderDate()))}<br>
+                        {l s='Total'|escape:'htmlall' mod='yousticeresolutionsystem'}: {$order->getPrice()} {$order->getCurrency()}
+                    </td>
+                    <td>{$api->getOrderDetailButtonHtml($order->getOrderDetailHref(), $order)|escape:'false'}</td>
                 </tr>
             {/foreach}
         </table>

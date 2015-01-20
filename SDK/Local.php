@@ -3,7 +3,7 @@
  * Handles localy stored reports
  *
  * @author    Youstice
- * @copyright (c) 2014, Youstice
+ * @copyright (c) 2015, Youstice
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
@@ -48,6 +48,9 @@ class YousticeLocal implements YousticeLocalInterface {
 		if (isset($db['host']) && isset($db['socket']))
 			throw new Exception("Host and socket can't be specified simultaneously");
 
+		if(strpos($db['driver'], 'pdo_') !== false)
+			$db['driver'] = str_replace ('pdo_', '', $db['driver']);
+
 		if ($db['driver'] == 'mysqli')
 			$db['driver'] = 'mysql';
 		
@@ -56,8 +59,7 @@ class YousticeLocal implements YousticeLocalInterface {
 		{
 			$db['socket'] = $db['host'];
 			$db['host'] = null;
-		}
-			
+		}		
 
 		$connection_string = $db['driver'].':dbname='.$db['name'];
 		

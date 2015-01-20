@@ -3,7 +3,7 @@
 global $_MODULE;
 $_MODULE = array();
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_104de1beaaf399bdb5ce1d4992b7e2a8'] = 'Youstice';
-$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_9bcb0c48adc4980cafdc93507ef447f1'] = 'Maximalizujte spokojenost zákazníků a staňte se důvěryhodným predajcem. ';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_9bcb0c48adc4980cafdc93507ef447f1'] = 'Maximalizujte spokojenost zákazníků a staňte se důvěryhodným predajcem.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_876f23178c29dc2552c0b48bf23cd9bd'] = 'Jste si jistý, že chcete odinstalovat?';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_32de95aa66bb349a024274ca464976d7'] = 'Youstice - zobrazit logo';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_37f0b7ec13be14130e5ec53d8a20ab14'] = 'Nahlásit stížnost';

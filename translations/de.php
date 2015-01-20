@@ -32,7 +32,7 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_ff03f8fb44278e3222a668caf79
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_0c7526a585b4fd57535b75904c87409f'] = 'Ist der API-Schlüssel für Live oder Sandbox Umgebung?';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_2652eec977dcb2a5aea85f5bec235b05'] = 'Sandbox';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_955ad3298db330b5ee880c2c9e6f23a0'] = 'Live';
-$_MODULE['<{yousticeresolutionsystem}prestashop>main_040654d30d85cf01caa6b203c2561bbf'] = 'Für einen Test sollten Sie die Sandbox-Umgebung nutzen. Bitte denken Sie daran, dass es verschiedene API-Schlüssel für die Live und Sandboxumgebung gibt. Um mit Sandbox zu starten und den API-Schlüssel zu erhalten, müssen Sie sich';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_040654d30d85cf01caa6b203c2561bbf'] = 'Für einen Test sollten Sie die Sandbox-Umgebung nutzen. Bitte denken Sie daran, dass es verschiedene API-Schlüssel für die Live und Sandboxumgebung gibt. Um mit Sandbox zu starten und den API-Schlüssel zu erhalten, müssen Sie sich ';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_b9ecbaa5bc7f6cc6bf103eb250f9e61c'] = 'speziell für Sandbox anmelden.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_94ac6ad4916dedfae6c0cb348802178e'] = 'API-Schlüssel Ihres Shops';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_0604d2491b625d3ae80166313ad7bb1b'] = 'API-Schlüssel für Ihren Shop';
@@ -42,7 +42,7 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_e81c4e4f2b7b93b481e13a8553c
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6f6071f543aae20188a424d75dfbbdd6'] = 'Gehen Sie Zum Menü SHOPS, klicken Sie auf Ihren Shop und einen API-Schlüssel auf der Unterseite der Seite zu sehen.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_7d8d29da82e1e446e4c9777270b896c7'] = 'Eine Beschwerde ohne Log-In einreichen';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_865704908bfc86e1d001459962097cc5'] = 'Optional können Sie auch mit copy and paste den unten angegebenen Code überall auf Ihre Seite einfügen wenn Sie den Kunden eine Einreichung einer Beschwerde ohne Log-In basierend auf E-Mailadresse und Bestelldetails ermöglichen wollen.';
-$_MODULE['<{yousticeresolutionsystem}prestashop>main_ac10f6e3062ab69c511ecef1a577efcb'] = 'Fühlt euch frei, diesen Link auf den sozialen Netzwerken zu benutzen.  Postet ihn proaktiv auf Facebook, Google+, Twitter, etc. Es wird euch helfen, die negativen Meinungen und die potenziellen Beschwerden auf Youstice umzuleiten und eure Pinnwand sauber zu halten.';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_ac10f6e3062ab69c511ecef1a577efcb'] = 'Fühlt euch frei, diesen Link auf den sozialen Netzwerken zu benutzen. Postet ihn proaktiv auf Facebook, Google+, Twitter, etc. Es wird euch helfen, die negativen Meinungen und die potenziellen Beschwerden auf Youstice umzuleiten und eure Pinnwand sauber zu halten.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_8df6a4c44d529dbb710ba6861ee17400'] = 'Wie das Plugin funktioniert';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_bd6b5bd1b05541f9368507309948ec6a'] = 'Der neue Button „Möchten Sie eine Beschwerde eingeben“ erscheint in der Bestellübersicht jedes Kunden.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_497a485eb0ac7092163ea6817e879569'] = 'Der Kunde kann diese Option nutzen um ein Problem zu melden, sowohl zu einer speziellen Bestellung oder allgemein.';

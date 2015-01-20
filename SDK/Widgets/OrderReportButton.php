@@ -3,7 +3,7 @@
  * Renders button to report an order
  *
  * @author    Youstice
- * @copyright (c) 2014, Youstice
+ * @copyright (c) 2015, Youstice
  * @license   http://www.apache.org/licenses/LICENSE-2.0.html  Apache License, Version 2.0
  */
 
