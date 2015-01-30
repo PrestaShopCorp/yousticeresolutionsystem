@@ -49,8 +49,17 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_497a485eb0ac7092163ea6817e8
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_8090767937ab0560267f770a0013da50'] = 'Je tiež možné nahlásiť problém ohľadom konkrétnej položky, ktorá je súčasťou objednávky.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_46fa564bb1eed5cd3992cac85e8f094b'] = 'Screenshoty';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_58e0559207ce95c3954dc8b2b98545df'] = 'Nesprávny API kľúč';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_4d8d1f6231035ea614ce53051c3b1e50'] = 'Vzdialená služba je nedostupná, skúste to neskôr prosím';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_a240fa27925a635b08dc28c9e4f9216d'] = 'Objednávka';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_114d63e6a498967eb8b1dad8c902769b'] = 'Produkty v objednávke (%d)';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_f8806ede7e2365226282ff4916101f32'] = 'Reportuj sťažnosť na';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_841313dfdc8797fd3c196da9944a1896'] = 'Vaše objednávky (%d)';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_559e7ca805230fc80e3644f87bb3994d'] = 'Dátum objednávky';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_96b0141273eabab320119c467cdcaf17'] = 'Celkom';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_76e084771e78c194efd0e2d5b8920bea'] = 'zaplatené';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_0ec6340325336cb5d99f39fcca52b1a9'] = 'nezaplatené';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_0e3a8d38d6a037ceca6885c6b654124e'] = 'doručené';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_3411c4ec181cb31bf5574f61da3e882f'] = 'nedoručené';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_37f0b7ec13be14130e5ec53d8a20ab14'] = 'Nahlásiť sťažnosť';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_276896cadf64a515bc1eacb2adda8815'] = 'Chcete podať sťažnosť a nahlásiť váš problém s nakupovaním? Stačí vyplniť tieto údaje:';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_4049d979b8e6b7d78194e96c3208a5a5'] = 'Číslo objednávky';
