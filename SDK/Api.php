@@ -157,9 +157,9 @@ class YousticeApi {
 		spl_autoload_register(function ($class_name) {
 			$class_name = str_replace('Youstice', '', $class_name);
 
-			$class_path = Tools::substr(preg_replace('/([A-Z])/', DIRECTORY_SEPARATOR.'\\1', $class_name), 1);
+			$class_path = preg_replace('/([A-Z])/', '/\\1', $class_name);
 
-			$path = dirname(__FILE__).DIRECTORY_SEPARATOR.$class_path;
+			$path = dirname(__FILE__).str_replace('/', DIRECTORY_SEPARATOR, $class_path);
 
 			if (is_readable($path.'.php'))
 				require_once $path.'.php';
