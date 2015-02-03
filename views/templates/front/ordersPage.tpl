@@ -36,7 +36,9 @@
             {foreach from=$orders item=order}
                 <tr>
                     <td>
-                        <b>{$order->getName()|escape:'htmlall'}</b> ({($order->isPaid() == true) ? 'paid' : 'unpaid'}, {($order->isDelivered() == true) ? 'delivered' : 'undelivered'})<br>
+                        <b>{$order->getName()|escape:'htmlall'}</b> 
+                        ({l s=($order->isPaid() == true) ? 'paid' : 'unpaid'|escape:'htmlall' mod='yousticeresolutionsystem'}, 
+                        {l s=($order->isDelivered() == true) ? 'delivered' : 'undelivered'|escape:'htmlall' mod='yousticeresolutionsystem'})<br>
                         {l s='Order date'|escape:'htmlall' mod='yousticeresolutionsystem'}: {date($orderDateFormat, strtotime($order->getOrderDate()))}<br>
                         {l s='Total'|escape:'htmlall' mod='yousticeresolutionsystem'}: {$order->getPrice()} {$order->getCurrency()}
                     </td>
@@ -44,5 +46,12 @@
                 </tr>
             {/foreach}
         </table>
-    </div>
+    {/if}
+</div>
+    
+{if false}
+    {l s='paid'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='unpaid'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='delivered'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='undelivered'|escape:'htmlall' mod='yousticeresolutionsystem'}
 {/if}

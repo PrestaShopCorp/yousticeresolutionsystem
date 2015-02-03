@@ -103,7 +103,8 @@ form#yReportClaims p {
 }
 
 .orderDetailWrap table {
-    font-size: 15px
+    font-size: 15px;
+    border: 0 !important;
 }
 
 .orderDetailWrap .topRightWrap {
@@ -238,19 +239,19 @@ form#yReportClaims p {
 
 /* ORANGE */
 .yrsButton-escalated-to-odr {
-    background-color: #f67130;
+    background-color: #f67130 !important;
     border-color: #d5473b;
 }
 
 /* YELLOW */
 .yrsButton-waiting-for-decision {
-    background-color: #e79f22;
+    background-color: #e79f22 !important;
     border-color: #bd7100;
 }
 
 /* GREEN */
 .yrsButton-to-be-implemented, .yrsButton-waiting-for-retailer-s-response {
-    background-color: #367f3a;
+    background-color: #367f3a !important;
     border-color: #116e42
 }
 
@@ -299,3 +300,4 @@ form#yReportClaims p {
 .ordersPageWrap table tr td:last-child a {
     float: none;
 }
+
