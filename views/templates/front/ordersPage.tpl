@@ -37,8 +37,8 @@
                 <tr>
                     <td>
                         <b>{$order->getName()|escape:'htmlall'}</b> 
-                        ({l s=($order->isPaid() == true) ? 'paid' : 'unpaid'|escape:'htmlall' mod='yousticeresolutionsystem'}, 
-                        {l s=($order->isDelivered() == true) ? 'delivered' : 'undelivered'|escape:'htmlall' mod='yousticeresolutionsystem'})<br>
+                        ({l s=$order->getPaymentState()|escape:'htmlall' mod='yousticeresolutionsystem'}, 
+                        {l s=$order->getDeliveryState()|escape:'htmlall' mod='yousticeresolutionsystem'})<br>
                         {l s='Order date'|escape:'htmlall' mod='yousticeresolutionsystem'}: {date($orderDateFormat, strtotime($order->getOrderDate()))}<br>
                         {l s='Total'|escape:'htmlall' mod='yousticeresolutionsystem'}: {$order->getPrice()} {$order->getCurrency()}
                     </td>

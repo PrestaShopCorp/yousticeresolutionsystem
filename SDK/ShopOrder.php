@@ -67,7 +67,7 @@ class YousticeShopOrder extends YousticeShopItem {
 	}
 	
 	public function getDeliveryState() {
-		return isset($this->data['deliveryState']) ? $this->data['deliveryState'] : self::NOT_DELIVERED;
+		return $this->isDelivered() ? 'delivered' : 'undelivered';
 	}
 	
 	public function isDelivered() {
@@ -82,7 +82,7 @@ class YousticeShopOrder extends YousticeShopItem {
 	}
 	
 	public function getPaymentState() {
-		return isset($this->data['paymentState']) ? $this->data['paymentState'] : self::NOT_PAID;
+		return $this->isPaid() ? 'paid' : 'unpaid';
 	}
 	
 	public function isPaid() {
