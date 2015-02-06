@@ -3,13 +3,16 @@
 global $_MODULE;
 $_MODULE = array();
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_104de1beaaf399bdb5ce1d4992b7e2a8'] = 'Youstice';
-$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_9bcb0c48adc4980cafdc93507ef447f1'] = 'Maximalizujte spokojnosť zákazníkov a staňte sa dôveryhodným predajcom. Vyjednávajte a vyriešte sťažnosti len niekoľkými klikmi';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_876f23178c29dc2552c0b48bf23cd9bd'] = 'Naozaj si želáte odinštalovať?';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_37f0b7ec13be14130e5ec53d8a20ab14'] = 'Podať sťažnosť';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_13306a17b69205882acc40b178f4d831'] = 'Ak si želáte podať sťažnosť na produkt alebo službu, prosím kliknite na tento odkaz.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_58e0559207ce95c3954dc8b2b98545df'] = 'Neplatný API kľúč';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_07e32ec3f558071b2ad09d26d7ff1609'] = 'Nastavenia boli úspešne uložené.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_fe5d926454b6a8144efce13a44d019ba'] = 'Neplatná hodnota v nastaveniach';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_9bcb0c48adc4980cafdc93507ef447f1'] = 'Maximalizujte spokojnosť zákazníkov a staňte sa dôveryhodným predajcom. Vyjednávajte a vyriešte sťažnosti len niekoľkými klikmi';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_07be686e9282d3db154a11a8df10ceea'] = 'Youstice: cURL nie je nainštalované, prosím nainštalujte ho.';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_e844d96d69ce26f675a9794e2afc24f1'] = 'Youstice: PDO nie je nainštalované, prosím nainštalujte ho.';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_88c7085a2ea81f7326d349131cdbdf7e'] = 'Youstice: PECL finfo nie je nainštalované, prosím nainštalujte ho.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_0832c9e4f52eb72d448f8733d805e919'] = 'Vyriešte sťažnosti niekoľkými klikmi.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_d13de4a83d7b44c2e65495def8ef1c7b'] = 'Pre viac informácií';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_003b2d318607a3b4b6e52e09ed020f67'] = 'o Youstice navštívte';
@@ -50,6 +53,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_8090767937ab0560267f770a001
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_46fa564bb1eed5cd3992cac85e8f094b'] = 'Screenshoty';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_58e0559207ce95c3954dc8b2b98545df'] = 'Nesprávny API kľúč';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4d8d1f6231035ea614ce53051c3b1e50'] = 'Vzdialená služba je nedostupná, skúste to neskôr prosím';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_07be686e9282d3db154a11a8df10ceea'] = 'Youstice: cURL nie je nainštalované, prosím nainštalujte ho.';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_e844d96d69ce26f675a9794e2afc24f1'] = 'Youstice: PDO nie je nainštalované, prosím nainštalujte ho.';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_88c7085a2ea81f7326d349131cdbdf7e'] = 'Youstice: PECL finfo nie je nainštalované, prosím nainštalujte ho.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_a240fa27925a635b08dc28c9e4f9216d'] = 'Objednávka';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_114d63e6a498967eb8b1dad8c902769b'] = 'Produkty v objednávke (%d)';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_f8806ede7e2365226282ff4916101f32'] = 'Reportuj sťažnosť na';
