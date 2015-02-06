@@ -78,7 +78,7 @@ form#yReportClaims p {
     min-width: 790px;
     min-height: 320px;
     margin: 8px;
-    font-family:"Times New Roman", Times, serif;
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
     color: #000;
 }
 
@@ -100,6 +100,7 @@ form#yReportClaims p {
     text-align: left;
     font-weight: bold;
     color: #000;
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 .orderDetailWrap table {
@@ -148,7 +149,7 @@ form#yReportClaims p {
 }
 
 .orderDetailWrap table tr td:last-child {
-    width: 250px;
+    width: 275px;
     font-size: 11px;
 }
 
