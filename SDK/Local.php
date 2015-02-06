@@ -165,13 +165,24 @@ class YousticeLocal implements YousticeLocalInterface {
 		$searchBy = $useRegexp ? "REGEXP" : "LIKE";
 		
 		//try to find filled report
-		$query_filled = 'SELECT * FROM '.$this->table_prefix.'yrs_reports WHERE code '.$searchBy.' ? AND status IS NOT NULL ORDER BY created_at DESC, code DESC LIMIT 1';
+		$query_filled = $this->prepareRegexpQuery(
+				'SELECT code, user_id, status, remaining_time, UNIX_TIMESTAMP(created_at) created_at, UNIX_TIMESTAMP(updated_at) updated_at '
+				. 'FROM ' . $this->table_prefix . 'yrs_reports '
+				. 'WHERE code ' . $searchBy . ' ? AND status IS NOT NULL '
+				. 'ORDER BY created_at DESC, code DESC '
+				. 'LIMIT 1');
+
 		$query_res = $this->executeQueryFetch($query_filled, array($searchValue));
 
 		//otherwise select last
 		if(!$query_res) {
-			$query_last = 'SELECT * FROM '.$this->table_prefix.'yrs_reports WHERE code '.$searchBy.' ? ORDER BY created_at DESC, code DESC LIMIT 1';
-			
+			$query_last = $this->prepareRegexpQuery(
+					'SELECT code, user_id, status, remaining_time, UNIX_TIMESTAMP(created_at) created_at, UNIX_TIMESTAMP(updated_at) updated_at '
+					. 'FROM ' . $this->table_prefix . 'yrs_reports '
+					. 'WHERE code ' . $searchBy . ' ? '
+					. 'ORDER BY created_at DESC, code DESC '
+					. 'LIMIT 1');
+
 			$query_res = $this->executeQueryFetch($query_last, array($searchValue));
 		}
 		
@@ -302,7 +313,7 @@ class YousticeLocal implements YousticeLocalInterface {
 
 	protected function installPrepareQueries()
 	{
-		return array('CREATE TABLE IF NOT EXISTS '.$this->table_prefix."yrs_reports(\n
+		return array('CREATE TABLE IF NOT EXISTS '.$this->table_prefix."yrs_reports(
 			code VARCHAR(255) NOT NULL DEFAULT '',
 			user_id int(10) unsigned NOT NULL,
 			status VARCHAR(200) NULL,
