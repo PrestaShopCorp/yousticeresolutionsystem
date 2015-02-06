@@ -185,3 +185,9 @@
 
     });
 </script>
+
+{if false}
+    {l s='Youstice: cURL is not installed, please install it.'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='Youstice: PDO is not installed, please install it.'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='Youstice: PECL finfo is not installed, please install it.'|escape:'htmlall' mod='yousticeresolutionsystem'}
+{/if}

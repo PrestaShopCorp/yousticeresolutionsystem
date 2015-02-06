@@ -81,6 +81,9 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 
 	public function getReportClaimsPage()
 	{
+		if (!Configuration::get('YRS_API_KEY') || !$this->yapi->checkIsProperlyInstalled())
+			return;
+
 		if ($this->context->customer->id !== null)
 		{
 			$redirect_url = $this->getOrderHistoryUrl();
@@ -110,9 +113,15 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 	{
 		$order_number = $this->getOrderNumber();
 
-		if (!$this->customer_id)
+		if (!ValidateCore::isEmail(Tools::getValue('email')))
 		{
 			echo Tools::jsonEncode(array('error' => 'Invalid email'));
+			exit;
+		}
+
+		if (!$this->customer_id)
+		{
+			echo Tools::jsonEncode(array('error' => 'Email or order number not found'));
 			exit;
 		}
 
