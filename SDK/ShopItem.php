@@ -217,8 +217,7 @@ abstract class YousticeShopItem {
 		if (Tools::strlen($image) > 0)
 		{
 			$image_data = $this->resize($image, 300, 300);
-			$a = 'base64_encode';
-			$this->data['image'] = $a($image_data);
+			$this->data['image'] = base64_encode($image_data);
 		}
 
 		return $this;
@@ -268,8 +267,7 @@ abstract class YousticeShopItem {
 			if (Tools::strlen($image_data) > 0)
 			{
 				$image_data = $this->resize($image_data, 300, 300, false, $mime_type);
-				$a = 'base64_encode';
-				return $a($image_data);
+				return base64_encode($image_data);
 			}
 
 			return null;
