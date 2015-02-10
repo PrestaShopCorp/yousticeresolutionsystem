@@ -752,7 +752,7 @@ class YousticeApi {
 	 */
 	public function checkIsProperlyInstalled()
 	{
-		if (!function_exists('curl_exec') || !extension_loaded('PDO') || !function_exists('finfo_open') || !$this->local)
+		if ((!in_array(ini_get('allow_url_fopen'), array('On', 'on', '1')) && !function_exists('curl_exec')) || !extension_loaded('PDO') || !function_exists('finfo_open') || !$this->local)
 			return false;
 
 		return true;
@@ -764,7 +764,7 @@ class YousticeApi {
 	 */
 	public function checkIsProperlyInstalledWithExceptions()
 	{
-		if (!function_exists('curl_exec'))
+		if (!in_array(ini_get('allow_url_fopen'), array('On', 'on', '1')) && !function_exists('curl_exec'))
 			throw new YousticeApiException('Youstice: cURL is not installed, please install it.', self::CURL_NOT_INSTALLED);
 
 		if (!extension_loaded('PDO'))
