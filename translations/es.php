@@ -13,6 +13,8 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_9bcb0c4
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_07be686e9282d3db154a11a8df10ceea'] = 'Youstice: cURL no está instalado, por favor, instálelo.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_e844d96d69ce26f675a9794e2afc24f1'] = 'Youstice: PDO no está instalado, por favor, instálelo.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_88c7085a2ea81f7326d349131cdbdf7e'] = 'Youstice: PECL finfo no está instalado, por favor, instálelo.';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yrs_681c7d68f4df5cdfbe3e1a29d22c275a'] = 'La dirección de correo electrónico no es válida';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yrs_77779ec744faada8d71945cbe35c0f73'] = 'Correo electrónico o número de pedido no fue encontrado';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_0832c9e4f52eb72d448f8733d805e919'] = 'Resuelta las reclamaciones/quejas de los clientes en tan sólo unos clicks.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_d13de4a83d7b44c2e65495def8ef1c7b'] = 'Para obtener más información';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_003b2d318607a3b4b6e52e09ed020f67'] = 'sobre Youstice visite';

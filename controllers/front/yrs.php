@@ -115,13 +115,13 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 
 		if (!ValidateCore::isEmail(Tools::getValue('email')))
 		{
-			echo Tools::jsonEncode(array('error' => 'Invalid email'));
+			echo Tools::jsonEncode(array('error' => $this->module->l('Invalid email', 'yrs')));
 			exit;
 		}
 
 		if (!$this->customer_id)
 		{
-			echo Tools::jsonEncode(array('error' => 'Email or order number not found'));
+			echo Tools::jsonEncode(array('error' => $this->module->l('Email or order number not found', 'yrs')));
 			exit;
 		}
 
@@ -137,7 +137,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		}
 
 		//order number not found in customer's orders
-		echo Tools::jsonEncode(array('error' => 'Email or order number not found'));
+		echo Tools::jsonEncode(array('error' =>  $this->module->l('Email or order number not found', 'yrs')));
 		exit;
 	}
 
