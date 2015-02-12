@@ -170,11 +170,14 @@
     var errorMessagesSelector = '.yConfiguration .error, .yConfiguration .bootstrap';
     {if $is1_5Version}
         var invalidApiKeyHtml = '<div class="error">{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div>';
+        var requestFailedHtml = '<div class="error">{l s='Remote service unavailable, please try again later'|escape:'htmlall' mod='yousticeresolutionsystem'}</div>';
     {else}
         var invalidApiKeyHtml = '<div class="bootstrap"><div class="module_error alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
         invalidApiKeyHtml += '{l s='Invalid API KEY'|escape:'htmlall' mod='yousticeresolutionsystem'}</div></div>';
+        var requestFailedHtml = '<div class="bootstrap"><div class="module_error alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
+        requestFailedHtml += '{l s='Remote service unavailable, please try again later'|escape:'htmlall' mod='yousticeresolutionsystem'}</div></div>';
     {/if}
-    var requestFailedHtml = '<div class="error">{l s='Remote service unavailable, please try again later'|escape:'htmlall' mod='yousticeresolutionsystem'}</div>';
+
     $(document).ready(function() {
         {if strlen(trim($api_key))}
             $('#haveAccountYes').click();
@@ -182,3 +185,9 @@
 
     });
 </script>
+
+{if false}
+    {l s='Youstice: cURL is not installed, please install it.'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='Youstice: PDO is not installed, please install it.'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='Youstice: PECL finfo is not installed, please install it.'|escape:'htmlall' mod='yousticeresolutionsystem'}
+{/if}

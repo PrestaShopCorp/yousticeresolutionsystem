@@ -138,6 +138,9 @@ jQuery(function($) {
     //reload orderDetail
     $(document).on('click', '.yrsButton:not(.yrsButton-order-detail):not(.yrsOrderDetailButton)'
 	    + ':not(.yrsButton-plus):not(.yrsButton-close):not(.yrsShowButtons)', function(e) {
+		if($('form#yReportClaims').length)
+		    return;
+	
 		setTimeout(function() {
 		    window.location.reload();
 		}, 300);

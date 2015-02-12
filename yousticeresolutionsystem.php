@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.8.0';
+		$this->version                = '1.8.5';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -27,10 +27,8 @@ class YousticeResolutionSystem extends Module
 		parent::__construct();
 
 		$this->displayName		= $this->l('Youstice');
-		//preload string for translation
-		$this->l('Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks');
+		$this->preloadStringTranslations();
 		$description = 'Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks';
-		//must be translating function or string, on other cases validator screams
 		$this->description		= $this->l($description);
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
@@ -91,20 +89,17 @@ class YousticeResolutionSystem extends Module
 	{
 		$output = '';
 
+		$properly_installed = $this->checkIfProperlyInstalled();
+
 		//ajax
-		if (Tools::isSubmit('checkForApiKey'.$this->name))
-		{
-			$result = $this->checkForApiKey(Tools::getValue('api_key'), Tools::getValue('use_sandbox'));
-
-			if ($result == true)
-				$this->saveForm();
-
-			$response = Tools::jsonEncode(array('result' => $result));
-			exit($response);
-		}
+		$this->checkForSentApiKey();
 
 		$output .= $this->displayErrorMessage();
 		$output .= $this->displayConfirmMessage();
+
+		//disable form
+		if (!$properly_installed)
+			return $output;
 
 		$smarty = Context::getContext()->smarty;
 
@@ -123,6 +118,35 @@ class YousticeResolutionSystem extends Module
 		$output .= $smarty->fetch(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/main.tpl');
 
 		return $output;
+	}
+
+	protected function checkIfProperlyInstalled()
+	{
+		try {
+			$this->y_api->checkIsProperlyInstalledWithExceptions();
+		} catch (YousticeApiException $e) {
+			$this->saveErrorMessage($this->l($e->getMessage()));
+			return false;
+		}
+
+		if (Configuration::get('YRS_DB_INSTALLED') == '0')
+			$this->y_api->install();
+
+		return true;
+	}
+
+	protected function checkForSentApiKey()
+	{
+		if (Tools::isSubmit('checkForApiKey'.$this->name))
+		{
+			$result = $this->checkForApiKey(Tools::getValue('api_key'), Tools::getValue('use_sandbox'));
+
+			if ($result == true)
+				$this->saveForm();
+
+			$response = Tools::jsonEncode(array('result' => $result));
+			exit($response);
+		}
 	}
 
 	protected function saveForm()
@@ -144,8 +168,6 @@ class YousticeResolutionSystem extends Module
 		else
 			Configuration::updateValue('YRS_SANDBOX', $yrs_sandbox);
 
-		//Tools::redirectAdmin(AdminController::$currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules'));
-
 		return $output;
 	}
 
@@ -161,14 +183,24 @@ class YousticeResolutionSystem extends Module
 
 	public function displayErrorMessage()
 	{
-		if ($this->context->cookie->yAdminError)
-			return parent::displayError($this->context->cookie->yAdminError);
+		$message = $this->context->cookie->yAdminError;
+
+		if ($message)
+		{
+			$this->context->cookie->yAdminError = null;
+			return parent::displayError($message);
+		}
 	}
 
 	public function displayConfirmMessage()
 	{
-		if ($this->context->cookie->yAdminConfirm)
-			return parent::displayConfirmation($this->context->cookie->yAdminConfirm);
+		$message = $this->context->cookie->yAdminConfirm;
+
+		if ($message)
+		{
+			$this->context->cookie->yAdminConfirm = null;
+			return parent::displayConfirmation($message);
+		}
 	}
 
 	protected function getReportClaimsPageLink()
@@ -218,7 +250,15 @@ class YousticeResolutionSystem extends Module
 		$y_api->setThisShopSells('product');
 		$y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 
-		$this->y_api->install();
+		Configuration::updateValue('YRS_DB_INSTALLED', '1');
+
+		try {
+			$this->y_api->install();
+		}
+		catch(YousticeApiException $e) {
+			//be silent here, instead show error message at admin page
+			Configuration::updateValue('YRS_DB_INSTALLED', '0');
+		}
 
 		return parent::install() &&
 			$this->registerHook('header') &&
@@ -235,10 +275,19 @@ class YousticeResolutionSystem extends Module
 		if (!parent::uninstall() ||
 				!Configuration::deleteByName('YRS_SANDBOX') ||
 				!Configuration::deleteByName('YRS_ITEM_TYPE') ||
-				!Configuration::deleteByName('YRS_API_KEY'))
+				!Configuration::deleteByName('YRS_API_KEY') ||
+				!Configuration::deleteByName('YRS_DB_INSTALLED'))
 			return false;
 
 		return true;
+	}
+
+	protected function preloadStringTranslations()
+	{
+		$this->l('Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks');
+		$this->l('Youstice: cURL is not installed, please install it.');
+		$this->l('Youstice: PDO is not installed, please install it.');
+		$this->l('Youstice: PECL finfo is not installed, please install it.');
 	}
 
 }
