@@ -116,7 +116,7 @@ class YousticeRequest {
 
 		$url = str_replace('://', '://' . $this->auth_login . ':' . $this->auth_passw . '@', $url);
 
-		$this->response = Tools::file_get_contents($url, false, $request);
+		$this->response = YousticeTools::file_get_contents($url, false, $request);
 	}
 
 	protected function logError($url, $type, $data, $response)

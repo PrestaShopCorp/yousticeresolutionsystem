@@ -22,6 +22,20 @@ abstract class YousticeShopItem {
 		'products' => array(),
 		'href' => ''
 	);
+	
+	protected $mime_types = array(
+        'png' => 'image/png',
+        'jpe' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'jpg' => 'image/jpeg',
+        'gif' => 'image/gif',
+        'bmp' => 'image/bmp',
+        'ico' => 'image/vnd.microsoft.icon',
+        'tiff' => 'image/tiff',
+        'tif' => 'image/tiff',
+        'svg' => 'image/svg+xml',
+        'svgz' => 'image/svg+xml'
+	);
 
 	public function __construct($description, $name = '', $currency = 'EUR', $price = 0.0, $id = null, $delivery_date = null,
 			$order_date = null, $image = null, $other_info = '', $products = array())
@@ -203,8 +217,7 @@ abstract class YousticeShopItem {
 		if (Tools::strlen($image) > 0)
 		{
 			$image_data = $this->resize($image, 300, 300);
-			$a = 'base64_encode';
-			$this->data['image'] = $a($image_data);
+			$this->data['image'] = base64_encode($image_data);
 		}
 
 		return $this;
@@ -248,12 +261,13 @@ abstract class YousticeShopItem {
 			if ($image_data === false)
 				throw new Exception('Image does not exists');
 
+			$mime_type = $this->getMimeType($path);
+
 			//correct image
 			if (Tools::strlen($image_data) > 0)
 			{
-				$image_data = $this->resize($image_data, 300, 300);
-				$a = 'base64_encode';
-				return $a($image_data);
+				$image_data = $this->resize($image_data, 300, 300, false, $mime_type);
+				return base64_encode($image_data);
 			}
 
 			return null;
@@ -262,7 +276,7 @@ abstract class YousticeShopItem {
 			throw new Exception('Image path is not readable');
 	}
 
-	protected function resize($image_data, $width = 100, $height = 100, $stretch = false)
+	protected function resize($image_data, $width = 100, $height = 100, $stretch = false, $mime_type = null)
 	{
 		$file = tempnam(sys_get_temp_dir(), md5(time().'YRS'));
 
@@ -273,9 +287,10 @@ abstract class YousticeShopItem {
 		fwrite($file_handle, $image_data);
 		fclose($file_handle);
 
-		$mime = $this->getMimeType($file);
+		if(!$mime_type)
+			$mime_type = $this->getMimeType($file);
 
-		switch ($mime)
+		switch ($mime_type)
 		{
 			case 'image/bmp':
 				$handle = imagecreatefromwbmp($file);
@@ -290,7 +305,7 @@ abstract class YousticeShopItem {
 				$handle = imagecreatefrompng($file);
 				break;
 			default:
-				throw new Exception('Unsupported image type '.$mime);
+				throw new Exception('Unsupported image type '.$mime_type);
 		}
 
 		$dimensions = getimagesize($file);
@@ -372,10 +387,25 @@ abstract class YousticeShopItem {
 
 	protected function getMimeType($filename)
 	{
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$mime = finfo_file($finfo, $filename);
-		finfo_close($finfo);
-		return $mime;
+		if(function_exists('finfo_open') && function_exists('finfo_file'))
+		{
+			$finfo = finfo_open(FILEINFO_MIME_TYPE);
+			$mime = finfo_file($finfo, $filename);
+			finfo_close($finfo);
+			
+			return $mime;
+		}
+		
+		if(function_exists('mime_content_type'))
+			return mime_content_type($filename);
+		
+		$extension = Tools::strtolower(array_pop(explode('.',$filename)));
+		
+		if(array_key_exists($extension, $this->mime_types)){
+			return $this->mime_types[$extension];
+        }
+		
+		throw new Exception('Please install PECL fileinfo extension');
 	}
 
 }
