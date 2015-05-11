@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>yousticeresolutionsystem</name>
+	<displayName><![CDATA[Юстис]]></displayName>
+	<version><![CDATA[1.8.7]]></version>
+	<description><![CDATA[Повысите удовлетворение клиентов и cтаньте доверенным продавцом. Договаривайтесь и решите претензии клиентов путём нескольких кликов мышкой]]></description>
+	<author><![CDATA[Youstice]]></author>
+	<tab><![CDATA[advertising_marketing]]></tab>
+	<confirmUninstall><![CDATA[Вы уверены, что хотите удалить?]]></confirmUninstall>
+	<is_configurable>1</is_configurable>
+	<need_instance>0</need_instance>
+	<limited_countries></limited_countries>
+</module>
