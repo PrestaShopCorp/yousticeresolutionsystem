@@ -88,6 +88,8 @@ class YousticeApi {
 	const CURL_NOT_INSTALLED = 1;
 	const PDO_NOT_INSTALLED = 2;
 	const FINFO_NOT_INSTALLED = 3;
+	
+	protected $infinario;
 
 	/**
 	 *
@@ -130,6 +132,14 @@ class YousticeApi {
 		$this->setShopSoftwareType($shop_software_type, $shop_software_version);
 
 		return $this;
+	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
+	public function getVersionName() {
+		return '231';
 	}
 
 	/**
@@ -526,7 +536,11 @@ class YousticeApi {
 		//raise exceptions
 		$this->checkIsProperlyInstalledWithExceptions();
 		
-		return $this->local->install();
+		$result = $this->local->install();
+		
+		$this->infinarioInstalledEvent();
+		
+		return $result;
 	}
 
 	/**
@@ -535,7 +549,11 @@ class YousticeApi {
 	 */
 	public function uninstall()
 	{
-		return $this->local->uninstall();
+		$result = $this->local->uninstall();
+		
+		$this->infinarioUninstalledEvent();
+		
+		return $result;
 	}
 
 	public function setOftenUpdates()
@@ -716,7 +734,13 @@ class YousticeApi {
 	
 	public function checkApiKey()
 	{
-		return $this->remote->checkApiKey();
+		$result = $this->remote->checkApiKey();
+
+		if ($result) {
+			$this->infinarioValidApiKeySetEvent();
+		}
+
+		return $result;
 	}
 
 	/**
@@ -801,6 +825,77 @@ class YousticeApi {
 		$this->user_id = $user_id;
 
 		return $this;
+	}
+	
+	public function initInfinarioWithPlayerData($player_email, array $player_data) {
+		$this->infinario = new YousticeInfinarioFacade('3d95aefc-df52-11e4-8a48-b083fedeed2e', false);
+		$this->infinario->setPlayerId($player_email);		
+		$this->infinario->setPlayerData($player_data);
+		
+		return $this;
+	}
+	
+	public function setInfinarioEventData(array $event_data) {		
+		$basic_event_data = array (
+			'language' => $this->language,
+			'shop_software_type' => $this->shop_software_type,
+			'shop_software_version' => $this->shop_software_version,
+			'sdk_version' => $this->getVersionName(),
+			'server_data' => array (
+				'php_version' => phpversion(),
+				'os'	=> php_uname()
+			)
+		);
+		
+		$this->infinario->setEventData(array_merge($basic_event_data, $event_data));
+		
+		return $this;
+	}
+	
+	public function infinarioInstalledEvent() {
+		try {			
+			//register player's data only on install
+			$this->infinario->registerPlayerData();
+			$this->infinario->installedEvent();
+		}
+		catch(Exception $e) {
+			//ignore
+		}
+		
+		return $this;
+	}
+	
+	public function infinarioUninstalledEvent() {
+		try {			
+			$this->infinario->uninstalledEvent();
+		}
+		catch(Exception $e) {
+			//ignore
+		}
+		
+		return $this;
+	}
+	
+	public function infinarioValidApiKeySetEvent() {
+		try {			
+			$this->infinario->validApiKeySetEvent();
+		}
+		catch(Exception $e) {
+			//ignore
+		}
+		
+		return $this;		
+	}
+	
+	public function infinarioRegisterMeClickedEvent() {
+		try {			
+			$this->infinario->registerMeClickedEvent();
+		}
+		catch(Exception $e) {
+			//ignore
+		}
+		
+		return $this;		
 	}
 
 }
