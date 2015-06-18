@@ -77,7 +77,7 @@ class YousticeRemote extends YousticeRequest {
 		$now = new Datetime();
 
 		$request_data = array(
-			'itemType' => $this->shop_sells,
+			//'itemType' => $this->shop_sells,
 			'orderNumber' => $code,
 			'itemDescription' => $data['description'],
 			'itemName' => $data['name'],
@@ -104,7 +104,7 @@ class YousticeRemote extends YousticeRequest {
 		$now = new Datetime();
 
 		$request_data = array(
-			'itemType' => $this->shop_sells,
+			//'itemType' => $this->shop_sells,
 			'orderNumber' => $code,
 			'itemDescription' => $data['description'],
 			'itemName' => $data['name'],
