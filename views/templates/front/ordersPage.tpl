@@ -23,24 +23,24 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 
-<div class="orderDetailWrap ordersPageWrap"><h1>{l s='Report claims on'|escape:'htmlall' mod='yousticeresolutionsystem'} {$shopName|escape:'htmlall'}</h1>
+<div class="orderDetailWrap ordersPageWrap"><h1>{l s='Report claims on'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'} {$shopName|escape:'htmlall':'UTF-8'}</h1>
     <div class="topRightWrap">
         {$webReportButton|escape:'false'}
         <span class="space"></span>
         <a class="yrsButton yrsButton-close">x</a>
     </div>
-    <h2>{l s='Your orders (%d)' sprintf=$ordersCount|escape:'htmlall' mod='yousticeresolutionsystem'}</h2>
+    <h2>{l s='Your orders (%d)' sprintf=$ordersCount|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
     {if !empty($orders)}
         <table class="orderDetail">
 
             {foreach from=$orders item=order}
                 <tr>
                     <td>
-                        <b>{$order->getName()|escape:'htmlall'}</b> 
-                        ({l s=$order->getPaymentState()|escape:'htmlall' mod='yousticeresolutionsystem'}, 
-                        {l s=$order->getDeliveryState()|escape:'htmlall' mod='yousticeresolutionsystem'})<br>
-                        {l s='Order date'|escape:'htmlall' mod='yousticeresolutionsystem'}: {date($orderDateFormat, strtotime($order->getOrderDate()))}<br>
-                        {l s='Total'|escape:'htmlall' mod='yousticeresolutionsystem'}: {$order->getPrice()} {$order->getCurrency()}
+                        <b>{$order->getName()|escape:'htmlall':'UTF-8'}</b> 
+                        ({l s=$order->getPaymentState()|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}, 
+                        {l s=$order->getDeliveryState()|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'})<br>
+                        {l s='Order date'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}: {date($orderDateFormat, strtotime($order->getOrderDate()))}<br>
+                        {l s='Total'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}: {$order->getPrice()} {$order->getCurrency()}
                     </td>
                     <td>{$api->getOrderDetailButtonHtml($order->getOrderDetailHref(), $order)|escape:'false'}</td>
                 </tr>
@@ -50,8 +50,8 @@
 </div>
     
 {if false}
-    {l s='paid'|escape:'htmlall' mod='yousticeresolutionsystem'}
-    {l s='unpaid'|escape:'htmlall' mod='yousticeresolutionsystem'}
-    {l s='delivered'|escape:'htmlall' mod='yousticeresolutionsystem'}
-    {l s='undelivered'|escape:'htmlall' mod='yousticeresolutionsystem'}
+    {l s='paid'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+    {l s='unpaid'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+    {l s='delivered'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+    {l s='undelivered'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
 {/if}

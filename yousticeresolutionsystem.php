@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.8.5';
+		$this->version                = '1.9.0';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -32,7 +32,13 @@ class YousticeResolutionSystem extends Module
 		$this->description		= $this->l($description);
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
+		$this->createApi();
+	}
+
+	protected function createApi()
+	{
 		require_once('SDK/Api.php');
+
 		$db = array(
 			'driver' => 'mysql',
 			'host' => _DB_SERVER_,
@@ -51,6 +57,39 @@ class YousticeResolutionSystem extends Module
 		$this->y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 		$this->y_api->setSession(new YousticeProvidersSessionPrestashopProvider());
 
+		//on frontend
+		if (!isset($this->context->employee))
+			return;
+
+		$first_employee = Db::getInstance()->executeS('
+			SELECT `email`
+			FROM `'._DB_PREFIX_.'employee`
+			ORDER BY `id_employee` ASC
+			LIMIT 1
+		');
+
+		if ($first_employee)
+		{
+			$emplyoee_model = new EmployeeCore();
+			$first_employee = $emplyoee_model->getByEmail($first_employee[0]['email']);
+
+			$this->y_api->initInfinarioWithPlayerData($this->context->cookie->email, array(
+				'id' => $first_employee->id,
+				'email' => $first_employee->email,
+				'first_name' => $first_employee->firstname,
+				'last_name' => $first_employee->lastname
+			));
+		}
+
+		$this->y_api->setInfinarioEventData(array(
+			'user_id' => $this->context->employee->id,
+			'email'	=> $this->context->employee->email,
+			'first_name' => $this->context->employee->firstname,
+			'lsat_name' => $this->context->employee->lastname,
+			'plugin_version' => $this->version,
+			'shop_url' => _PS_BASE_URL_,
+			'shop_default_language' => (new LanguageCore(Configuration::get('PS_LANG_DEFAULT')))->iso_code
+		));
 	}
 
 	public function hookDisplayHeader()
@@ -59,9 +98,9 @@ class YousticeResolutionSystem extends Module
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && Tools::strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 			return;
 
-		$this->context->controller->addCSS($this->_path.'css/youstice.css', 'all');
-		$this->context->controller->addCSS($this->_path.'css/youstice_prestashop.css', 'all');
-		$this->context->controller->addJS($this->_path.'js/yrs_order_history.js');
+		$this->context->controller->addCSS($this->_path.'views/css/youstice.css', 'all');
+		$this->context->controller->addCSS($this->_path.'views/css/youstice_prestashop.css', 'all');
+		$this->context->controller->addJS($this->_path.'views/js/yrs_order_history.js');
 
 		if (Tools::getValue('section') == 'getReportClaimsPage')
 			return $this->addReportClaimsPageMetaTags();
@@ -82,11 +121,27 @@ class YousticeResolutionSystem extends Module
 
 	public function hookActionOrderDetail()
 	{
-		echo '<script type="text/javascript" src="'.$this->_path.'js/yrs_order_detail.js"></script>';
+		echo '<script type="text/javascript" src="'.$this->_path.'views/js/yrs_order_detail.js"></script>';
 	}
 
 	public function getContent()
 	{
+		if (Tools::isSubmit('registerMe') || Tools::isSubmit('registerMeSandbox'))
+		{
+			$this->y_api->infinarioRegisterMeClickedEvent();
+
+			$lang = $this->context->language->iso_code;
+
+			if (Tools::isSubmit('registerMeSandbox'))
+				$url = 'https://app-sand.youstice.com/blox-odr13/generix/odr/'.$lang.'/app2/_shopConfiguration_';
+			else
+				$url = 'https://app.youstice.com/blox-odr/generix/odr/'.$lang.'/app2/_subscription_';
+
+			$url .= '?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
+
+			Tools::redirect($url);
+		}
+
 		$output = '';
 
 		$properly_installed = $this->checkIfProperlyInstalled();
@@ -103,17 +158,18 @@ class YousticeResolutionSystem extends Module
 
 		$smarty = Context::getContext()->smarty;
 
-		$smarty->assign('saveHref', AdminController::$currentIndex.'&configure='.$this->name.'&save'.$this->name.
-				'&token='.Tools::getAdminTokenLite('AdminModules'));
-		$smarty->assign('checkApiKeyUrl', AdminController::$currentIndex.'&configure='.$this->name.'&checkForApiKey'.$this->name.
-				'&token='.Tools::getAdminTokenLite('AdminModules'));
+		$base_url = AdminController::$currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules');
+
+		$smarty->assign('saveHref', $base_url.'&save'.$this->name);
+		$smarty->assign('checkApiKeyUrl', $base_url.'&checkForApiKey'.$this->name);
+		$smarty->assign('registerMeUrl', $base_url.'&registerMe');
+		$smarty->assign('registerMeSandboxUrl', $base_url.'&registerMeSandbox');
 		$smarty->assign('api_key', Configuration::get('YRS_API_KEY'));
 		$smarty->assign('use_sandbox', Configuration::get('YRS_SANDBOX'));
 		$smarty->assign('reportClaimsPageLink', $this->getReportClaimsPageLink());
 		$smarty->assign('modulePath', $this->_path);
 		$smarty->assign('cssFile', $this->_path.'css/admin.css');
 		$smarty->assign('is1_5Version', version_compare(_PS_VERSION_, '1.6.0') <= 0);
-		$smarty->assign('currentLanguage', $this->context->language->iso_code);
 
 		$output .= $smarty->fetch(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/main.tpl');
 
@@ -233,22 +289,6 @@ class YousticeResolutionSystem extends Module
 	{
 		if (Shop::isFeatureActive())
 			Shop::setContext(Shop::CONTEXT_ALL);
-
-		$db = array(
-			'driver' => 'mysql',
-			'host' => _DB_SERVER_,
-			'user' => _DB_USER_,
-			'pass' => _DB_PASSWD_,
-			'name' => _DB_NAME_,
-			'prefix' => _DB_PREFIX_
-		);
-
-		$y_api = YousticeApi::create();
-		$y_api->setDbCredentials($db);
-		$y_api->setLanguage($this->context->language->iso_code);
-		$y_api->setShopSoftwareType('prestashop');
-		$y_api->setThisShopSells('product');
-		$y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 
 		Configuration::updateValue('YRS_DB_INSTALLED', '1');
 
