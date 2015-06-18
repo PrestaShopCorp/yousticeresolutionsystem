@@ -24,6 +24,6 @@
 *}
 <a class="yrsButton yrsOrderDetailButton yrsButton-with-time {$statusClass|escape:'false'}" 
    href="{$href|escape:'false'}">
-    <span>{{l s=$message mod='yousticeresolutionsystem'}|escape:'htmlall'}</span>
-    <span>{{l s='%d days %d hours' sprintf=[$remainingTimeDays, $remainingTimeHours] mod='yousticeresolutionsystem'}|escape:'htmlall'}</span>
+    <span>{{l s=$message mod='yousticeresolutionsystem'}|escape:'htmlall':'UTF-8'}</span>
+    <span>{{l s='%d days %d hours' sprintf=[$remainingTimeDays, $remainingTimeHours] mod='yousticeresolutionsystem'}|escape:'htmlall':'UTF-8'}</span>
 </a>
