@@ -51,12 +51,6 @@ class YousticeApi {
 	protected $api_key;
 
 	/**
-	 * product|service
-	 * @var string 
-	 */
-	protected $shop_sells;
-
-	/**
 	 * unique integer identifier
 	 * @var type 
 	 */
@@ -128,7 +122,6 @@ class YousticeApi {
 		$this->setLanguage($language);
 		$this->setUserId($user_id);
 		$this->setApiKey($api_key, $use_sandbox);
-		$this->setThisShopSells($shop_sells);
 		$this->setShopSoftwareType($shop_software_type, $shop_software_version);
 
 		return $this;
@@ -165,7 +158,7 @@ class YousticeApi {
 		
 		$this->is_properly_installed = $this->checkIsProperlyInstalled();
 
-		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_sells, $this->shop_software_type, $this->shop_software_version);
+		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_software_type, $this->shop_software_version);
 
 		return $this;
 	}
@@ -748,26 +741,21 @@ class YousticeApi {
 	 * @param string $shop_sells "product|service"
 	 * @return YousticeApi
 	 * @throws InvalidArgumentException
+	 * @deprecated
 	 */
 	public function setThisShopSells($shop_sells)
 	{
-		$this->shop_sells = Tools::strtolower($shop_sells);
-
 		return $this;
 	}
 
 	/**
 	 * Check if shopSells attribute is correct
 	 * @throws InvalidArgumentException
+	 * @deprecated
 	 */
 	protected function checkShopSells()
 	{
-		$allowed_types = array('product', 'service');
 
-		if (in_array(Tools::strtolower($this->shop_sells), $allowed_types))
-			$this->shop_sells = Tools::strtolower($this->shop_sells);
-		else
-			throw new InvalidArgumentException('Shop selling "'.$this->shop_sells.'" is not allowed.');
 	}
 
 	/**
