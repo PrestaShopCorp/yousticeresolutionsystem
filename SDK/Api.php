@@ -247,7 +247,7 @@ class YousticeApi {
 		catch (Exception $e) {
 			return '';
 		}
-		
+
 		return $html;
 	}
 
@@ -897,5 +897,10 @@ class YousticeInvalidApiKeyException extends Exception {
 }
 
 class YousticeFailedRemoteConnectionException extends Exception {
+	/**
+	 * Contains http status code from response if provided
+	 * @var int
+	 */
+	protected $code;
 
 }

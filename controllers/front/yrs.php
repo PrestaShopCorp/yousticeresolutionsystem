@@ -99,7 +99,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		parent::init();
 		parent::setMedia();
 		$base_url = Tools::getCurrentUrlProtocolPrefix().Tools::getShopDomainSsl().__PS_BASE_URI__;
-		$this->addJS($base_url.'modules/yousticeresolutionsystem/js/yrs_report_claims.js');
+		$this->addJS($base_url.'modules/yousticeresolutionsystem/views/js/yrs_report_claims.js');
 		parent::initHeader();
 		parent::initContent();
 		parent::initFooter();
@@ -585,7 +585,6 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		$yapi->setDbCredentials($db);
 		$yapi->setLanguage(Context::getContext()->language->iso_code);
 		$yapi->setShopSoftwareType('prestashop');
-		$yapi->setThisShopSells(Configuration::get('YRS_ITEM_TYPE'));
 		$yapi->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 		$yapi->setSession(new YousticeProvidersSessionPrestashopProvider());
 

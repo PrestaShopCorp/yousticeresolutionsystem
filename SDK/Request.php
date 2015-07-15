@@ -25,6 +25,20 @@ class YousticeRequest {
 
 		return $data;
 	}
+	
+	protected function isResponseInvalid()
+	{
+		$responseArray = $this->responseToArray();
+
+		return $this->response === false 
+				|| $this->response === null 
+				|| (isset($responseArray['error']) && $responseArray['error'] == false);
+	}
+	
+	protected function checkForInvalidApiKeyInResponse() {
+		if (strpos($this->response, 'Invalid api key') !== false || strpos($this->response, 'apiKey is invalid') !== false)
+			throw new YousticeInvalidApiKeyException;
+	}
 
 	public function setAdditionalParam($key, $val)
 	{
@@ -47,41 +61,41 @@ class YousticeRequest {
 			$this->additional_params = array();
 		}
 
-		return $return_url;
-	}
-
-	public function post($url, $data = array())
-	{
-		$url = $this->generateUrl($url);
-		$this->postStream($url, $data);
-
-		if ($this->response === false || $this->response === null || strpos($this->response, "HTTP Status 500") !== false)
-		{
-			$this->logError($url, "POST", $data, $this->response);
-
-			throw new YousticeFailedRemoteConnectionException('Post Request failed: ' . $url);
-		}
-
-		if (strpos($this->response, 'Invalid api key') !== false)
-			throw new YousticeInvalidApiKeyException;
-
-		return $this->response;
+		return str_replace('://', '://' . $this->auth_login . ':' . $this->auth_passw . '@', $return_url);
 	}
 
 	public function get($url)
 	{
-		$url = $this->generateUrl($url);
-		$this->getStream($url);
-
-		if ($this->response === false || $this->response === null || strpos($this->response, "HTTP Status 500") !== false)
-		{
+		try {
+			$this->getStream($url);
+		}
+		catch (Exception $e) {
+			$this->checkForInvalidApiKeyInResponse();
+			
 			$this->logError($url, "GET", array(), $this->response);
 
-			throw new YousticeFailedRemoteConnectionException('get Request failed: ' . $url);
+			throw new YousticeFailedRemoteConnectionException('get Request failed: ' . $url, $e->getCode());
 		}
 
-		if (strpos($this->response, 'Invalid api key') !== false)
-			throw new YousticeInvalidApiKeyException;
+		$this->checkForInvalidApiKeyInResponse();
+
+		return $this->response;
+	}
+
+	public function post($url, $data = array())
+	{
+		try {
+			$this->postStream($url, $data);
+		}
+		catch (Exception $e) {
+			$this->checkForInvalidApiKeyInResponse();
+			
+			$this->logError($url, "POST", $data, $this->response);
+
+			throw new YousticeFailedRemoteConnectionException('Post Request failed: ' . $url, $e->getCode());
+		}
+
+		$this->checkForInvalidApiKeyInResponse();
 
 		return $this->response;
 	}
@@ -91,15 +105,13 @@ class YousticeRequest {
 		$request = stream_context_create(array(
 			'http' => array(
 				'method' => 'GET',
-				'ignore_errors' => false,
-				'timeout' => 10.0,
+				'ignore_errors' => true,
+				'timeout' => 8,
 				'header' => "Content-Type: application/json\r\n" . 'Accept-Language: ' . $this->lang . "\r\n",
 			)
 		));
-
-		$url = str_replace('://', '://' . $this->auth_login . ':' . $this->auth_passw . '@', $url);
-
-		$this->response = Tools::file_get_contents($url, false, $request);
+		
+		$this->executeCall($url, $request);
 	}
 
 	protected function postStream($url, $data)
@@ -107,16 +119,25 @@ class YousticeRequest {
 		$request = stream_context_create(array(
 			'http' => array(
 				'method' => 'POST',
-				'ignore_errors' => false,
-				'timeout' => 10.0,
+				'ignore_errors' => true,
+				'timeout' => 8,
 				'content' => Tools::jsonEncode($data),
 				'header' => "Content-Type: application/json\r\n" . 'Accept-Language: ' . $this->lang . "\r\n",
 			)
 		));
-
-		$url = str_replace('://', '://' . $this->auth_login . ':' . $this->auth_passw . '@', $url);
+		
+		$this->executeCall($url, $request);
+	}
+	
+	protected function executeCall($url, $request) {		
+		$url = $this->generateUrl($url);
 
 		$this->response = YousticeTools::file_get_contents($url, false, $request);
+
+		if ($this->isResponseInvalid())
+		{
+			throw new Exception();
+		}
 	}
 
 	protected function logError($url, $type, $data, $response)

@@ -32,7 +32,3 @@
 <input type="text" id="yOrderNumber" name="orderNumber">
 <input type="submit" name="send" value="{l s='Continue'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}">
 </form>
-                
-                
-                
-                
