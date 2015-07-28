@@ -60,6 +60,7 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_e844d96d69ce26f675a9794e2af
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_88c7085a2ea81f7326d349131cdbdf7e'] = 'Youstice: PECL finfo não foi instalado. Instale, por favor.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_a240fa27925a635b08dc28c9e4f9216d'] = 'Encomendar';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_114d63e6a498967eb8b1dad8c902769b'] = 'Produtos no seu pedido (%d)';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderdetailbuttoninorderspage_f5d74ea75357b5e139854c14f8e24fe3'] = 'Detalhes do pedido';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_f8806ede7e2365226282ff4916101f32'] = 'Apresente uma reclamação';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_841313dfdc8797fd3c196da9944a1896'] = 'Os seus pedidos (%d)';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_559e7ca805230fc80e3644f87bb3994d'] = 'Data do pedido';
@@ -74,8 +75,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_4049d979b8e6b7d7819
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_a0bfb8e59e6c13fc8d990781f77694fe'] = 'Continuar';
 $_MODULE['<{yousticeresolutionsystem}prestashop>showbuttons_13c8eac34dca00497a681cb9e2191174'] = 'Gostaria de fazer uma reclamação?';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_b58df1ce90fa5cde2dee70b302b83e83'] = '%d dias %d horas';
-$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_0f6331fd0d61bf77f611f6f116b984c1'] = 'Apresentar uma reclamação';
+$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_df8549bf0f6bbcfececb3c8c1a3be08a'] = 'Apresente um problema no pedido inteiro';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithcount_1d74348f932d8aedf341914b091625ab'] = '%d processos em curso';
+$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_0f6331fd0d61bf77f611f6f116b984c1'] = 'Apresentar uma reclamação';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_14f3016cb987a27bec715b35d1493ae1'] = 'Para ser implementado';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_077e69a60b17455b04bca8d5640d54cf'] = 'Responda ao varejista';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_7e70acae909b7f468f6c1c1e65b1b362'] = 'À espera de decisão';

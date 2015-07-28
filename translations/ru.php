@@ -60,6 +60,7 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_e844d96d69ce26f675a9794e2af
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_88c7085a2ea81f7326d349131cdbdf7e'] = 'Юстис: PECL finfo не установлен, пожалуйста, установите его.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_a240fa27925a635b08dc28c9e4f9216d'] = 'Заказ';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_114d63e6a498967eb8b1dad8c902769b'] = 'Товары в Вашем заказе (%d)';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderdetailbuttoninorderspage_f5d74ea75357b5e139854c14f8e24fe3'] = 'Детали заказа';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_f8806ede7e2365226282ff4916101f32'] = 'Предъявить претензию к';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_841313dfdc8797fd3c196da9944a1896'] = 'Ваши заказы (%d)';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_559e7ca805230fc80e3644f87bb3994d'] = 'Дата заказа';
@@ -74,8 +75,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_4049d979b8e6b7d7819
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_a0bfb8e59e6c13fc8d990781f77694fe'] = 'Далее';
 $_MODULE['<{yousticeresolutionsystem}prestashop>showbuttons_13c8eac34dca00497a681cb9e2191174'] = 'Хотите предъявить претензию?';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_b58df1ce90fa5cde2dee70b302b83e83'] = '%d дней %d часов';
-$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_0f6331fd0d61bf77f611f6f116b984c1'] = 'Предъявить претензию';
+$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_df8549bf0f6bbcfececb3c8c1a3be08a'] = 'Сообщить о проблеме касающейся целого заказа';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithcount_1d74348f932d8aedf341914b091625ab'] = '%d текущие споры';
+$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_0f6331fd0d61bf77f611f6f116b984c1'] = 'Предъявить претензию';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_14f3016cb987a27bec715b35d1493ae1'] = 'Предстоит реализация';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_077e69a60b17455b04bca8d5640d54cf'] = 'Ответить розничному торговцу';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_7e70acae909b7f468f6c1c1e65b1b362'] = 'В ожидании принятия решения';

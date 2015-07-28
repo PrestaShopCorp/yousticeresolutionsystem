@@ -169,26 +169,33 @@ class YousticeApi {
 	protected function registerAutoloader()
 	{
 		spl_autoload_register(function ($class_name) {
+			if (strpos($class_name, 'Youstice') === false)
+				return;
+			
 			$class_name = str_replace('Youstice', '', $class_name);
+			
+			if ($class_name === 'WidgetsOrderDetailButtonInOrdersPage') {
+				require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Widgets' 
+						. DIRECTORY_SEPARATOR . 'OrderDetailButtonInOrdersPage.php';
+				return;
+			}
 
+			//prepend uppercase letter with directory separator 
 			$class_path = preg_replace('/([A-Z])/', '/\\1', $class_name);
-
 			$path = dirname(__FILE__).str_replace('/', DIRECTORY_SEPARATOR, $class_path);
 
 			if (is_readable($path.'.php'))
 				require_once $path.'.php';
 			else
 			{
-				$path = strrev(preg_replace('/\\'.DIRECTORY_SEPARATOR.'/', '', strrev($path), 1));
-
-				if (is_readable($path.'.php'))
-					require_once $path.'.php';
-				else
-				{
+				for ($i = 0; $i < 2; $i++) {
+					//Providers/Session/PrestashopProvider -> Providers/SessionPrestashopProvider
 					$path = strrev(preg_replace('/\\'.DIRECTORY_SEPARATOR.'/', '', strrev($path), 1));
 
-					if (is_readable($path.'.php'))
+					if (is_readable($path.'.php')) {
 						require_once $path.'.php';
+						break;
+					}
 				}
 			}
 		}, true, true);  //prepend our autoloader
@@ -363,6 +370,32 @@ class YousticeApi {
 		$report = $this->local->getOrderReport($order->getId(), $product_codes);
 
 		$order_button = new YousticeWidgetsOrderDetailButton($href, $order, $report, $this);
+
+		return $order_button->toString();
+	}
+
+	/**
+	 * Returns button for opening order detail popup
+	 * @param string $href url address where showing order detail is mantained
+	 * @param YousticeShopOrder $order class with attached data
+	 */
+	public function getOrderDetailButtonInOrdersPageHtml($href, YousticeShopOrder $order)
+	{
+		if (!trim($this->api_key))
+			return '';
+
+		if (!$this->is_properly_installed)
+			return '';
+
+		$products = $order->getProducts();
+		$product_codes = array();
+
+		foreach ($products as $product)
+			$product_codes[] = $product->getCode();
+
+		$report = $this->local->getOrderReport($order->getId(), $product_codes);
+
+		$order_button = new YousticeWidgetsOrderDetailButtonInOrdersPage($href, $this->language, $order, $report, $this);
 
 		return $order_button->toString();
 	}

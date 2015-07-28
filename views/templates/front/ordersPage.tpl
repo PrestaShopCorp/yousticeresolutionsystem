@@ -42,7 +42,7 @@
                         {l s='Order date'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}: {date($orderDateFormat, strtotime($order->getOrderDate()))}<br>
                         {l s='Total'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}: {$order->getPrice()} {$order->getCurrency()}
                     </td>
-                    <td>{$api->getOrderDetailButtonHtml($order->getOrderDetailHref(), $order)|escape:'false'}</td>
+                    <td>{$api->getOrderDetailButtonInOrdersPageHtml($order->getOrderDetailHref(), $order)|escape:'false'}</td>
                 </tr>
             {/foreach}
         </table>
