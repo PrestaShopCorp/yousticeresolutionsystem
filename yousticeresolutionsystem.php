@@ -53,7 +53,6 @@ class YousticeResolutionSystem extends Module
 		$this->y_api->setDbCredentials($db);
 		$this->y_api->setLanguage($this->context->language->iso_code);
 		$this->y_api->setShopSoftwareType('prestashop', _PS_VERSION_);
-		$this->y_api->setThisShopSells(Configuration::get('YRS_ITEM_TYPE'));
 		$this->y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 		$this->y_api->setSession(new YousticeProvidersSessionPrestashopProvider());
 
@@ -304,17 +303,17 @@ class YousticeResolutionSystem extends Module
 			$this->registerHook('header') &&
 			$this->registerHook('orderDetail') &&
 			Configuration::updateValue('YRS_SANDBOX', '0') &&
-			Configuration::updateValue('YRS_ITEM_TYPE', 'product') &&
 			Configuration::updateValue('YRS_API_KEY', '');
 	}
 
 	public function uninstall()
 	{
 		$this->y_api->uninstall();
+		
+		Configuration::deleteByName('YRS_ITEM_TYPE');
 
 		if (!parent::uninstall() ||
 				!Configuration::deleteByName('YRS_SANDBOX') ||
-				!Configuration::deleteByName('YRS_ITEM_TYPE') ||
 				!Configuration::deleteByName('YRS_API_KEY') ||
 				!Configuration::deleteByName('YRS_DB_INSTALLED'))
 			return false;
