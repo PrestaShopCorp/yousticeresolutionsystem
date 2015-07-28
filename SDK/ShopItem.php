@@ -251,46 +251,41 @@ abstract class YousticeShopItem {
 
 	protected function loadImage($path)
 	{
-		if ($path == null || !trim($path))
-			return;
-
-		if (is_readable($path))
-		{
-			$image_data = Tools::file_get_contents($path);
-
-			if ($image_data === false)
-				throw new Exception('Image does not exists');
-
-			$mime_type = $this->getMimeType($path);
-
-			//correct image
-			if (Tools::strlen($image_data) > 0)
-			{
-				$image_data = $this->resize($image_data, 300, 300, false, $mime_type);
-				return base64_encode($image_data);
-			}
-
+		if ($path == null || !trim($path) || !is_readable($path))
 			return null;
+
+		$image_data = Tools::file_get_contents($path);
+
+		if ($image_data === false)
+			return null;
+
+		//correct image
+		if (Tools::strlen($image_data) > 0)
+		{
+			$image_data = $this->resize($image_data, 300, 300, false);
+			return base64_encode($image_data);
 		}
-		else
-			throw new Exception('Image path is not readable');
+
+		return null;
 	}
 
-	protected function resize($image_data, $width = 100, $height = 100, $stretch = false, $mime_type = null)
+	protected function resize($image_data, $width = 100, $height = 100, $stretch = false)
 	{
 		$file = tempnam(sys_get_temp_dir(), md5(time().'YRS'));
 
 		if ($file === false)
-			throw new Exception('Creating temporary file failed. Temporary Directory: '.sys_get_temp_dir());
+			return null;
 
 		$file_handle = fopen($file, 'w');
 		fwrite($file_handle, $image_data);
 		fclose($file_handle);
+		
+		list($width_original, $height_original, $file_type) = getimagesize($file);
 
-		if(!$mime_type)
-			$mime_type = $this->getMimeType($file);
+		if (!$width_original || !$height_original)
+			return null;
 
-		switch ($mime_type)
+		switch (image_type_to_mime_type($file_type))
 		{
 			case 'image/bmp':
 				$handle = imagecreatefromwbmp($file);
@@ -305,42 +300,37 @@ abstract class YousticeShopItem {
 				$handle = imagecreatefrompng($file);
 				break;
 			default:
-				throw new Exception('Unsupported image type '.$mime_type);
+				return null;
 		}
-
-		$dimensions = getimagesize($file);
-
-		if (!$dimensions)
-			throw new Exception('Reading of temporary file failed');
 
 		$offset_x = 0;
 		$offset_y = 0;
 		$dst_w = $width;
 		$dst_h = $height;
 
-		$bnd_x = $width / $dimensions[0];
-		$bnd_y = $height / $dimensions[1];
+		$bnd_x = $width / $width_original;
+		$bnd_y = $height / $height_original;
 
 		if ($stretch)
 		{
 			if ($bnd_x > $bnd_y)
 			{
 				$ratio = $height / $width;
-				$temp = floor($dimensions[1] / $ratio);
+				$temp = floor($height_original / $ratio);
 
-				if ($temp > $dimensions[0])
-					$dimensions[1] -= ($temp - $dimensions[0]) * $ratio;
+				if ($temp > $width_original)
+					$height_original -= ($temp - $width_original) * $ratio;
 				else
-					$dimensions[0] = $temp;
+					$width_original = $temp;
 			}
 			else
 			{
 				$ratio = $width / $height;
-				$temp = floor($dimensions[0] / $ratio);
-				if ($temp > $dimensions[1])
-					$dimensions[0] -= ($temp - $dimensions[1]) * $ratio;
+				$temp = floor($width_original / $ratio);
+				if ($temp > $height_original)
+					$width_original -= ($temp - $height_original) * $ratio;
 				else
-					$dimensions[1] = $temp;
+					$height_original = $temp;
 			}
 		}
 		else
@@ -348,21 +338,21 @@ abstract class YousticeShopItem {
 			if ($bnd_x > $bnd_y)
 			{
 				# height reaches boundary first, modify width
-				$offset_x = ($width - $dimensions[0] * $bnd_y) / 2;
-				$dst_w = $dimensions[0] * $bnd_y;
+				$offset_x = ($width - $width_original * $bnd_y) / 2;
+				$dst_w = $width_original * $bnd_y;
 			}
 			else
 			{
 				# width reaches boundary first (or equal), modify height
-				$offset_y = ($height - $dimensions[1] * $bnd_x) / 2;
-				$dst_h = $dimensions[1] * $bnd_x;
+				$offset_y = ($height - $height_original * $bnd_x) / 2;
+				$dst_h = $height_original * $bnd_x;
 			}
 		}
 
 		$preview = imagecreatetruecolor($width, $height);
 
 		if (!$preview)
-			throw new Exception('Creating thumbnail failed');
+			return null;
 
 		# draw white background -> opravene na transparent
 		$c = imagecolorallocatealpha($preview, 255, 255, 255, 0);
@@ -373,8 +363,8 @@ abstract class YousticeShopItem {
 			imagecolordeallocate($preview, $c);
 		}
 
-		if (!imagecopyresampled($preview, $handle, $offset_x, $offset_y, 0, 0, $dst_w, $dst_h, $dimensions[0], $dimensions[1]))
-			throw new Exception('Creating thumbnail failed');
+		if (!imagecopyresampled($preview, $handle, $offset_x, $offset_y, 0, 0, $dst_w, $dst_h, $width_original, $height_original))
+			return null;
 
 		unlink($file);
 		imagedestroy($handle);
@@ -382,30 +372,8 @@ abstract class YousticeShopItem {
 		ob_start();
 		imagejpeg($preview);
 		imagedestroy($preview);
+		
 		return ob_get_clean();
-	}
-
-	protected function getMimeType($filename)
-	{
-		if(function_exists('finfo_open') && function_exists('finfo_file'))
-		{
-			$finfo = finfo_open(FILEINFO_MIME_TYPE);
-			$mime = finfo_file($finfo, $filename);
-			finfo_close($finfo);
-			
-			return $mime;
-		}
-		
-		if(function_exists('mime_content_type'))
-			return mime_content_type($filename);
-		
-		$extension = Tools::strtolower(array_pop(explode('.',$filename)));
-		
-		if(array_key_exists($extension, $this->mime_types)){
-			return $this->mime_types[$extension];
-        }
-		
-		throw new Exception('Please install PECL fileinfo extension');
 	}
 
 }

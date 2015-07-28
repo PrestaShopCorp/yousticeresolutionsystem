@@ -814,9 +814,6 @@ class YousticeApi {
 
 		if (!extension_loaded('PDO'))
 			throw new YousticeApiException('Youstice: PDO is not installed, please install it.', self::PDO_NOT_INSTALLED);
-
-		if (!function_exists('finfo_open'))
-			throw new YousticeApiException('Youstice: PECL finfo is not installed, please install it.', self::FINFO_NOT_INSTALLED);
 	}
 
 	/**

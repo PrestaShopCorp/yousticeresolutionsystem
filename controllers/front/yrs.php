@@ -450,6 +450,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		//add image if exists
 		if (count($product['image']) > 0)
 		{
+			//todo get image_format from $product['image'] ... $product['image']->image_format
 			$image_path = _PS_PROD_IMG_DIR_.$product['image']->getExistingImgPath().'.jpg';
 			$shop_product->setImagePath($image_path);
 		}
