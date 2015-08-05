@@ -284,6 +284,9 @@ abstract class YousticeShopItem {
 
 		if (!$width_original || !$height_original)
 			return null;
+		
+		if ($width_original <= 300 && $height_original <= 300)
+			return $image_data;
 
 		switch (image_type_to_mime_type($file_type))
 		{
