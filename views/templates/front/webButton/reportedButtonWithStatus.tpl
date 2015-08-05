@@ -29,6 +29,7 @@
 </a>
 
 {if false}
+    {l s='Implemented'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
     {l s='To be implemented'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
     {l s='Respond to retailer'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
     {l s='Waiting for decision'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}

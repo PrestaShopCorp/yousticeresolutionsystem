@@ -62,7 +62,7 @@
             <p>{l s='It matters little whether the criticism is justified. Prevention is the best cure.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
 
             <h3>{l s='You can resolve customer complaints effectively. You just need the right tool.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h3>
-            <p>{l s='Resolving complaints rapidly and effectively can place a heavy burden on your small business. The longer customers wait for your reply, the angrier they get. Yet you can’t be behind your computer screen 24/7.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+            <p>{l s='Resolving complaints rapidly and effectively can place a heavy burden on your small business. The longer customers wait for your reply, the angrier they get. Yet you can’t be behind your computer screen 24/7.'|escape:'false':'UTF-8' mod='yousticeresolutionsystem'}</p>
             <p>{l s='Let us take the pain out of handling customer complaints. Thanks to our award-winning app, your customers know that you stand by your products and they trust your business.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
         </div>
         <div class="right">
@@ -128,7 +128,7 @@
             <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_1.png" target="_blank" rel="screenshot">
                 <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_1.png">
             </a>
-            <span>{l s='New button ‘Would you like to file a complaint?’ appears in an order history of each customer.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
+            <span>{l s='New button ‘Would you like to file a complaint?’ appears in an order history of each customer.'|escape:'false':'UTF-8' mod='yousticeresolutionsystem'}</span>
         </p>
         <p class="right">
             <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_2.png" target="_blank" rel="screenshot">

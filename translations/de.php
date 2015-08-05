@@ -78,12 +78,14 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_b58df1c
 $_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_df8549bf0f6bbcfececb3c8c1a3be08a'] = 'Problem mit der ganzen Bestellung melden';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithcount_1d74348f932d8aedf341914b091625ab'] = '%d aktuelle Fälle';
 $_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_0f6331fd0d61bf77f611f6f116b984c1'] = 'die Beschwerde einbringen';
+$_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_5bd958f78294c57d3763204b3b3a3f5d'] = 'Umgesetzt';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_14f3016cb987a27bec715b35d1493ae1'] = 'Warten auf die Implementanz';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_077e69a60b17455b04bca8d5640d54cf'] = 'Antwort an den Händler';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_7e70acae909b7f468f6c1c1e65b1b362'] = 'Warten auf die Entscheidung';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_e57d929e5cb33066906355570477967f'] = 'Zu ODR eskaliert';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_172e1a68c4772ef22b10fc6e1df48de2'] = 'Warten auf Antwort des Verkäufers';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_edbc35e2558a4b3b2aa47e80096d8dc7'] = 'Problem gemeldet';
+$_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_5bd958f78294c57d3763204b3b3a3f5d'] = 'Umgesetzt';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_14f3016cb987a27bec715b35d1493ae1'] = 'Warten auf die Implementanz';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_077e69a60b17455b04bca8d5640d54cf'] = 'Antwort an den Händler';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_7e70acae909b7f468f6c1c1e65b1b362'] = 'Warten auf die Entscheidung';
