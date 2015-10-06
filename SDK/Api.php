@@ -132,7 +132,7 @@ class YousticeApi {
 	 * @return string
 	 */
 	public function getVersionName() {
-		return '238';
+		return '242';
 	}
 
 	/**
