@@ -84,7 +84,7 @@ class YousticeResolutionSystem extends Module
 			'user_id' => $this->context->employee->id,
 			'email'	=> $this->context->employee->email,
 			'first_name' => $this->context->employee->firstname,
-			'lsat_name' => $this->context->employee->lastname,
+			'last_name' => $this->context->employee->lastname,
 			'plugin_version' => $this->version,
 			'shop_url' => _PS_BASE_URL_,
 			'shop_default_language' => (new LanguageCore(Configuration::get('PS_LANG_DEFAULT')))->iso_code
