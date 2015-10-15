@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.10.0';
+		$this->version                = '1.10.1';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -55,40 +55,6 @@ class YousticeResolutionSystem extends Module
 		$this->y_api->setShopSoftwareType('prestashop', _PS_VERSION_);
 		$this->y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 		$this->y_api->setSession(new YousticeProvidersSessionPrestashopProvider());
-
-		//on frontend
-		if (!isset($this->context->employee))
-			return;
-
-		$first_employee = Db::getInstance()->executeS('
-			SELECT `email`
-			FROM `'._DB_PREFIX_.'employee`
-			ORDER BY `id_employee` ASC
-			LIMIT 1
-		');
-
-		if ($first_employee)
-		{
-			$emplyoee_model = new EmployeeCore();
-			$first_employee = $emplyoee_model->getByEmail($first_employee[0]['email']);
-
-			$this->y_api->initInfinarioWithPlayerData($this->context->cookie->email, array(
-				'id' => $first_employee->id,
-				'email' => $first_employee->email,
-				'first_name' => $first_employee->firstname,
-				'last_name' => $first_employee->lastname
-			));
-		}
-
-		$this->y_api->setInfinarioEventData(array(
-			'user_id' => $this->context->employee->id,
-			'email'	=> $this->context->employee->email,
-			'first_name' => $this->context->employee->firstname,
-			'last_name' => $this->context->employee->lastname,
-			'plugin_version' => $this->version,
-			'shop_url' => _PS_BASE_URL_,
-			'shop_default_language' => (new LanguageCore(Configuration::get('PS_LANG_DEFAULT')))->iso_code
-		));
 	}
 
 	public function hookDisplayHeader()
@@ -127,8 +93,6 @@ class YousticeResolutionSystem extends Module
 	{
 		if (Tools::isSubmit('registerMe') || Tools::isSubmit('registerMeSandbox'))
 		{
-			$this->y_api->infinarioRegisterMeClickedEvent();
-
 			$lang = $this->context->language->iso_code;
 
 			if (Tools::isSubmit('registerMeSandbox'))
