@@ -738,6 +738,8 @@ class YousticeApi {
 	 */
 	public function setApiKey($api_key, $use_sandbox = false)
 	{
+		$api_key = preg_replace('/[^A-Za-z0-9 ]/', '', $api_key);
+		
 		if (!trim($api_key))
 			return $this;
 
