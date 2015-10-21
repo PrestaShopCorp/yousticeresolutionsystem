@@ -418,7 +418,7 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		if (strtotime($order['delivery_date']) > 0)
 			$shop_order->setDeliveryState(YousticeShopOrder::DELIVERED);
 
-		$shop_order->setOtherInfo(Tools::jsonEncode($this->buildDataArray($order)));
+		$shop_order->setOtherInfo('');
 
 		$order_object = new Order((int)$order_id);
 		$products = $order_object->getProducts();
@@ -442,10 +442,8 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 		$shop_product->setName($product['product_name']);
 		$shop_product->setId($product['id_order_detail']);
 		$shop_product->setPrice((float)$product['unit_price_tax_incl']);
-
-		$product_obj = new Product($product['product_id'], false, Context::getContext()->language->id);
-		$shop_product->setDescription($product_obj->description);
-		$shop_product->setOtherInfo(Tools::jsonEncode($this->buildDataArray(null, $product_obj)));
+		$shop_product->setDescription('');
+		$shop_product->setOtherInfo('');
 
 		//add image if exists
 		if (count($product['image']) > 0)
@@ -494,78 +492,6 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 			$href .= '&order_id='.$order_id;
 
 		return $href;
-	}
-
-	private function buildDataArray($order = null, $product_obj = null)
-	{
-		$request_data = array(
-			'shop' => array(
-				'name' => $this->context->shop->name,
-				'theme_name' => $this->context->shop->theme_name,
-				'domain' => $this->context->shop->domain,
-				'domain_ssl' => $this->context->shop->domain_ssl,
-			),
-			'customer' => array(
-				'lastname' => $this->context->customer->lastname,
-				'firstname' => $this->context->customer->firstname,
-				'birthday' => $this->context->customer->birthday,
-				'email' => $this->context->customer->email,
-			),
-			'language' => array(
-				'name' => $this->context->language->name,
-				'code' => $this->context->language->language_code,
-				'iso_code' => $this->context->language->iso_code,
-			)
-		);
-
-		if (!empty($order))
-		{
-			$date_invoice = null;
-			$date_delivery = null;
-			if ($order['invoice_date'] > 0)
-			{
-				$date_invoice = new DateTime($order['invoice_date']);
-				$date_invoice = $date_invoice->format(DateTime::ISO8601);
-			}
-			if ($order['delivery_date'] > 0)
-			{
-				$date_delivery = new DateTime($order['delivery_date']);
-				$date_delivery = $date_delivery->format(DateTime::ISO8601);
-			}
-			$request_data['order'] = array(
-				'id' => $order['id_order'],
-				'payment' => $order['payment'],
-				'reference' => $order['reference'],
-				'delivery_date' => $date_delivery,
-				'invoice_date' => $date_invoice,
-				'date_add' => $order['date_add'],
-				'date_upd' => $order['date_upd'],
-				'total_paid' => $order['total_paid'],
-				'total_paid_tax_incl' => $order['total_paid_tax_incl'],
-				'total_paid_tax_excl' => $order['total_paid_tax_excl'],
-				'currency' => Currency::getCurrencyInstance((int)$order['id_currency']),
-			);
-		}
-
-		if ($product_obj)
-		{
-			$supplier_name = Supplier::getNameById($product_obj->id_supplier);
-			$request_data['product'] = array(
-				'id' => $product_obj->id,
-				'name' => $product_obj->name,
-				'description' => $product_obj->description,
-				'description_short' => $product_obj->description_short,
-				'price' => $product_obj->price,
-				'reference' => $product_obj->reference,
-				'ean13' => $product_obj->ean13,
-				'width' => $product_obj->width,
-				'height' => $product_obj->height,
-				'depth' => $product_obj->depth,
-				'weight' => $product_obj->weight,
-				'supplier_name' => $supplier_name,
-			);
-		}
-		return $request_data;
 	}
 
 	protected function createSDK()
