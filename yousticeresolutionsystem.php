@@ -18,7 +18,7 @@ class YousticeResolutionSystem extends Module
 	{
 		$this->name                   = 'yousticeresolutionsystem';
 		$this->tab                    = 'advertising_marketing';
-		$this->version                = '1.8.5';
+		$this->version                = '1.10.2';
 		$this->author                 = 'Youstice';
 		$this->need_instance          = 0;
 		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -32,7 +32,13 @@ class YousticeResolutionSystem extends Module
 		$this->description		= $this->l($description);
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
+		$this->createApi();
+	}
+
+	protected function createApi()
+	{
 		require_once('SDK/Api.php');
+
 		$db = array(
 			'driver' => 'mysql',
 			'host' => _DB_SERVER_,
@@ -47,10 +53,8 @@ class YousticeResolutionSystem extends Module
 		$this->y_api->setDbCredentials($db);
 		$this->y_api->setLanguage($this->context->language->iso_code);
 		$this->y_api->setShopSoftwareType('prestashop', _PS_VERSION_);
-		$this->y_api->setThisShopSells(Configuration::get('YRS_ITEM_TYPE'));
 		$this->y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
 		$this->y_api->setSession(new YousticeProvidersSessionPrestashopProvider());
-
 	}
 
 	public function hookDisplayHeader()
@@ -59,9 +63,9 @@ class YousticeResolutionSystem extends Module
 		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && Tools::strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
 			return;
 
-		$this->context->controller->addCSS($this->_path.'css/youstice.css', 'all');
-		$this->context->controller->addCSS($this->_path.'css/youstice_prestashop.css', 'all');
-		$this->context->controller->addJS($this->_path.'js/yrs_order_history.js');
+		$this->context->controller->addCSS($this->_path.'views/css/youstice.css', 'all');
+		$this->context->controller->addCSS($this->_path.'views/css/youstice_prestashop.css', 'all');
+		$this->context->controller->addJS($this->_path.'views/js/yrs_order_history.js');
 
 		if (Tools::getValue('section') == 'getReportClaimsPage')
 			return $this->addReportClaimsPageMetaTags();
@@ -82,11 +86,25 @@ class YousticeResolutionSystem extends Module
 
 	public function hookActionOrderDetail()
 	{
-		echo '<script type="text/javascript" src="'.$this->_path.'js/yrs_order_detail.js"></script>';
+		echo '<script type="text/javascript" src="'.$this->_path.'views/js/yrs_order_detail.js"></script>';
 	}
 
 	public function getContent()
 	{
+		if (Tools::isSubmit('registerMe') || Tools::isSubmit('registerMeSandbox'))
+		{
+			$lang = $this->context->language->iso_code;
+
+			if (Tools::isSubmit('registerMeSandbox'))
+				$url = 'https://app-sand.youstice.com/blox-odr13/generix/odr/'.$lang.'/app2/_shopConfiguration_';
+			else
+				$url = 'https://app.youstice.com/blox-odr/generix/odr/'.$lang.'/app2/_subscription_';
+
+			$url .= '?utm_source=eshop&utm_medium=cpc&utm_content=presta_signup&utm_campaign=plugins';
+
+			Tools::redirect($url);
+		}
+
 		$output = '';
 
 		$properly_installed = $this->checkIfProperlyInstalled();
@@ -103,17 +121,18 @@ class YousticeResolutionSystem extends Module
 
 		$smarty = Context::getContext()->smarty;
 
-		$smarty->assign('saveHref', AdminController::$currentIndex.'&configure='.$this->name.'&save'.$this->name.
-				'&token='.Tools::getAdminTokenLite('AdminModules'));
-		$smarty->assign('checkApiKeyUrl', AdminController::$currentIndex.'&configure='.$this->name.'&checkForApiKey'.$this->name.
-				'&token='.Tools::getAdminTokenLite('AdminModules'));
+		$base_url = AdminController::$currentIndex.'&configure='.$this->name.'&token='.Tools::getAdminTokenLite('AdminModules');
+
+		$smarty->assign('saveHref', $base_url.'&save'.$this->name);
+		$smarty->assign('checkApiKeyUrl', $base_url.'&checkForApiKey'.$this->name);
+		$smarty->assign('registerMeUrl', $base_url.'&registerMe');
+		$smarty->assign('registerMeSandboxUrl', $base_url.'&registerMeSandbox');
 		$smarty->assign('api_key', Configuration::get('YRS_API_KEY'));
 		$smarty->assign('use_sandbox', Configuration::get('YRS_SANDBOX'));
 		$smarty->assign('reportClaimsPageLink', $this->getReportClaimsPageLink());
 		$smarty->assign('modulePath', $this->_path);
 		$smarty->assign('cssFile', $this->_path.'css/admin.css');
 		$smarty->assign('is1_5Version', version_compare(_PS_VERSION_, '1.6.0') <= 0);
-		$smarty->assign('currentLanguage', $this->context->language->iso_code);
 
 		$output .= $smarty->fetch(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/main.tpl');
 
@@ -234,22 +253,6 @@ class YousticeResolutionSystem extends Module
 		if (Shop::isFeatureActive())
 			Shop::setContext(Shop::CONTEXT_ALL);
 
-		$db = array(
-			'driver' => 'mysql',
-			'host' => _DB_SERVER_,
-			'user' => _DB_USER_,
-			'pass' => _DB_PASSWD_,
-			'name' => _DB_NAME_,
-			'prefix' => _DB_PREFIX_
-		);
-
-		$y_api = YousticeApi::create();
-		$y_api->setDbCredentials($db);
-		$y_api->setLanguage($this->context->language->iso_code);
-		$y_api->setShopSoftwareType('prestashop');
-		$y_api->setThisShopSells('product');
-		$y_api->setApiKey(Configuration::get('YRS_API_KEY'), Configuration::get('YRS_SANDBOX'));
-
 		Configuration::updateValue('YRS_DB_INSTALLED', '1');
 
 		try {
@@ -264,17 +267,17 @@ class YousticeResolutionSystem extends Module
 			$this->registerHook('header') &&
 			$this->registerHook('orderDetail') &&
 			Configuration::updateValue('YRS_SANDBOX', '0') &&
-			Configuration::updateValue('YRS_ITEM_TYPE', 'product') &&
 			Configuration::updateValue('YRS_API_KEY', '');
 	}
 
 	public function uninstall()
 	{
 		$this->y_api->uninstall();
+		
+		Configuration::deleteByName('YRS_ITEM_TYPE');
 
 		if (!parent::uninstall() ||
 				!Configuration::deleteByName('YRS_SANDBOX') ||
-				!Configuration::deleteByName('YRS_ITEM_TYPE') ||
 				!Configuration::deleteByName('YRS_API_KEY') ||
 				!Configuration::deleteByName('YRS_DB_INSTALLED'))
 			return false;

@@ -18,16 +18,14 @@ class YousticeRemote extends YousticeRequest {
 	protected $api_key;
 	protected $use_sandbox;
 	protected $lang;
-	protected $shop_sells;
 	protected $shop_software_type;
 	protected $shop_software_version;
 
-	public function __construct($api_key, $use_sandbox, $lang, $shop_sells, $shop_software_type, $shop_software_version = '')
+	public function __construct($api_key, $use_sandbox, $lang, $shop_software_type, $shop_software_version = '')
 	{
 		$this->api_key = $api_key;
 		$this->use_sandbox = $use_sandbox;
 		$this->lang = $lang;
-		$this->shop_sells = $shop_sells;
 		$this->shop_software_type = $shop_software_type;
 		$this->shop_software_version = $shop_software_version;
 	}
@@ -77,7 +75,6 @@ class YousticeRemote extends YousticeRequest {
 		$now = new Datetime();
 
 		$request_data = array(
-			'itemType' => $this->shop_sells,
 			'orderNumber' => $code,
 			'itemDescription' => $data['description'],
 			'itemName' => $data['name'],
@@ -104,7 +101,6 @@ class YousticeRemote extends YousticeRequest {
 		$now = new Datetime();
 
 		$request_data = array(
-			'itemType' => $this->shop_sells,
 			'orderNumber' => $code,
 			'itemDescription' => $data['description'],
 			'itemName' => $data['name'],

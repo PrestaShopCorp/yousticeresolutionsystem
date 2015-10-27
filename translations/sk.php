@@ -60,6 +60,7 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_e844d96d69ce26f675a9794e2af
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_88c7085a2ea81f7326d349131cdbdf7e'] = 'Youstice: PECL finfo nie je nainštalované, prosím nainštalujte ho.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_a240fa27925a635b08dc28c9e4f9216d'] = 'Objednávka';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderdetail_114d63e6a498967eb8b1dad8c902769b'] = 'Produkty v objednávke (%d)';
+$_MODULE['<{yousticeresolutionsystem}prestashop>orderdetailbuttoninorderspage_f5d74ea75357b5e139854c14f8e24fe3'] = 'Detaily objednávky';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_f8806ede7e2365226282ff4916101f32'] = 'Reportuj sťažnosť na';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_841313dfdc8797fd3c196da9944a1896'] = 'Vaše objednávky (%d)';
 $_MODULE['<{yousticeresolutionsystem}prestashop>orderspage_559e7ca805230fc80e3644f87bb3994d'] = 'Dátum objednávky';
@@ -74,14 +75,17 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_4049d979b8e6b7d7819
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportclaims_a0bfb8e59e6c13fc8d990781f77694fe'] = 'Pokračovať';
 $_MODULE['<{yousticeresolutionsystem}prestashop>showbuttons_13c8eac34dca00497a681cb9e2191174'] = 'Chceli by ste nahlásiť sťažnosť?';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_b58df1ce90fa5cde2dee70b302b83e83'] = '%d dní %d hodín';
-$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_0f6331fd0d61bf77f611f6f116b984c1'] = 'Nahlásiť problém';
+$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_df8549bf0f6bbcfececb3c8c1a3be08a'] = 'Nahlásiť problém týkajúci sa celej objednávky';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithcount_1d74348f932d8aedf341914b091625ab'] = 'Nahlásenia: %d';
+$_MODULE['<{yousticeresolutionsystem}prestashop>unreportedbutton_0f6331fd0d61bf77f611f6f116b984c1'] = 'Nahlásiť problém';
+$_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_5bd958f78294c57d3763204b3b3a3f5d'] = 'Dohoda naplnená';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_14f3016cb987a27bec715b35d1493ae1'] = 'Implementuje sa';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_077e69a60b17455b04bca8d5640d54cf'] = 'Zaslaná odpoveď obchodníkovi';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_7e70acae909b7f468f6c1c1e65b1b362'] = 'Čakanie na rozhodnutie';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_e57d929e5cb33066906355570477967f'] = 'Poslané na ODR';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_172e1a68c4772ef22b10fc6e1df48de2'] = 'Čakanie na odpoveď od obchodníka';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbutton_edbc35e2558a4b3b2aa47e80096d8dc7'] = 'Problém bol nahlásený';
+$_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_5bd958f78294c57d3763204b3b3a3f5d'] = 'Dohoda naplnená';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_14f3016cb987a27bec715b35d1493ae1'] = 'Implementuje sa';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_077e69a60b17455b04bca8d5640d54cf'] = 'Zaslaná odpoveď obchodníkovi';
 $_MODULE['<{yousticeresolutionsystem}prestashop>reportedbuttonwithstatus_7e70acae909b7f468f6c1c1e65b1b362'] = 'Čakanie na rozhodnutie';
