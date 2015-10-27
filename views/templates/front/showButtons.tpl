@@ -25,4 +25,4 @@
 
 <a href="#" class="yrsShowButtons yrsButton" 
    data-has-reports="{$hasReports|escape:'intval'}">
-    {l s='Would you like to file a complaint?'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+    {l s='Would you like to file a complaint?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>

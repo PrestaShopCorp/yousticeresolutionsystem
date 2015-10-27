@@ -85,7 +85,7 @@ class YousticeWidgetsOrderDetailButton {
 	{
 		$smarty = Context::getContext()->smarty;
 		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
-		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
+		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($status));
 		$smarty->assign('message', $status);
 		
 		return $smarty->fetch(YRS_TEMPLATE_PATH.'orderDetailButton/reportedButton.tpl');
@@ -98,7 +98,7 @@ class YousticeWidgetsOrderDetailButton {
 		
 		$smarty = Context::getContext()->smarty;
 		$smarty->assign('href', YousticeHelpersHelperFunctions::sh($this->href));
-		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($this->report->getStatus()));
+		$smarty->assign('statusClass', 'yrsButton-'.YousticeHelpersHelperFunctions::webalize($status));
 		$smarty->assign('message', $status);
 		$remainingTime = $this->report->getRemainingTime();
 		$smarty->assign('remainingTimeDays', YousticeHelpersHelperFunctions::remainingTimeToDays($remainingTime));

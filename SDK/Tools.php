@@ -9,24 +9,37 @@
 
 class YousticeTools {
 
-	public static function file_get_contents($url, $use_include_path = false, $stream_context = null, $curl_timeout = 5)
+	public static function file_get_contents($url, $use_include_path = false, $stream_context = null)
 	{
-		if ($stream_context == null && preg_match('/^https?:\/\//', $url))
-			$stream_context = @stream_context_create(array('http' => array('timeout' => $curl_timeout)));
-		if (in_array(ini_get('allow_url_fopen'), array('On', 'on', '1')) || !preg_match('/^https?:\/\//', $url))
-			return Tools::file_get_contents($url, $use_include_path, $stream_context);
-		elseif (function_exists('curl_init'))
+		if (in_array(ini_get('allow_url_fopen'), array('On', 'on', '1')) || !preg_match('/^https?:\/\//', $url)) {
+
+			$response = @file_get_contents($url, $use_include_path, $stream_context);
+
+			if (isset($http_response_header)) {
+				$matches = array();
+				preg_match('#HTTP/\d+\.\d+ (\d+)#', $http_response_header[0], $matches);
+				$http_status_code = $matches[1];
+
+				if ($http_status_code != 200 && $http_status_code != 201)
+					throw new Exception('', $http_status_code);
+			}
+			
+			return $response;
+		}
+
+		if (function_exists('curl_init'))
 		{
 			$curl = curl_init();
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($curl, CURLOPT_URL, $url);
 			curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($curl, CURLOPT_TIMEOUT, $curl_timeout);
+			curl_setopt($curl, CURLOPT_TIMEOUT, 8);
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+
 			if ($stream_context != null)
 			{
 				$opts = stream_context_get_options($stream_context);
-				$headers = [];
+				$headers = array();
 
 				//add headers from stream context
 				if (isset($opts['http']['header']))
@@ -54,9 +67,15 @@ class YousticeTools {
 
 				curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 			}
-			$content = curl_exec($curl);
+			$response = curl_exec($curl);
+			$http_status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+			if ($http_status_code != 200 && $http_status_code != 201)
+				throw new Exception('', $http_status_code);
+			
 			curl_close($curl);
-			return $content;
+			
+			return $response;
 		} else
 			return false;
 	}

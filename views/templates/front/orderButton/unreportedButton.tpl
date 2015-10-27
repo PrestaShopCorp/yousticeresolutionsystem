@@ -22,4 +22,4 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<a class="yrsButton yrsOrderButton" href="{$href}" target="_blank">{l s='Report a problem'|escape:'htmlall' mod='yousticeresolutionsystem'}</a>
+<a class="yrsButton yrsOrderButton" href="{$href}" target="_blank">{l s='Report a problem with entire order'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
