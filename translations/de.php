@@ -6,9 +6,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_104de1b
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_876f23178c29dc2552c0b48bf23cd9bd'] = 'Sind Sie sicher dass Sie deinstallieren möchten?';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_37f0b7ec13be14130e5ec53d8a20ab14'] = 'die Beschwerde einbringen';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_13306a17b69205882acc40b178f4d831'] = 'Falls Sie über ein Produkt oder eine Dienstleistung beschweren möchten, folgen Sie bitte diesem Link.';
-$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_58e0559207ce95c3954dc8b2b98545df'] = 'Ungültiger API-Schlüssel';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_f7f0c521c77ca585d767eb5c559072bf'] = 'Registrierung fehlgeschlagen: E-Mail ist bereits im Einsatz.';
+$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_4e496252dad029b152f6fccd526e8a03'] = 'Einstellungen gespeichert. Integration mit Youstice erfolgreich konfiguriert.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_07e32ec3f558071b2ad09d26d7ff1609'] = 'Einstellungen wurden erfolgreich gespeichert.';
-$_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_fe5d926454b6a8144efce13a44d019ba'] = 'Ungültiger Einstellungswert';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_9bcb0c48adc4980cafdc93507ef447f1'] = 'Erhöhung der Kundenzufriedenheit und einen vertrauenswürdigen Händler. Verhandeln und lösen Kundenbeschwerden in nur wenigen Klicks';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_07be686e9282d3db154a11a8df10ceea'] = 'Youstice: cURL ist nicht installiert, bitte installieren Sie es.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>yousticeresolutionsystem_e844d96d69ce26f675a9794e2afc24f1'] = 'Youstice: PDO ist nicht installiert, bitte installieren Sie es.';
@@ -28,9 +28,7 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_61faf98bbfa675860c97779f63c
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_033da727cce25927a8ebef5ede75815b'] = 'LÖSEN SIE DIE KUNDENBESCHWERDEN MIT  YOUSTICE';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_8bab0fa77f2100941b7a3e203f194ef3'] = 'ist eine Webapplikation. Es ist ein Cloudservice, der den Händlern hilft, alle  Kundenbeschwerden zu verwalten und auf  eine schnelle und sichere Weise zu lösen.  Sie können Youstice für drei Monate risikofrei und kostenlos testen.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6d6b3459b5e946b693b41e48fcaeca04'] = '//www.youstice.com/images/yousticeimg/media/PDF/Whitepaper_May.pdf';
-$_MODULE['<{yousticeresolutionsystem}prestashop>main_e63f72046bce50bf53a5e64434699d4b'] = '//www.youtube.com/watch?v=I4dgL2e0xp8';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6cfc5e8767d2d9acd5a6228c92302a7d'] = 'VIDEO ANSCHAUEN';
-$_MODULE['<{yousticeresolutionsystem}prestashop>main_00a3da2931b3a1b46ef41c5f4fb69d28'] = '//www.youstice.com/de/pricing';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4123e43d2f9a2126f73a505fed0b2726'] = 'PREISE ANSCHAUEN';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_a8dfc05e8f4cd1b8263099acf810c5da'] = 'ESKALIEREN SIE DIE STREITIGKEITEN AN AUSSERGERICHTLICHE SCHIEDSSTELLEN';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_20192776027bf0fc41eaf8efa192c47b'] = 'Falls der Kunde mit Ihrer Entscheidung nicht einverstanden ist, kann er eine ODR* Eskalation auswählen. Wenn Sie dies Ihren Kunden ermöglichen, erfüllen Sie die Anforderungen des';
@@ -46,8 +44,10 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_8d3f5eff9c40ee315d452392bed
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_f2ce2cf04380728e062c26a8ff639e46'] = 'Passwort bestätigen';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_37d00f4554dc3c0baeb34a9c22d787d9'] = 'URL des Shops';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_827d91fb3ee1bc1b3a884de30f7af430'] = 'Ich stimme den Geschäftsbedingungen und der Datenschutzrichtlinie zu Ich erkläre, dass mein Unternehmen für das Compliance-Package geeignet ist, da es in Frankreich ansässig ist';
-$_MODULE['<{yousticeresolutionsystem}prestashop>main_a7e2c48c6fe84d90a67fb007a44f7c8f'] = '//www.youstice.com/de/terms-of-use';
-$_MODULE['<{yousticeresolutionsystem}prestashop>main_73a458c76da3f11dd5b3c0e6f14327b6'] = '//www.youstice.com/de/datenschutzrichtlinien';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_320620f678cb15ebf7a577abd04427f3'] = 'Ich akzeptiere';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_1d8cd2bfc6943dcf70236f7d351572a0'] = 'AGBs';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_be5d5d37542d75f93a87094459f76678'] = 'und';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_fa2ead697d9998cbc65c81384e6533d5'] = 'Datenschutz-Bestimmungen';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_7dc5c139681ebad39216f35e2ee03b24'] = 'DIESES PLUGIN ERGÄNZT FOLGENDE FUNKTIONEN';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_c48a60c7d1714c9e69896d03a6d7cc83'] = 'BESTELLHISTORIE DES KUNDEN';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4b3749dd085f0081810e6fa38dd61879'] = 'Der Youstice-Button erscheint in der Bestellhistorie des  Kunden';
@@ -61,6 +61,7 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_955ad3298db330b5ee880c2c9e6
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_e81c4e4f2b7b93b481e13a8553c2ae1b'] = 'oder';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_2652eec977dcb2a5aea85f5bec235b05'] = 'Demo';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_807a090154efc59617b3b58ee1ea8d90'] = 'Umgebung?';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_4059b0251f66a18cb56f544728796875'] = 'Info';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_a28960c65d18eab1282c9e0c1938edc0'] = 'Für Testzwecke benutzen Sie bitte Sandbox. Beachten Sie bitte, dass der API-Schlüssel für Sandbox anders ist, als der für die Live-Umgebung.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_62c7594948c1231bbae9f948b1535b7e'] = 'API-Schlüssel';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_e0a11b6a1495be5c674bb03a6286fb08'] = 'von Ihrem Shop';
@@ -73,6 +74,14 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_2a37e67ef918da187670c7194d1
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_0f39a09e42a23b0b7489b2c750971deb'] = 'Fühlen Sie sich frei, diesen Link für die sozialen Netzwerke – Facebook, Twitter oder Google+ zu benutzen. Es wird Ihnen  helfen, das negative Feedback zu Youstice umzuleiten und die Probleme Ihrer Kunden in einer sicheren Umgebung zu lösen.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_58e0559207ce95c3954dc8b2b98545df'] = 'Ungültiges API-Schlüssel';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4d8d1f6231035ea614ce53051c3b1e50'] = 'Fernservice nicht verfügbar, bitte versuchen Sie es später erneut';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_5a3755c34013fcd11718af01edcd5dde'] = 'Sie müssen die AGB und Datenschutzrichtlinien akzeptierst';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_844728e1dc874629bc7450484fa79b73'] = 'Firmenname ist erforderlich';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_c6631869fbb1e424e58bf74cdbc387cc'] = 'Vorname ist erforderlich';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_e51b62746c48b9311ae857890adb70ba'] = 'Nachname ist erforderlich';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_88236753c260d31f89085491d5de6570'] = 'E-Mail ist in einem ungültigen Format';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_5a150e0c717dfeffb9c86039d809c8c5'] = 'Shop URL ist in einem ungültigen Format';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_1ae19e72231c5a146f3aba6c4e70fd3c'] = 'Kennwort muss  zumindest 6 Zeichen haben';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_867cee98fdd724e7d5bc87f61ce657bc'] = 'Passwörter stimmen nicht überein';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_07be686e9282d3db154a11a8df10ceea'] = 'Youstice: cURL ist nicht installiert, bitte installieren Sie es.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_e844d96d69ce26f675a9794e2afc24f1'] = 'Youstice: PDO ist nicht installiert, bitte installieren Sie es.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_88c7085a2ea81f7326d349131cdbdf7e'] = 'Youstice: PECL finfo ist nicht installiert, bitte installieren Sie es';
