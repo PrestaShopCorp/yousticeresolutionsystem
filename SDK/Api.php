@@ -39,6 +39,12 @@ class YousticeApi {
 	protected $local;
 
 	/**
+	 *
+	 * @var type YousticeRemote
+	 */
+	protected $remote;
+
+	/**
 	 * ISO 639-1 char code "en|sk|cz|es"
 	 * @var string 
 	 */
@@ -74,6 +80,13 @@ class YousticeApi {
 	 */
 	protected $shop_software_version;
 	
+	/**
+	 * Version of module
+	 * e.g. 1.9.4.2
+	 * @var string 
+	 */
+	protected $plugin_software_version;
+	
 	/*
 	 * Is true when curl, PDO and fileinfo are available
 	 */
@@ -92,12 +105,14 @@ class YousticeApi {
 	 * @param integer $user_id unique integer for user
 	 * @param boolean $use_sandbox true if testing implementation
 	 * @param string $shop_software_type prestashop|magento|ownSoftware
+	 * @param string $shop_software_version
+	 * @param string $plugin_software_version
 	 * @return YousticeApi
 	 */
 	public static function create(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
-			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '')
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '', $plugin_software_version = '')
 	{
-		return new self($db_credentials, $language, $api_key, $shop_sells, $user_id, $use_sandbox, $shop_software_type, $shop_software_version);
+		return new self($db_credentials, $language, $api_key, $shop_sells, $user_id, $use_sandbox, $shop_software_type, $shop_software_version, $plugin_software_version);
 	}
 
 	/**
@@ -109,10 +124,12 @@ class YousticeApi {
 	 * @param integer $user_id unique integer for user
 	 * @param boolean $use_sandbox true if testing implementation
 	 * @param string $shop_software_type prestashop|magento|ownSoftware
+	 * @param string $shop_software_version
+	 * @param string $plugin_software_version
 	 * @return YousticeApi
 	 */
 	public function __construct(array $db_credentials = array(), $language = 'sk', $api_key = '', $shop_sells = 'product',
-			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '')
+			$user_id = null, $use_sandbox = false, $shop_software_type = 'custom', $shop_software_version = '', $plugin_software_version = '')
 	{
 		$this->registerAutoloader();
 
@@ -120,7 +137,7 @@ class YousticeApi {
 		$this->setLanguage($language);
 		$this->setUserId($user_id);
 		$this->setApiKey($api_key, $use_sandbox);
-		$this->setShopSoftwareType($shop_software_type, $shop_software_version);
+		$this->setShopSoftwareType($shop_software_type, $shop_software_version, $plugin_software_version);
 
 		return $this;
 	}
@@ -156,7 +173,7 @@ class YousticeApi {
 		
 		$this->is_properly_installed = $this->checkIsProperlyInstalled();
 
-		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_software_type, $this->shop_software_version);
+		$this->remote = new YousticeRemote($this->api_key, $this->use_sandbox, $this->language, $this->shop_software_type, $this->shop_software_version, $this->plugin_software_version);
 
 		return $this;
 	}
@@ -393,7 +410,7 @@ class YousticeApi {
 
 		$report = $this->local->getOrderReport($order->getId(), $product_codes);
 
-		$order_button = new YousticeWidgetsOrderDetailButtonInOrdersPage($href, $this->language, $order, $report, $this);
+		$order_button = new YousticeWidgetsOrderDetailButtonInOrdersPage($href, $order, $report, $this);
 
 		return $order_button->toString();
 	}
@@ -750,9 +767,20 @@ class YousticeApi {
 		return $this;
 	}
 	
+	public function getApiKey() {
+		return $this->api_key;
+	}
+	
 	public function checkApiKey()
 	{
 		return $this->remote->checkApiKey();
+	}
+	
+	public function register(YousticeShopRegistration $registration)
+	{
+		$command = new YousticeRegisterCommand($this, $this->remote);
+		
+		return $command->execute($registration);
 	}
 
 	/**
@@ -806,15 +834,19 @@ class YousticeApi {
 	 * Set on which software is eshop running
 	 * @param string $shop_type "prestashop|magento|ownSoftware"
 	 * @param string $shop_version full version string
+	 * @param string $plugin_version full version string
 	 * @return YousticeApi
 	 */
-	public function setShopSoftwareType($shop_type, $shop_version = '')
+	public function setShopSoftwareType($shop_type, $shop_version = '', $plugin_version = '')
 	{
 		if (Tools::strlen($shop_type))
 			$this->shop_software_type = $shop_type;
 
 		if (Tools::strlen($shop_version))
 			$this->shop_software_version = $shop_version;
+
+		if (Tools::strlen($plugin_version))
+			$this->plugin_software_version = $plugin_version;
 
 		return $this;
 	}
@@ -848,4 +880,25 @@ class YousticeFailedRemoteConnectionException extends Exception {
 	 */
 	protected $code;
 
+}
+
+class YousticeShopRegistrationValidationException extends Exception {
+	/**
+	 * Can contain:
+	 * company_name_required
+	 * first_name_required
+	 * last_name_required
+	 * email_invalid
+	 * shop_url_invalid
+	 * password_less_than_6_characters
+	 * passwords_do_not_match
+	 * 
+	 * @var string 
+	 */
+	protected $message;
+	
+}
+
+class YousticeShopRegistrationShopAlreadyRegistered extends Exception {
+	
 }

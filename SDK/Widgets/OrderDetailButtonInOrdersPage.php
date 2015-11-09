@@ -13,7 +13,7 @@ class YousticeWidgetsOrderDetailButtonInOrdersPage {
 	protected $href;
 	protected $report;
 
-	public function __construct($href, $lang, YousticeShopOrder $order, YousticeReportsOrderReport $report, $api)
+	public function __construct($href, YousticeShopOrder $order, YousticeReportsOrderReport $report, $api)
 	{
 		$this->href = $href;
 		$this->order = $order;
