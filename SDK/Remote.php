@@ -170,10 +170,10 @@ class YousticeRemote extends YousticeRequest
                 'primaryLang' => $registration->getAdminLang()
             ),
             'country' => $registration->getDefaultCountry(),
-            'subscription' => 'SMALL', //todo change for production
+            'subscription' => $registration->getSubscription(),
             'acceptsTC' => true,
             'acceptsPP' => true,
-            'couponCode' => null, //TODO change for production
+            'couponCode' => $registration->getCouponCode(),
             'shops' => array(
                 array(
                     'ref' => $referenceString,

@@ -24,6 +24,18 @@ class YousticeShopRegistration {
 	public $shop_currency;
 	public $shop_lang;
 	public $shop_logo;
+    
+    public function getSubscription() {
+        return $this->getIsFrenchForm() && $this->getCompanyIsInFrance() 
+                ? 'Règlement des Litiges en Ligne (la période d\'essai)'
+                : 'Free trial';
+    }
+    
+    public function getCouponCode() {
+        return $this->getIsFrenchForm() && $this->getCompanyIsInFrance() 
+                ? 'reglementdeslitiges'
+                : null;
+    }
 	
 	public function getCompanyName()
 	{
