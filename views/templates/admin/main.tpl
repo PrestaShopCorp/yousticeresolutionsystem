@@ -403,17 +403,17 @@
 <script type="text/javascript">
 
             var errorMessages = {
-                invalid_api_key: '{l s='Invalid API KEY'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                request_failed: '{l s='Remote service unavailable, please try again later'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                terms_not_accepted: '{l s='You need to accept Terms & Conditions and Privacy Policy'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                company_name_required: '{l s='Company name is required'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                first_name_required: '{l s='First name is required'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                last_name_required: '{l s='Last name is required'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                email_invalid: '{l s='Email is in invalid format'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                shop_url_invalid: '{l s='Shop URL is in invalid format'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                password_less_than_6_characters: '{l s='Password needs to have 6 characters at least'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-                passwords_do_not_match: '{l s='Passwords do not match'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}',
-            }
+                invalid_api_key: "{l s='Invalid API KEY'|escape:'quotes':'UTF-8' mod='yousticeresolutionsystem'}",
+                request_failed: "{l s='Remote service unavailable, please try again later'|escape:'quotes':'UTF-8' mod='yousticeresolutionsystem'}",
+                terms_not_accepted: "{l s='You need to accept Terms & Conditions and Privacy Policy'|escape:'false':'UTF-8' mod='yousticeresolutionsystem'}",
+                company_name_required: "{l s='Company name is required'|escape:'javascript':'UTF-8' mod='yousticeresolutionsystem'}",
+                first_name_required: "{l s='First name is required'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                last_name_required: "{l s='Last name is required'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                email_invalid: "{l s='Email is in invalid format'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                shop_url_invalid: "{l s='Shop URL is in invalid format'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                password_less_than_6_characters: "{l s='Password needs to have 6 characters at least'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                passwords_do_not_match: "{l s='Passwords do not match'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+            };
 
             var sandUrl = '{$registerMeSandboxUrl|escape:'false'}';
             var liveUrl = '{$registerMeUrl|escape:'false'}';
