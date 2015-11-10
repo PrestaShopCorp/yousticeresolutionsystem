@@ -2,8 +2,8 @@
         <module>
             <name>yousticeresolutionsystem</name>
             <displayName><![CDATA[Youstice]]></displayName>
-            <version><![CDATA[1.exp.10.5]]></version>
             <description><![CDATA[Increase customer satisfaction and become a trusted retailer. Negotiate and resolve customer complaints just in a few clicks]]></description>
+            <version><![CDATA[1.exp.10.8]]></version>
             <author><![CDATA[Youstice]]></author>
             <tab><![CDATA[advertising_marketing]]></tab>
 	<confirmUninstall>Are you sure you want to uninstall?</confirmUninstall>

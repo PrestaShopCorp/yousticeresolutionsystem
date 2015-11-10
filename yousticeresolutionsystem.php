@@ -19,7 +19,7 @@ class YousticeResolutionSystem extends Module
     {
         $this->name = 'yousticeresolutionsystem';
         $this->tab = 'advertising_marketing';
-        $this->version = '1.exp.10.5';
+        $this->version = '1.exp.10.8';
         $this->author = 'Youstice';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -225,6 +225,10 @@ class YousticeResolutionSystem extends Module
             } catch (YousticeShopRegistrationShopAlreadyRegistered $e) {
                 $this->saveErrorMessage($this->l('Registration failed: Email is already in use.'));
                 $response = Tools::jsonEncode(array('result' => true));
+                exit($response);
+            }
+            catch (YousticeFailedRemoteConnectionException $e) {                
+                $response = Tools::jsonEncode(array('result' => 'request_failed'));
                 exit($response);
             }
 
