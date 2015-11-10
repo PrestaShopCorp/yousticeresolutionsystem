@@ -9,10 +9,12 @@
 
 class YousticeRequest {
 
-	private $auth_login = 'adminapi';
-	private $auth_passw = 'AdminApi';
+	protected $api_production_url = 'https://api.youstice.com/api/';
+	//protected $api_production_url = 'https://api-qa.youstice.com/';
+	protected $api_sandbox_url = 'https://api-sand.youstice.com/api/';
 	protected $response = null;
-	private $additional_params = array();
+	protected $additional_params = array();
+	private $last_url;
 
 	public function returnResponse()
 	{
@@ -38,6 +40,9 @@ class YousticeRequest {
 	protected function checkForInvalidApiKeyInResponse() {
 		if (strpos($this->response, 'Invalid api key') !== false || strpos($this->response, 'apiKey is invalid') !== false)
 			throw new YousticeInvalidApiKeyException;
+		
+		if (strpos($this->last_url, 'Api/auth/') !== false && $this->response === null)
+			throw new YousticeInvalidApiKeyException;
 	}
 
 	public function setAdditionalParam($key, $val)
@@ -47,7 +52,7 @@ class YousticeRequest {
 
 	protected function generateUrl($url)
 	{
-		$api_url = $this->use_sandbox ? $this->api_sandbox_url : $this->api_url;
+		$api_url = $this->use_sandbox ? $this->api_sandbox_url : $this->api_production_url;
 
 		$return_url = $api_url . $url . '/' . $this->api_key . '?version=1&channel=' . $this->shop_software_type;
 
@@ -61,7 +66,7 @@ class YousticeRequest {
 			$this->additional_params = array();
 		}
 
-		return str_replace('://', '://' . $this->auth_login . ':' . $this->auth_passw . '@', $return_url);
+		return $return_url;
 	}
 
 	public function get($url)
@@ -125,12 +130,16 @@ class YousticeRequest {
 				'header' => "Content-Type: application/json\r\n" . 'Accept-Language: ' . $this->lang . "\r\n",
 			)
 		));
-		
+
 		$this->executeCall($url, $request);
 	}
 	
-	protected function executeCall($url, $request) {		
-		$url = $this->generateUrl($url);
+	protected function executeCall($url, $request) {
+		
+		$this->last_url = $url;
+		
+		//empty response before new call
+		$this->response = null;
 
 		$this->response = YousticeTools::file_get_contents($url, false, $request);
 

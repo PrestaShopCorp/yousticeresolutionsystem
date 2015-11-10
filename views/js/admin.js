@@ -44,22 +44,27 @@ jQuery(document).ready(function($) {
     $('.yBlock.screenshots a[rel="screenshotRemote"]').fancybox();
     $('.yBlock.howItWorks a[rel="screenshot"]').fancybox();
     
-    jQuery('a.save').click(function(e) {
+    jQuery('a.saveApiKey').click(function(e) {
 	e.preventDefault();
 	saveSettings();
+    });
+    
+    jQuery('.registration a.save').click(function(e) {
+	e.preventDefault();
+	makeRegistration();
     });
 });
 
 function saveSettings() {
-    jQuery(errorMessagesSelector).remove();
+    jQuery('.yError').remove();
     
     jQuery.post(checkApiKeyUrl, {api_key: jQuery('#apiKey').val(), use_sandbox: jQuery('#useSandbox').val()},
     function(response) {
-	if(response.result == 'fail') {
-	    showError(requestFailedHtml);
+	if(response.result == 'request_failed') {
+	    showSettingsError(errorMessages.request_failed);
 	}
 	else if(response.result == false) {
-	    showError(invalidApiKeyHtml);
+	    showSettingsError(errorMessages.invalid_api_key);
 	}
 	else {
 	    window.location.reload();
@@ -68,18 +73,47 @@ function saveSettings() {
 }
 
 function changeBlocksVisibility(haveAccount) {
-    jQuery('.yBlock, .yConfiguration').show();
     if (haveAccount) {
-	jQuery('.yBlock.screenshots, .yBlock.stopScathingReviews').hide();
+	jQuery('.yBlock').hide();
+	jQuery('.yConfiguration').show();
     }
     else {
 	jQuery('.yConfiguration').hide();
+	jQuery('.yBlock').show();
     }
 }
 
-function showError(errorHtml) {
-    jQuery('.roundedAnchor.save').after(errorHtml);
+function showSettingsError(errorText) {
+    jQuery('form.saveApiKey').append('<div class="yError">'+errorText+'</div>');
     jQuery('html, body').animate({
-	scrollTop: jQuery(".yConfiguration").first().offset().top
+	scrollTop: jQuery('.yConfiguration').first().offset().top
+    }, 2000);
+}
+
+function makeRegistration() {
+    jQuery('.yError').remove();
+
+    jQuery.post(registrationUrl, $('.registration form').serialize(),
+    function(response) {
+	
+	if (response.result == true) {
+	    window.location.reload();
+	}	
+	else if (response.result in errorMessages) {
+	    showRegistrationError(errorMessages[response.result]);
+	}
+	else if (response.result == false) {
+	    showRegistrationError(errorMessages.request_failed);
+	}
+	else {
+	    showRegistrationError('Unknown error occured');
+	}
+    }, 'json');
+}
+
+function showRegistrationError(errorText) {
+    jQuery('.registration form').append('<div class="yError">'+errorText+'</div>');
+    jQuery('html, body').animate({
+	scrollTop: jQuery('.registration').first().offset().top
     }, 2000);
 }

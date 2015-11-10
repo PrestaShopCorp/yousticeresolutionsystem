@@ -22,168 +22,410 @@
 *  @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<form class="yContainer" action="{$saveHref|escape:'false'}" method="post">
+<div class="yContainer">
     <div class="logoLeft">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ0AAABACAMAAAA3fdI8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDEwOUQ5REZENDQ4MTFFM0I4RTI5QTlBOTUzQzk2NzQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDEwOUQ5REVENDQ4MTFFM0I4RTI5QTlBOTUzQzk2NzQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSIyREI0RkE1NTBCMkE0OTYzRTI5NTEyQkRCNjUwQTUwMSIgc3RSZWY6ZG9jdW1lbnRJRD0iMkRCNEZBNTUwQjJBNDk2M0UyOTUxMkJEQjY1MEE1MDEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7w3Bx0AAADAFBMVEXl5eWAFn7Oo83t4e2lYaT4+PmuZa2r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"/>
-        <p>{l s='Resolve customer complaints in a few clicks.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
-    </div>
-    <div class="logoRight">
-		<a href="http://www.youstice.com/?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_weblink&amp;utm_campaign=plugins" class="roundedAnchor" target="_blank">
-			<span>{l s='For more information'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
-			<span>{l s='about Youstice visit'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
-			<span class="anchor">www.youstice.com</span>
-		</a>
-        <a href="http://support.youstice.com/?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_weblink&amp;utm_campaign=plugins" class="roundedAnchor" target="_blank">
-            <span>{l s='Need some help?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
-            <span>{l s='Our support team is here for you'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}.</span>
-            <span class="anchor">support.youstice.com</span>
+        <a href="//youstice.com" target="_blank">
+            <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/logo.png"/>
         </a>
     </div>
+    <div class="logoRight {if $languageCode == 'fr'}fr{/if}">
+        <ul>
+            <li>{l s='One tool to manage all complaints'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</li>
+            <li>{l s='Comes in 10 language versions'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</li>
+            <li>{l s='Risk-free trial period'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</li>
+        </ul>
+    </div>
 
-    <hr>
+    <div class="clear"></div>
 
     <div class="loginInfo">
-        <p>{l s='It only takes a few minutes to get started with Youstice.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
         <p>{l s='Already have a Youstice account?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-            <input type="radio" name="have_account" id="haveAccountNo" value="0" checked="checked">
-            <label for="haveAccountNo">{l s='No'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
-            <input type="radio" name="have_account" id="haveAccountYes" value="1">
-            <label for="haveAccountYes">{l s='Yes'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label></p>
+            <label for="haveAccountNo">
+                <input type="radio" name="have_account" id="haveAccountNo" value="0" checked="checked">
+                {l s='No'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+            </label>
+            <label for="haveAccountYes">
+                <input type="radio" name="have_account" id="haveAccountYes" value="1">
+                {l s='Yes'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+            </label>
+        </p>
     </div>
 
-    <div class="yBlock stopScathingReviews">
-        <hr>
-        <h2>{l s='Stop scathing reviews'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
-        <a href="{$registerMeUrl|escape:'htmlall':'UTF-8'}" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
-        <div class="left">
-            <h3>{l s='Stop scathing reviews. Handle customer complaints fast and right.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h3>
-            <p>{l s='It’s a storeowner’s worst nightmare.'|escape:'false' mod='yousticeresolutionsystem'}</p>
-            <p>{l s='A disgruntled customer criticizes your business on social media. You are instantly thrown into crisis mode, trying as best you can to save your reputation.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
-            <p>{l s='It matters little whether the criticism is justified. Prevention is the best cure.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+    <div class="yBlock yInfo">
+        {if $languageCode == 'fr'}
+            <h2>OPTEZ POUR UN SERVICE CLIENT D'EXCELLENCE</br> AVEC YOUSTICE, MANAGEZ LA SATISFACTION CLIENT</h2>
+            <p>&nbsp;</p>
+        {else}
+            <h2>{l s='SAY GOOD-BYE TO UNHAPPY CUSTOMERS WITH YOUSTICE.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+            <h3>{l s='SAY HELLO TO GREAT CUSTOMER CARE!'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h3>
+        {/if}
+        <p>{l s='Thank you for downloading the Youstice module! It will help your business manage customer complaints and deal with unresolved disputes.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
 
-            <h3>{l s='You can resolve customer complaints effectively. You just need the right tool.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h3>
-            <p>{l s='Resolving complaints rapidly and effectively can place a heavy burden on your small business. The longer customers wait for your reply, the angrier they get. Yet you can’t be behind your computer screen 24/7.'|escape:'false':'UTF-8' mod='yousticeresolutionsystem'}</p>
-            <p>{l s='Let us take the pain out of handling customer complaints. Thanks to our award-winning app, your customers know that you stand by your products and they trust your business.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
-        </div>
-        <div class="right">
-            <div class="imgHelper"></div>
-            <img src="//www.youstice.com/images/yousticeimg/screenshots/laptop_with_coffee.jpg">
-        </div>
+        <p>{l s='Youstice is designed to resolve customer disputes in a quick, emotion-free way, avoiding lengthy conversations or negative sentiment across social networks. Shoppers express their issue and propose a solution, choosing from options directly through the application. Your staff then responds and negotiates a win-win resolution, collecting valuable insight on how to improve the quality of your services.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+
+        {if $languageCode == 'fr'}
+            <div class="col col-33 no-bottom-margin">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/girl-fr.jpg"/>
+                <h2>{l s='RESOLVE CUSTOMER COMPLAINTS WITH YOUSTICE'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+            </div>
+            <div class="col col-33 no-bottom-margin">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/notebook-fr.jpg"/>
+                <h2>COUVREZ LES COÛTS DE MÉDIATION AVEC YOUSTICE</h2>
+            </div>
+            <div class="col col-33 no-right-margin no-bottom-margin">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/ratings-fr.jpg"/>
+                <h2>COUVREZ LES FRAIS DE LITIGES AVEC AXA PROTECTION JURIDIQUE</h2>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="col col-33">
+                <p>
+                    <a href="//youstice.com" target="_blank">Youstice</a> 
+                    {l s='is a web application. It`s a cloud service, helping retailers to manage all consumer complaints and to resolve them in a fast and safe way. You can test our solution during three-month, risk-free trial period.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                </p>
+            </div>
+            <div class="col col-33">
+                <p>
+                    Au-delà du service client, Youstice permet l'accès intégré aux services de médiation  pour les litiges non résolus*. Les commerçants gèreront les litiges dans un point unique En offrant le recours à la médiation, vous respectez aussi les obligations de 
+                    <a href="{l s='eu_consumer_disputes_paper'|escape:'url' mod='yousticeresolutionsystem'}" target="_blank">l'Ordonnace sur la Consommation</a>.
+                </p>
+            </div>
+            <div class="col col-33 no-right-margin">
+                <p>
+                    AXA Protection Juridique défend vos intérêts* dans les cas où un consommateur recourt aux voies légales pour 
+                    <a href="//www.youstice.com/fr/faq#faq_7" target="_blank">un litige non résolu</a>. 
+                    AXA Protection Juridique vous assistera* pour trouver la meilleure solution ou défense,  et couvrira les frais légaux encourus  pour le 
+                    <a href="//www.youstice.com/fr/faq#faq_9" target="_blank">règlement du litige</a>.
+                </p>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="col col-33">
+                <a class="yButton" href="{$templateLinks['watch_video_link']}" target="_blank">{l s='WATCH VIDEO'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+            </div>
+            <div class="col col-33">
+                &nbsp;
+            </div>
+            <div class="col col-33 no-right-margin">
+                <a class="yButton" href="{$templateLinks['pricing_link']}" target="_blank">{l s='CHECK THE PRICING'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+            </div>
+
+            <div class="clear"></div>
+
+            <p>*en accord avec les conditions du contract</p>
+        {else}
+            <div class="col col-50 no-bottom-margin">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/notebook.jpg"/>
+                <h2>{l s='RESOLVE CUSTOMER COMPLAINTS WITH YOUSTICE'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+            </div>
+            <div class="col col-50 no-bottom-margin">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/ratings.jpg"/>
+                <h2>{l s='ESCALATE ISSUES TO OUT-OF-COURT BODIES'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+            </div>
+
+            <div class="col col-50">
+                <p>
+                    <a href="//youstice.com" target="_blank">Youstice</a> 
+                    {l s='is a web application. It`s a cloud service, helping retailers to manage all consumer complaints and to resolve them in a fast and safe way. You can test our solution during three-month, risk-free trial period.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                </p>
+            </div>
+            <div class="col col-50">
+                <p>
+                    {l s='If a customer disagrees with your decision, they can choose ODR* escalation. By allowing your customers to do so, you become compliant with the'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}                    
+                    <a href="//www.youstice.com/images/yousticeimg/media/PDF/Whitepaper_May.pdf" target="_blank">{l s='new EU law on consumer disputes'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>&nbsp;&#8209; 
+                    {l s='and prove your status of a consumer-friendly business.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                </p>
+            </div>
+
+            <div class="col col-50">
+                <a class="yButton" href="{$templateLinks['watch_video_link']}" target="_blank">
+                    {l s='WATCH VIDEO'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                </a>
+            </div>
+
+            <div class="col col-50">
+                <a class="yButton" href="{$templateLinks['pricing_link']}" target="_blank">
+                    {l s='CHECK THE PRICING'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                </a>
+            </div>
+
+            <div class="clear"></div>
+
+            <p>{l s='* ODR (Online Dispute Resolution) is a modern way to resolve disputes online. If a buyer cannot reach a satisfactory agreement with a seller, he/she can ask an ODR provider for an independent decision using Youstice. The ODR provider will appoint a neutral who will make a decision.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+
+        {/if}
+    </div>
+
+    <div class="yBlock registration">
+        <hr>
+
+        <form>
+            <h2>{l s='Register'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+
+            <div class="col">
+                <label for="registration-company">{l s='Company name'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
+                <input type="text" id="registration-company" name="company_name" 
+                       value="{$shopName|escape:'htmlall':'UTF-8'}" 
+                       placeholder="{l s='Company name'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}"
+                       tabindex="1">
+            </div>
+            <div class="col">
+                <label for="registration-email">{l s='Email'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
+                <input type="email" id="registration-email" name="email" 
+                       value="{$shopMail|escape:'htmlall':'UTF-8'}" 
+                       placeholder="{l s='Email'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}"
+                       tabindex="2">
+            </div>
+            <div class="col col-right">
+                <label for="registration-password">{l s='Password'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
+                <input type="password" id="registration-password" name="password" 
+                       value="" 
+                       placeholder="{l s='Password'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}"
+                       tabindex="{if $languageCode == 'fr'}8{else}7{/if}">
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="col">
+                <label for="registration-first-name">{l s='First name'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
+                <input type="text" id="registration-first-name" name="first_name" 
+                       value="{$adminFirstName|escape:'htmlall':'UTF-8'}" 
+                       placeholder="{l s='First name'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}"
+                       tabindex="3">
+            </div>
+            <div class="col">
+                <label for="registration-last-name">{l s='Last name'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
+                <input type="text" id="registration-last-name" name="last_name" 
+                       value="{$adminLastName|escape:'htmlall':'UTF-8'}" 
+                       placeholder="{l s='Last name'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}"
+                       tabindex="4">
+            </div>
+            <div class="col col-right">
+                <label for="registration-verify-password">{l s='Verify Password'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
+                <input type="password" id="registration-verify-password" name="verify_password" 
+                       value="" 
+                       placeholder="{l s='Verify Password'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}"
+                       tabindex="{if $languageCode == 'fr'}9{else}8{/if}">
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="col col-wider">
+                <label for="registration-shop-url">{l s='Shop URL'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
+                <input type="url" id="registration-shop-url" name="shop_url" 
+                       value="{$shopURL|escape:'htmlall':'UTF-8'}" 
+                       placeholder="{l s='Shop URL'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}"
+                       tabindex="5">
+            </div>
+            <div class="col col-right">
+                <label for="registration-submit">&nbsp;</label>
+                <a class="yButton-2 save" href="#" tabindex="{if $languageCode == 'fr'}10{else}9{/if}">{l s='Register'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="footer">
+                <p>{l s='Registration is free, with no obligations. You may cancel your account at any time during the Trial Period.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+                <label>
+                    <input type="checkbox" name="terms_and_conditions" tabindex="6">
+                    {l s='I accept'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    <a href="{$templateLinks['terms_link']}" target="_blank">{l s='Terms & Conditions'|escape:'false' mod='yousticeresolutionsystem'}</a> 
+                    {l s='and'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    <a href="{$templateLinks['privacy_policy_link']}" target="_blank">
+                        {l s='Privacy Policy'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    </a>
+                </label>
+                {if $languageCode == 'fr'}
+                    <label>
+                        <input type="checkbox" name="company_is_in_france" tabindex="7">
+                        {l s='accept_compliance_package_text_french'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    </label>
+                    <input type="hidden" name="is_french_form" value="1">
+                {/if}
+            </div>
+        </form>
         <div class="clear"></div>
-        <a href="{$registerMeUrl|escape:'htmlall':'UTF-8'}" target="_blank" class="roundedAnchor centered">{l s='START FREE TRIAL'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+    </div>            
+
+    <div class="yBlock features">
+        <hr>
+        <h2><span>{l s='THIS PLUGIN ADDS THE FOLOWING FEATURES'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span></h2>
+
+        <div class="col col-50">
+            <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot-{if $languageCode == 'fr'}fr-{/if}1.jpg" target="_blank" rel="screenshot">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot-{if $languageCode == 'fr'}fr-{/if}1.jpg">
+            </a>            
+        </div>
+        <div class="col col-50 bg">
+            <span class="number">1</span>
+            <span class="arrow"></span>
+            <div class="content">
+                <h4>{l s='CUSTOMER\'S ORDER HISTORY'|escape:'false' mod='yousticeresolutionsystem'}</h4>
+                <p>{l s='The Youstice button appears in your customer\'s order history'|escape:'false' mod='yousticeresolutionsystem'}</p>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="col col-50 bg bg-left">
+            <span class="number">2</span>
+            <span class="arrow"></span>
+            <div class="content">
+                <h4>{l s='SPECIFY ITEM'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h4>
+                <p>{l s='Your customer raises an issue with a specific item in the order list'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>           
+            </div>
+        </div>
+        <div class="col col-50">
+            <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot-{if $languageCode == 'fr'}fr-{/if}2.jpg" target="_blank" rel="screenshot">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot-{if $languageCode == 'fr'}fr-{/if}2.jpg">
+            </a>            
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="col col-50">
+            <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot-{if $languageCode == 'fr'}fr-{/if}3.jpg" target="_blank" rel="screenshot">
+                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot-{if $languageCode == 'fr'}fr-{/if}3.jpg">
+            </a>            
+        </div>
+        <div class="col col-50 bg bg-last">
+            <span class="number">3</span>
+            <span class="arrow"></span>
+            <div class="content">
+                <h4>{l s='NEW BUTTON'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h4>
+                <p>{l s='Customers can also use this button to report general problems'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>           
+            </div>
+        </div>
+
+        <div class="clear"></div>
     </div>
 
     <div class="yConfiguration">
-        <hr>
-        <h2>{l s='Configure Youstice for your website'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
-        <div class="row">
-            <label for="useSandbox">{l s='Is the API key for Live or Sandbox environment?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
-            <select id="useSandbox" name="use_sandbox">
-                <option{if $use_sandbox == 1} selected{/if} value="1">{l s='Sandbox'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</option>
-                <option{if $use_sandbox != 1} selected{/if} value="0">{l s='Live'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</option>
-            </select>
-        </div>
-        <div class="row onSandbox">
-            <p>
-                {l s='For testing purposes use our Sandbox environment. Please keep in mind that there are different API keys for Sandbox and Live environments. To start using Sandbox and get the matching API key you need to'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-                <a href="{$registerMeSandboxUrl|escape:'htmlall':'UTF-8'}" target="_blank">{l s='register specifically for Sandbox'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}.</a>
-            </p>
-        </div>
-        <div class="row">
-            <label for="apiKey">{l s='API Key of your shop'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</label>
-            <input id="apiKey" type="text" name="api_key" value="{$api_key|escape:'htmlall':'UTF-8'}">
-            <a class="roundedAnchor style2" href="#" id="yGetApiKey">{l s='GET YOUR API KEY'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
-        </div>
-        <div class="row">
-            <label></label>
-            <a class="roundedAnchor style2 save" href="#">{l s='SAVE'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
-        </div>
-        <p>
-            {l s='Your API key can be found in Youstice application. Log in to Youstice'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-            (<a href="{$registerMeUrl|escape:'htmlall':'UTF-8'}" target="_blank">{l s='Live'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
-            {l s='or'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-            <a href="{$registerMeSandboxUrl|escape:'htmlall':'UTF-8'}" target="_blank">{l s='Sandbox'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>),
-            {l s='go to menu SHOPS, click on your shop and see API key on the bottom of the page.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-        </p>
-        <p class="empty">&nbsp;</p>
-        <p>
-            <b>{l s='Need some help?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</b><br />
-            {l s='Our support team is here for you'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}: <a href="http://support.youstice.com/?utm_source=eshop&amp;utm_medium=cpc&amp;utm_content=presta_weblink&amp;utm_campaign=plugins" target="_blank">support.youstice.com</a>
-        </p>
+        <hr class="dark">
+
+        <h2>{l s='CONFIGURE YOUSTICE FOR YOUR WEBSITE'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+        <form action="{$saveHref|escape:'false'}" method="post" class="saveApiKey">
+
+            <div class="col col-50" id="help-popup-col-1">
+                <label for="useSandbox">
+                    {l s='Integration with the'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    <a href="//app.youstice.com/blox-odr/generix/odr" target="_blank">
+                        {l s='Live'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    </a>
+                    {l s='or'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    <a href="//app-sand.youstice.com/blox-odr13/generix/odr" target="_blank">
+                        {l s='Sandbox'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    </a>
+                    
+                    {l s='environment?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+
+                    <a href="#help-popup-1" class="help">?</a>
+                    <div class="help-popup" id="help-popup-1">
+                        <div class="header">
+                            {l s='Info'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                            <a href="#help-popup-col-1" class="close">x</a>
+                        </div>
+                        <span class="arrow"></span>
+                        <div class="content">
+                            <p>{l s='For testing purposes, please use Sandbox. Please note there are different API keys for Sandbox and Live environments.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+                        </div>
+                        <div class="bottom"></div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="col col-50">
+                <select id="useSandbox" name="use_sandbox">
+                    <option{if $use_sandbox == 1} selected{/if} value="1">{l s='Sandbox'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</option>
+                    <option{if $use_sandbox != 1} selected{/if} value="0">{l s='Live'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</option>
+                </select>
+            </div>
+
+            <div class="clear"></div>
+
+            <div class="col col-50" id="help-popup-col-2">
+                <label for="apiKey">
+                    {l s='Api key'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    {l s='of your shop'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                    
+                    <a href="#help-popup-2" class="help">?</a>
+                    <div class="help-popup" id="help-popup-2">
+                        <div class="header">
+                            {l s='Info'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                            <a href="#help-popup-col-2" class="close">x</a>
+                        </div>
+                        <span class="arrow"></span>
+                        <div class="content">
+                            <p>{l s='Your API key can be found in the application. Log in (Live or Sandbox), go to Shops menu, click on your Shop. The API Key will be displayed at the bottom of the page.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+                        </div>
+                        <div class="bottom"></div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="col col-50">
+                <input id="apiKey" type="text" name="api_key" value="{$api_key|escape:'htmlall':'UTF-8'}">
+                <a class="yButton-3" href="#" id="yGetApiKey">{l s='Get your API key'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+            </div>
+
+            <div class="col col-50">
+                &nbsp;
+            </div>
+
+            <div class="col col-50">
+                <a class="yButton-3 saveApiKey" href="#">{l s='Save'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+            </div>
+
+            <a href="mailto:support@youstice.com">{l s='Need help?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+        </form>
     </div>
 
     <div class="yConfiguration">
-        <hr>
-        <h2>{l s='Filing a claim without login'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
-        <label for="reportClaimsPageLink"><b>{l s='Optionally, copy & paste the code below to any place on your website if you want to allow your customers to file claims without logging in based on the customer’s email address and order reference.'|escape:'false' mod='yousticeresolutionsystem'}</b></label>
-        <p>{l s='Feel free to use this link on social networks. Post it proactively on Facebook, Google+, Twitter, etc. It will help to redirect negative opinions and potential complaints into Youstice and keep your wall clean.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+        <hr class="dark">
+
+        <h2>{l s='MAKING A CLAIM WITHOUT LOGIN'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+        <p>
+            {l s='If you want to allow customers to make a complaint without log-in, copy and paste the code listed below anywhere on your website.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+        </p>
+        <p>
+            {l s='Feel free to use this link also on social networks – Facebook, Twitter or Google+. It will help you answer all negative feedback directly via Youstice`s safe environment.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+        </p>
+
         <input id="reportClaimsPageLink" type="text" name="anonymous_report" onclick="select()" value="{$reportClaimsPageLink|escape:'htmlall':'UTF-8'}">
         <div class="clear"></div>
     </div>
-
-    <div class="yBlock howItWorks">
-        <hr>
-        <h2>{l s='How the Youstice plugin works'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
-        <p>
-            <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_1.png" target="_blank" rel="screenshot">
-                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_1.png">
-            </a>
-            <span>{l s='New button ‘Would you like to file a complaint?’ appears in an order history of each customer.'|escape:'false':'UTF-8' mod='yousticeresolutionsystem'}</span>
-        </p>
-        <p class="right">
-            <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_2.png" target="_blank" rel="screenshot">
-                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_2.png">
-            </a>
-            <span>{l s='The customer can use this option to report a problem, whether related to a specific order or not.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
-        </p>
-        <p>
-            <a href="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_3.png" target="_blank" rel="screenshot">
-                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/screenshot_3.png">
-            </a>
-            <span>{l s='It is also possible to report a problem with a specific item within an order.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
-        </p>
-        <div class="clear"></div>
-    </div>
-
-    <div class="yBlock screenshots">
-        <hr>
-        <h2>{l s='Screenshots'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
-        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_1.jpg" target="_blank" rel="screenshotRemote">
-            <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_1.jpg">
-        </a>
-        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_2.jpg" targer="_blank" rel="screenshotRemote">
-            <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_2.jpg">
-        </a>
-        <a href="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_3.jpg" target="_blank" rel="screenshotRemote">
-            <img src="//www.youstice.com/images/yousticeimg/screenshots/app_screenshot_remote_small_3.jpg">
-        </a>
-        <div class="clear"></div>
-    </div>
-</form>
+</div>
 
 <link href="{$modulePath|escape:'htmlall':'UTF-8'}views/css/admin.css" rel="stylesheet" type="text/css" media="all" />
 <script src="{$modulePath|escape:'htmlall':'UTF-8'}views/js/admin.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var sandUrl = '{$registerMeSandboxUrl|escape:'false'}';
-    var liveUrl = '{$registerMeUrl|escape:'false'}';
-    var checkApiKeyUrl = '{$checkApiKeyUrl|escape:'false'}';
-    var errorMessagesSelector = '.yConfiguration .error, .yConfiguration .bootstrap';
-    {if $is1_5Version}
-        var invalidApiKeyHtml = '<div class="error">{l s='Invalid API KEY'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</div>';
-        var requestFailedHtml = '<div class="error">{l s='Remote service unavailable, please try again later'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</div>';
-    {else}
-        var invalidApiKeyHtml = '<div class="bootstrap"><div class="module_error alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
-        invalidApiKeyHtml += '{l s='Invalid API KEY'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</div></div>';
-        var requestFailedHtml = '<div class="bootstrap"><div class="module_error alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
-        requestFailedHtml += '{l s='Remote service unavailable, please try again later'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</div></div>';
+
+            var errorMessages = {
+                invalid_api_key: "{l s='Invalid API KEY'|escape:'quotes':'UTF-8' mod='yousticeresolutionsystem'}",
+                request_failed: "{l s='Remote service unavailable, please try again later'|escape:'quotes':'UTF-8' mod='yousticeresolutionsystem'}",
+                terms_not_accepted: "{l s='You need to accept Terms & Conditions and Privacy Policy'|escape:'false':'UTF-8' mod='yousticeresolutionsystem'}",
+                company_name_required: "{l s='Company name is required'|escape:'javascript':'UTF-8' mod='yousticeresolutionsystem'}",
+                first_name_required: "{l s='First name is required'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                last_name_required: "{l s='Last name is required'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                email_invalid: "{l s='Email is in invalid format'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                shop_url_invalid: "{l s='Shop URL is in invalid format'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                password_less_than_6_characters: "{l s='Password needs to have 6 characters at least'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+                passwords_do_not_match: "{l s='Passwords do not match'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}",
+            };
+
+            var sandUrl = '{$registerMeSandboxUrl|escape:'false'}';
+            var liveUrl = '{$registerMeUrl|escape:'false'}';
+            var checkApiKeyUrl = '{$checkApiKeyUrl|escape:'false'}';
+            var registrationUrl = '{$registrationUrl|escape:'false'}';
+
+            $(document).ready(function() {
+    {if strlen(trim($api_key))}
+                $('#haveAccountYes').click();
     {/if}
 
-    $(document).ready(function() {
-        {if strlen(trim($api_key))}
-            $('#haveAccountYes').click();
-        {/if}
-
-    });
+            });
 </script>
 
 {if false}
