@@ -40,6 +40,7 @@
     height: 2px;
     background: #dfdfdf;
     margin: 0;
+    box-sizing: border-box;
 }
 
 .yContainer hr.dark {
@@ -157,7 +158,7 @@
 }
 
 .yContainer .logoRight ul {
-
+    list-style-type: none;
 }
 
 .yContainer .logoRight ul li {
@@ -184,7 +185,7 @@
     color: #ababab;
 }
 
-.yContainer .loginInfo label {
+.yContainer .loginInfo label, .yContainer .loginInfo label input {
     cursor: pointer;
 }
 
@@ -275,6 +276,10 @@
     background: #fff;
     border-radius: 18px;
     text-align: center;
+}
+/** Open Sans font vertical align fix **/
+#content.nobootstrap .yContainer .yBlock.features .col-50.bg span.number {
+    font-size: 30px;
 }
 
 .yContainer .yBlock.features .col-50.bg span.arrow {
@@ -411,7 +416,10 @@
 
 .yContainer .yConfiguration .help-popup .content {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZwAAAABCAYAAADqzhgQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDphNTk5ZjU1OC00ZWM2LTZlNGEtOGU2ZC00YWVkNDI3YjdhYTUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MkNEODkxN0E3RTQyMTFFNUE2MTI4NjZBRjE5MDM3MjQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MkNEODkxNzk3RTQyMTFFNUE2MTI4NjZBRjE5MDM3MjQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDljMTBiMGEtZTdiNC0zZDQzLWI5NWQtYWQ2ZjRkOGE5OTdmIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NzI5NjUyNTYtN2U0My0xMWU1LTgxZDItZGFjODJmN2YxZWQ5Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+FuD8QwAAAClJREFUeNpiXLt2bbuGhkaFgoICwygYBaNgFIyCUUBt8ODBAxBuAggwAAGfCaLj3JUXAAAAAElFTkSuQmCC');
-    
+}
+
+.yContainer .yConfiguration .help-popup img {
+    padding: 0 0 10px 20px;
 }
 
 .yContainer .yConfiguration .help-popup span.arrow {
@@ -426,6 +434,10 @@
 .yContainer .yConfiguration .help-popup#help-popup-2 {
     top: -11px;
     left: 27%;
+}
+
+.yContainer .yConfiguration .help-popup#help-popup-3 {
+    top: 70px;
 }
 
 .yContainer .yConfiguration .help-popup:target {
@@ -458,7 +470,7 @@
 }
 
 .yContainer .yConfiguration input {
-    width: 238px;
+    width: 228px;
     margin-right: 12px;
 }
 
@@ -508,6 +520,16 @@ input:-ms-input-placeholder {
     margin: 0;
     font-size: 17px;
     text-align: center;
+}
+
+.yContainer .yConfiguration p.inputRangeLegend {
+    width: 238px;
+    padding: 0;
+    text-align: left;
+}
+
+.yContainer .yConfiguration p.inputRangeLegend span + span {
+    float: right;
 }
 
 .yContainer .yConfiguration input#reportClaimsPageLink {
@@ -620,7 +642,7 @@ input:-ms-input-placeholder {
     display: none;
     background: url('../img/logoWidget.png') no-repeat left top;
     position: fixed;
-    bottom: 0px;
+    bottom: -4px;
     right: 100px;
     width: 370px;
     height: 37px;

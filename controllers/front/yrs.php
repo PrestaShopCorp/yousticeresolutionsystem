@@ -192,6 +192,10 @@ class YousticeResolutionSystemYrsModuleFrontController extends ModuleFrontContro
 
     public function getLogoWidget()
     {
+        if (!Configuration::get('YRS_SHOW_LOGO_WIDGET')) {
+            exit;
+        }
+
         echo $this->yapi->getLogoWidgetHtml($this->url_yrs . '&action=getReportClaimsPage', true);
         exit;
     }

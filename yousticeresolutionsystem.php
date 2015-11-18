@@ -68,10 +68,16 @@ class YousticeResolutionSystem extends Module
         $this->context->controller->addCSS($this->_path . 'views/css/youstice.css', 'all');
         $this->context->controller->addCSS($this->_path . 'views/css/youstice_prestashop.css', 'all');
         $this->context->controller->addJS($this->_path . 'views/js/yrs_order_history.js');
+        
+        $logo_widget_left_offset = (int) Configuration::get('YRS_LOGO_WIDGET_LEFT_OFFSET');
+        
+        $html = '<style>#yousticeFloatingWidget{left:'.$logo_widget_left_offset.'%}</style>';
 
         if (Tools::getValue('section') == 'getReportClaimsPage') {
-            return $this->addReportClaimsPageMetaTags();
+            $html .= $this->addReportClaimsPageMetaTags();
         }
+        
+        return $html;
     }
 
     protected function addReportClaimsPageMetaTags()
@@ -137,6 +143,8 @@ class YousticeResolutionSystem extends Module
         $smarty->assign('registerMeUrl', $base_url . '&registerMe');
         $smarty->assign('registerMeSandboxUrl', $base_url . '&registerMeSandbox');
         $smarty->assign('api_key', Configuration::get('YRS_API_KEY'));
+        $smarty->assign('show_logo_widget', Configuration::get('YRS_SHOW_LOGO_WIDGET'));
+        $smarty->assign('logo_widget_left_offset', Configuration::get('YRS_LOGO_WIDGET_LEFT_OFFSET'));
         $smarty->assign('use_sandbox', Configuration::get('YRS_SANDBOX'));
         $smarty->assign('reportClaimsPageLink', $this->getReportClaimsPageLink());
         $smarty->assign('modulePath', $this->_path);
@@ -180,6 +188,9 @@ class YousticeResolutionSystem extends Module
             if (is_array($result)) {
                 $this->saveApiKey($result);
             }
+
+            Configuration::updateValue('YRS_SHOW_LOGO_WIDGET', Tools::getValue('show_logo_widget'));
+            Configuration::updateValue('YRS_LOGO_WIDGET_LEFT_OFFSET', Tools::getValue('logo_widget_left_offset'));
 
             $response = Tools::jsonEncode(array('result' => $result));
             exit($response);
@@ -227,7 +238,7 @@ class YousticeResolutionSystem extends Module
                 $response = Tools::jsonEncode(array('result' => true));
                 exit($response);
             }
-            catch (YousticeFailedRemoteConnectionException $e) {                
+            catch (YousticeFailedRemoteConnectionException $e) {
                 $response = Tools::jsonEncode(array('result' => 'request_failed'));
                 exit($response);
             }
@@ -337,6 +348,8 @@ class YousticeResolutionSystem extends Module
         }
 
         Configuration::updateValue('YRS_DB_INSTALLED', '1');
+        Configuration::updateValue('YRS_SHOW_LOGO_WIDGET', 1);
+        Configuration::updateValue('YRS_LOGO_WIDGET_LEFT_OFFSET', 75);
 
         try {
             $this->y_api->install();
@@ -357,6 +370,8 @@ class YousticeResolutionSystem extends Module
         $this->y_api->uninstall();
 
         Configuration::deleteByName('YRS_ITEM_TYPE');
+        Configuration::deleteByName('YRS_SHOW_LOGO_WIDGET');
+        Configuration::deleteByName('YRS_LOGO_WIDGET_LEFT_OFFSET');
 
         if (!parent::uninstall() ||
                 !Configuration::deleteByName('YRS_SANDBOX') ||

@@ -369,6 +369,47 @@
                 <input id="apiKey" type="text" name="api_key" value="{$api_key|escape:'htmlall':'UTF-8'}">
                 <a class="yButton-3" href="#" id="yGetApiKey">{l s='Get your API key'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
             </div>
+            
+            <div class="col col-50">
+                <label for="showLogoWidget">
+                    {l s='Tell your Customers about Youstice'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                </label>
+            </div>
+
+            <div class="col col-50">                
+                <select id="showLogoWidget" name="show_logo_widget">
+                    <option{if $show_logo_widget == 1} selected{/if} value="1">{l s='Display Floating Widget'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</option>
+                    <option{if $show_logo_widget != 1} selected{/if} value="0">{l s='Use the Complaint Link below'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</option>
+                </select>
+            </div>
+            
+            <div class="col col-50" id="help-popup-col-3">
+                <label for="logoWidgetLeftOffset">
+                    {l s='Widget Position on the bottom of the screen'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+
+                    <a href="#help-popup-3" class="help">?</a>
+                    <div class="help-popup" id="help-popup-3">
+                        <div class="header">
+                            {l s='Info'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+                            <a href="#help-popup-col-3" class="close">x</a>
+                        </div>
+                        <span class="arrow"></span>
+                        <div class="content">
+                            <p>{l s='A clickable image as shown below will appear on the bottom of the screen leading your customers to a page for submitting complaints.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
+                            <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/logoWidget.png">
+                        </div>
+                        <div class="bottom"></div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="col col-50">
+                <input id="logoWidgetLeftOffset" type="range" name="logo_widget_left_offset" value="{$logo_widget_left_offset|escape:'htmlall':'UTF-8'}" min="0" max="100">
+                <p class="inputRangeLegend">
+                    <span>{l s='Left'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
+                    <span>{l s='Right'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</span>
+                </p>
+            </div>
 
             <div class="col col-50">
                 &nbsp;
@@ -385,9 +426,9 @@
     <div class="yConfiguration">
         <hr class="dark">
 
-        <h2>{l s='MAKING A CLAIM WITHOUT LOGIN'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
+        <h2>{l s='COMPLAINT LINK'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
         <p>
-            {l s='If you want to allow customers to make a complaint without log-in, copy and paste the code listed below anywhere on your website.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+            {l s='If you want to allow customers to make a complaint, embed the link shown below anywhere on your website, e.g. Contact Form, Customer Care Section, Return Policy, Order Confirmation Email(s) and similar.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
         </p>
         <p>
             {l s='Feel free to use this link also on social networks – Facebook, Twitter or Google+. It will help you answer all negative feedback directly via Youstice`s safe environment.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
@@ -397,6 +438,7 @@
         <div class="clear"></div>
     </div>
 </div>
+<div id="adminLogoWidget"></div>
 
 <link href="{$modulePath|escape:'htmlall':'UTF-8'}views/css/admin.css" rel="stylesheet" type="text/css" media="all" />
 <script src="{$modulePath|escape:'htmlall':'UTF-8'}views/js/admin.js" type="text/javascript"></script>
