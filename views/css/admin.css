@@ -1,39 +1,3 @@
-@font-face { 
-    font-family: 'Gotham Rounded'; 	
-    src: url('../fonts/gothamrnd-medium.eot');
-    src: url('../fonts/gothamrnd-medium.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/gothamrnd-medium.woff2') format('woff2'),
-        url('../fonts/gothamrnd-medium.woff') format('woff'),
-        url('../fonts/gothamrnd-medium.ttf')  format('truetype'),
-        url('../fonts/gothamrnd-medium.svg#medium') format('svg');
-    font-weight:300;
-}
-
-@font-face {
-    font-family: 'MuesoSans 300';
-    src: url('../fonts/museosans_300-webfont.eot');
-    src: url('../fonts/museosans_300-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/museosans_300-webfont.woff2') format('woff2'),
-        url('../fonts/museosans_300-webfont.woff') format('woff'),
-        url('../fonts/museosans_300-webfont.ttf') format('truetype'),
-        url('../fonts/museosans_300-webfont.svg#museo_sans300') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'MuesoSans 700';
-    src: url('../fonts/museosans_700-webfont-webfont.eot');
-    src: url('../fonts/museosans_700-webfont-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/museosans_700-webfont-webfont.woff2') format('woff2'),
-        url('../fonts/museosans_700-webfont-webfont.woff') format('woff'),
-        url('../fonts/museosans_700-webfont-webfont.ttf') format('truetype'),
-        url('../fonts/museosans_700-webfont-webfont.svg#museo_sans700') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 .yContainer {
     max-width: 960px;
     margin: 0 auto;
@@ -43,7 +7,6 @@
 }
 
 .yContainer * {
-    font-family: "Gotham Rounded";
     font-smooth: always;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
@@ -154,7 +117,6 @@
 }
 
 .yContainer .yBlock a.yButton-2 {
-    font-family: "MuesoSans 300";
     font-size: 18px;
     display: inline-block;
     text-decoration: none;
@@ -172,7 +134,6 @@
 
 .yContainer .yConfiguration a.yButton-3 {
     float: left;
-    font-family: "MuesoSans 300";
     font-size: 15px;
     text-decoration: none;
     text-align: center;
@@ -238,11 +199,10 @@
 .yContainer .yInfo h3 {
     font-size: 22px;
     margin: 10px 0 25px;
-    font-family: "MuesoSans 300";
 }
 
 .yContainer .yBlock.yInfo p {
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
     margin: 0 0 16px;
 }
@@ -572,7 +532,6 @@ input:-ms-input-placeholder {
 }
 
 .yContainer .yBlock.registration h2 {
-    font-family: "MuesoSand 700";
     font-size: 30px;
     margin: 0 0 30px;
     color: #985b9e;
@@ -597,7 +556,6 @@ input:-ms-input-placeholder {
 }
 
 .yContainer .yBlock.registration label {
-    font-family: "MuesoSans 300";
     font-size: 16px;
     color: #7a8186;
     width: auto;
@@ -617,7 +575,6 @@ input:-ms-input-placeholder {
 }
 
 .yContainer .yBlock.registration a.save {
-    font-family: "MuesoSans 300";
     font-size: 18px;
     display: inline-block;
     text-decoration: none;
@@ -638,7 +595,6 @@ input:-ms-input-placeholder {
 }
 
 .yContainer .yBlock.registration .footer p {
-    font-family: "MuesoSans 300";
     font-size: 15px;
     color: #58595b;
 }
@@ -657,8 +613,18 @@ input:-ms-input-placeholder {
 
 .yContainer .yBlock.registration .footer a {
     padding: 0;
-    font-family: "MuesoSans 300";
     font-size: 15px;
+}
+
+#adminLogoWidget {
+    display: none;
+    background: url('../img/logoWidget.png') no-repeat left top;
+    position: fixed;
+    bottom: 0px;
+    right: 100px;
+    width: 370px;
+    height: 37px;
+    z-index: 8000;
 }
 
 .yError {
