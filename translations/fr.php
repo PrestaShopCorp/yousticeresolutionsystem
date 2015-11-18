@@ -28,7 +28,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_61faf98bbfa675860c97779f63c
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_033da727cce25927a8ebef5ede75815b'] = 'RÉSOLVEZ LES RÉCLAMATIONS CLIENT AVEC YOUSTICE';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_8bab0fa77f2100941b7a3e203f194ef3'] = 'est un service de gestion des réclamations et litiges destiné aux (e)marchands, en mode Cloud. Il permet de traiter les différentes sources d\'insatisfaction client, telles que réclamations, plaintes, avis négatifs. Abonnez-vous pour une période d\'essai gratuite de 45 jours, sans engagement.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6d6b3459b5e946b693b41e48fcaeca04'] = '//www.reglement-litiges-consommation.com/L-ordonnance-relative-au-reglement-extrajudiciaire-des-litiges-de-consommation-adoptee-en-Conseil-des-ministres_a37.html';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_15023c9d859bccd6437cb4d0cff44790'] = '//www.youtube.com/watch?v=TACuCmbqqDA';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6cfc5e8767d2d9acd5a6228c92302a7d'] = 'REGARDEZ LA VIDEO';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_ece8d91ea1b9fe81de554d1fe40cf7e7'] = '//www.youstice.com/fr/pricing';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4123e43d2f9a2126f73a505fed0b2726'] = 'CONSULTEZ LES TARIFS';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_a8dfc05e8f4cd1b8263099acf810c5da'] = 'SOUMETTEZ VOS LITIGES A UNE ENTITE EXTRA-JUDICIAIRE';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_20192776027bf0fc41eaf8efa192c47b'] = 'Si un client n\'est pas d\'accord avec votre décision, il peut choisir de recourir au RLL*. En offrant cette possibilité à vos clients, vous vous mettez en conformité avec';
@@ -45,8 +47,10 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_f2ce2cf04380728e062c26a8ff6
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_37d00f4554dc3c0baeb34a9c22d787d9'] = 'URL du point de vente';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_827d91fb3ee1bc1b3a884de30f7af430'] = 'L\' inscription est gratuite. Vous pouvez l\'annuler à tout moment pendant la période d\'essai.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_320620f678cb15ebf7a577abd04427f3'] = 'J`accepte les';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_60f08122d5417a0325eefbe2933d7221'] = '//www.youstice.com/fr/entreprises-conditions-d-utilisation';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_1d8cd2bfc6943dcf70236f7d351572a0'] = 'Les Conditions d`utilisation';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_be5d5d37542d75f93a87094459f76678'] = 'et';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_d912cbe7babf64ea3897fd5e5195c8e9'] = '//www.youstice.com/fr/politique-de-confidentialite';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_fa2ead697d9998cbc65c81384e6533d5'] = 'La Politique du confidentialite';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_f713dc6135df6367780a0325dbc862fb'] = 'Je confirme que mon entreprise est basée en France.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_7dc5c139681ebad39216f35e2ee03b24'] = 'COMMENT MARCHE LE PLUGIN DE YOUSTICE';

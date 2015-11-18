@@ -28,7 +28,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_61faf98bbfa675860c97779f63c
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_033da727cce25927a8ebef5ede75815b'] = 'Решение жалоб клиентов  с Юстис';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_8bab0fa77f2100941b7a3e203f194ef3'] = 'это облачное веб-приложение, которое помогает продавцам управлять  всеми жалобами потребителей и решить  их быстро и безопасно. Вы можете  проверить наше приложение без какого- либо риска в течение трехмесячного испытательного срока.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6d6b3459b5e946b693b41e48fcaeca04'] = '//www.youstice.com/images/yousticeimg/media/PDF/Whitepaper_May.pdf';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_15023c9d859bccd6437cb4d0cff44790'] = '//www.youtube.com/watch?v=QfNrPR6zWfs';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6cfc5e8767d2d9acd5a6228c92302a7d'] = 'СМОТРЕТЬ ВИДЕО';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_ece8d91ea1b9fe81de554d1fe40cf7e7'] = '//www.youstice.com/ru/pricing';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4123e43d2f9a2126f73a505fed0b2726'] = 'СМОТРЕТЬ ЦЕНЫ';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_a8dfc05e8f4cd1b8263099acf810c5da'] = 'Возможность отправить споры  организациям альтернативного урегулирования споров';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_20192776027bf0fc41eaf8efa192c47b'] = 'Если клиенты не согласны с Вашим предложением решения, они могут выбрать возможность ОУС * эскалации. Позволяя вашим клиентом сделать это, Вы становитесь совместимый с ';
@@ -45,8 +47,10 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_f2ce2cf04380728e062c26a8ff6
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_37d00f4554dc3c0baeb34a9c22d787d9'] = 'URL магазина';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_827d91fb3ee1bc1b3a884de30f7af430'] = 'Регистрация абсолютно бесплатна, без обязательств. Вы можете отменить свой счет в любое время в течение пробного периода.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_320620f678cb15ebf7a577abd04427f3'] = 'Я принимаю';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_60f08122d5417a0325eefbe2933d7221'] = '//www.youstice.com/ru/terms-of-use';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_1d8cd2bfc6943dcf70236f7d351572a0'] = 'Условия использования';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_be5d5d37542d75f93a87094459f76678'] = 'и';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_d912cbe7babf64ea3897fd5e5195c8e9'] = '//www.youstice.com/ru/privacy-policy';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_fa2ead697d9998cbc65c81384e6533d5'] = 'Политику конфиденциальности';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_7dc5c139681ebad39216f35e2ee03b24'] = 'ЭТОТ ПЛАГИН ДОБАВЛЯЕТ СЛЕДУЮЩИЕ СВОЙСТВА';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_c48a60c7d1714c9e69896d03a6d7cc83'] = 'История заказов клиента';

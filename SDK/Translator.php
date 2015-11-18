@@ -100,7 +100,7 @@ class YousticeTranslator {
             'watch_video_link' => '//www.youtube.com/watch?v=QfNrPR6zWfs',
             'pricing_link' => '//www.youstice.com/en/pricing',
             'terms_link' => '//www.youstice.com/en/terms-of-use',
-            'privacy_policy_link' => 'http://www.youstice.com/en/privacy-policy',
+            'privacy_policy_link' => '//www.youstice.com/en/privacy-policy',
         );
     }
 }

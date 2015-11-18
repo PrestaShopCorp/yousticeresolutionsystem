@@ -103,13 +103,13 @@
             <div class="clear"></div>
 
             <div class="col col-33">
-                <a class="yButton" href="{$templateLinks['watch_video_link']}" target="_blank">{l s='WATCH VIDEO'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+                <a class="yButton" href="{l s='//www.youtube.com/watch?v=QfNrPR6zWfs' mod='yousticeresolutionsystem'}" target="_blank">{l s='WATCH VIDEO'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
             </div>
             <div class="col col-33">
                 &nbsp;
             </div>
             <div class="col col-33 no-right-margin">
-                <a class="yButton" href="{$templateLinks['pricing_link']}" target="_blank">{l s='CHECK THE PRICING'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+                <a class="yButton" href="{l s='//www.youstice.com/en/pricing' mod='yousticeresolutionsystem'}" target="_blank">{l s='CHECK THE PRICING'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
             </div>
 
             <div class="clear"></div>
@@ -140,13 +140,13 @@
             </div>
 
             <div class="col col-50">
-                <a class="yButton" href="{$templateLinks['watch_video_link']}" target="_blank">
+                <a class="yButton" href="{l s='//www.youtube.com/watch?v=QfNrPR6zWfs' mod='yousticeresolutionsystem'}" target="_blank">
                     {l s='WATCH VIDEO'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
                 </a>
             </div>
 
             <div class="col col-50">
-                <a class="yButton" href="{$templateLinks['pricing_link']}" target="_blank">
+                <a class="yButton" href="{l s='//www.youstice.com/en/pricing' mod='yousticeresolutionsystem'}" target="_blank">
                     {l s='CHECK THE PRICING'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
                 </a>
             </div>
@@ -231,9 +231,9 @@
                 <label>
                     <input type="checkbox" name="terms_and_conditions" tabindex="6">
                     {l s='I accept'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-                    <a href="{$templateLinks['terms_link']}" target="_blank">{l s='Terms & Conditions'|escape:'false' mod='yousticeresolutionsystem'}</a> 
+                    <a href="{l s='//www.youstice.com/en/terms-of-use' mod='yousticeresolutionsystem'}" target="_blank">{l s='Terms & Conditions'|escape:'false' mod='yousticeresolutionsystem'}</a> 
                     {l s='and'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-                    <a href="{$templateLinks['privacy_policy_link']}" target="_blank">
+                    <a href="{l s='///www.youstice.com/en/privacy-policy' mod='yousticeresolutionsystem'}" target="_blank">
                         {l s='Privacy Policy'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
                     </a>
                 </label>

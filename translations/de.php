@@ -28,7 +28,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_61faf98bbfa675860c97779f63c
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_033da727cce25927a8ebef5ede75815b'] = 'LÖSEN SIE DIE KUNDENBESCHWERDEN MIT  YOUSTICE';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_8bab0fa77f2100941b7a3e203f194ef3'] = 'ist eine Webapplikation. Es ist ein Cloudservice, der den Händlern hilft, alle  Kundenbeschwerden zu verwalten und auf  eine schnelle und sichere Weise zu lösen.  Sie können Youstice für drei Monate risikofrei und kostenlos testen.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6d6b3459b5e946b693b41e48fcaeca04'] = '//www.youstice.com/images/yousticeimg/media/PDF/Whitepaper_May.pdf';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_15023c9d859bccd6437cb4d0cff44790'] = '//www.youtube.com/watch?v=I4dgL2e0xp8';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6cfc5e8767d2d9acd5a6228c92302a7d'] = 'VIDEO ANSCHAUEN';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_ece8d91ea1b9fe81de554d1fe40cf7e7'] = '//www.youstice.com/de/pricing';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4123e43d2f9a2126f73a505fed0b2726'] = 'PREISE ANSCHAUEN';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_a8dfc05e8f4cd1b8263099acf810c5da'] = 'ESKALIEREN SIE DIE STREITIGKEITEN AN AUSSERGERICHTLICHE SCHIEDSSTELLEN';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_20192776027bf0fc41eaf8efa192c47b'] = 'Falls der Kunde mit Ihrer Entscheidung nicht einverstanden ist, kann er eine ODR* Eskalation auswählen. Wenn Sie dies Ihren Kunden ermöglichen, erfüllen Sie die Anforderungen des';
@@ -45,8 +47,10 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_f2ce2cf04380728e062c26a8ff6
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_37d00f4554dc3c0baeb34a9c22d787d9'] = 'URL des Shops';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_827d91fb3ee1bc1b3a884de30f7af430'] = 'Ich stimme den Geschäftsbedingungen und der Datenschutzrichtlinie zu Ich erkläre, dass mein Unternehmen für das Compliance-Package geeignet ist, da es in Frankreich ansässig ist';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_320620f678cb15ebf7a577abd04427f3'] = 'Ich akzeptiere';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_60f08122d5417a0325eefbe2933d7221'] = '//www.youstice.com/de/terms-of-use';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_1d8cd2bfc6943dcf70236f7d351572a0'] = 'AGBs';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_be5d5d37542d75f93a87094459f76678'] = 'und';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_d912cbe7babf64ea3897fd5e5195c8e9'] = '//www.youstice.com/de/datenschutzrichtlinien';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_fa2ead697d9998cbc65c81384e6533d5'] = 'Datenschutz-Bestimmungen';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_7dc5c139681ebad39216f35e2ee03b24'] = 'DIESES PLUGIN ERGÄNZT FOLGENDE FUNKTIONEN';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_c48a60c7d1714c9e69896d03a6d7cc83'] = 'BESTELLHISTORIE DES KUNDEN';

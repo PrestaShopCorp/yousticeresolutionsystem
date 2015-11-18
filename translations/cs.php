@@ -28,7 +28,9 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_61faf98bbfa675860c97779f63c
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_033da727cce25927a8ebef5ede75815b'] = 'ŘEŠTE STÍŽNOSTI VAŠICH ZÁKAZNÍKŮ POMOCÍ YOUSTICE';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_8bab0fa77f2100941b7a3e203f194ef3'] = 'je webovou aplikací. Jedná se o cloudovou službu, umožňující prodejcům a poskytovatelům služeb řešit všechny stížnosti zákazníků rychle a bezpečně. Otestujte si naši aplikaci v rámci 3 měsíčního počátečního období zdarma.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6d6b3459b5e946b693b41e48fcaeca04'] = '//www.youstice.com/images/yousticeimg/media/PDF/Whitepaper_May.pdf';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_15023c9d859bccd6437cb4d0cff44790'] = '//www.youtube.com/watch?v=efbCjCbwc3E';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_6cfc5e8767d2d9acd5a6228c92302a7d'] = 'VIDEO';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_ece8d91ea1b9fe81de554d1fe40cf7e7'] = '//www.youstice.com/cz/ceny';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_4123e43d2f9a2126f73a505fed0b2726'] = 'NAŠE CENY';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_a8dfc05e8f4cd1b8263099acf810c5da'] = 'ESKALUJTE VÁŠ PROBLÉM K NEZÁVISLÉMU CENTRU ŘEŠENÍ SPORŮ';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_20192776027bf0fc41eaf8efa192c47b'] = 'Pokud zákazník nesouhlasí s vaším finálním návrhem, může zvolit eskalaci k ODR*. Tím, že umožníte vašim zákazníkům tento postup, budete splňovat požadavky ';
@@ -45,8 +47,10 @@ $_MODULE['<{yousticeresolutionsystem}prestashop>main_f2ce2cf04380728e062c26a8ff6
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_37d00f4554dc3c0baeb34a9c22d787d9'] = 'URL obchodu';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_827d91fb3ee1bc1b3a884de30f7af430'] = 'Registrace je zdarma, bez jakýchkoliv závazků na vaší straně. V průběhu počátečního období užívání zdarma máte právo kdykoliv zrušit vaši registraci.';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_320620f678cb15ebf7a577abd04427f3'] = 'Souhlasím';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_60f08122d5417a0325eefbe2933d7221'] = '//www.youstice.com/cz/podminky-uzivani-youstice';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_1d8cd2bfc6943dcf70236f7d351572a0'] = 's Podmínky užívání Youstice';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_be5d5d37542d75f93a87094459f76678'] = 'a';
+$_MODULE['<{yousticeresolutionsystem}prestashop>main_d912cbe7babf64ea3897fd5e5195c8e9'] = '//www.youstice.com/cz/youstice-zasady-ochrany-osobnich-udaju';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_fa2ead697d9998cbc65c81384e6533d5'] = 'Zásady ochrany osobních údajů';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_7dc5c139681ebad39216f35e2ee03b24'] = 'TENTO PLUGIN DOPLŇUJE NÁSLEDUJÍCÍ FUNKCE';
 $_MODULE['<{yousticeresolutionsystem}prestashop>main_c48a60c7d1714c9e69896d03a6d7cc83'] = 'HISTORIE OBJEDNÁVEK ZÁKAZNÍKA';
