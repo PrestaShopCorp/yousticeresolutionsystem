@@ -19,7 +19,7 @@ class YousticeResolutionSystem extends Module
     {
         $this->name = 'yousticeresolutionsystem';
         $this->tab = 'advertising_marketing';
-        $this->version = '1.exp.10.8';
+        $this->version = '1.11.3';
         $this->author = 'Youstice';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.5', 'max' => '1.6');
@@ -347,7 +347,7 @@ class YousticeResolutionSystem extends Module
             Shop::setContext(Shop::CONTEXT_ALL);
         }
 
-        Configuration::updateValue('YRS_DB_INSTALLED', '1');
+        Configuration::updateValue('YRS_DB_INSTALLED', 1);
         Configuration::updateValue('YRS_SHOW_LOGO_WIDGET', 1);
         Configuration::updateValue('YRS_LOGO_WIDGET_LEFT_OFFSET', 75);
 
