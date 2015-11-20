@@ -87,7 +87,7 @@
             </div>
             <div class="col col-33">
                 <p>
-                    Au-delà du service client, Youstice permet l'accès intégré aux services de médiation  pour les litiges non résolus*. Les commerçants gèreront les litiges dans un point unique En offrant le recours à la médiation, vous respectez aussi les obligations de 
+                    Au-delà du service client, Youstice permet l'accès intégré aux services de médiation  pour les litiges non résolus*. Les commerçants gèreront les litiges sur une interface unique. En offrant le recours à la médiation, vous respectez aussi les obligations de 
                     <a href="{l s='eu_consumer_disputes_paper'|escape:'url' mod='yousticeresolutionsystem'}" target="_blank">l'Ordonnace sur la Consommation</a>.
                 </p>
             </div>
@@ -114,7 +114,7 @@
 
             <div class="clear"></div>
 
-            <p>*en accord avec les conditions du contract</p>
+            <p>*en accord avec les conditions du contrat</p>
         {else}
             <div class="col col-50 no-bottom-margin">
                 <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/notebook.jpg"/>
@@ -419,7 +419,7 @@
                 <a class="yButton-3 saveApiKey" href="#">{l s='Save'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
             </div>
 
-            <a href="mailto:support@youstice.com">{l s='Need help?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
+            <a href="http://support.youstice.com" target="_blank">{l s='Need help?'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
         </form>
     </div>
 
