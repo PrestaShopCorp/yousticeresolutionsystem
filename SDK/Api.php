@@ -806,19 +806,19 @@ class YousticeApi {
 	}
 
 	/**
-	 * Check if curl, PDO and fileinfo are available
+	 * Check if curl, PDO
 	 * @return boolean
 	 */
 	public function checkIsProperlyInstalled()
 	{
-		if ((!in_array(ini_get('allow_url_fopen'), array('On', 'on', '1')) && !function_exists('curl_exec')) || !extension_loaded('PDO') || !function_exists('finfo_open') || !$this->local)
+		if ((!in_array(ini_get('allow_url_fopen'), array('On', 'on', '1')) && !function_exists('curl_exec')) || !extension_loaded('PDO') || !$this->local)
 			return false;
 
 		return true;
 	}
 
 	/**
-	 * Check if curl, PDO and fileinfo are available
+	 * Check if curl, PDO
 	 * @throws Youstice_ApiException
 	 */
 	public function checkIsProperlyInstalledWithExceptions()
