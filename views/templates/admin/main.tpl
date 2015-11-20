@@ -64,51 +64,37 @@
         <p>{l s='Youstice is designed to resolve customer disputes in a quick, emotion-free way, avoiding lengthy conversations or negative sentiment across social networks. Shoppers express their issue and propose a solution, choosing from options directly through the application. Your staff then responds and negotiates a win-win resolution, collecting valuable insight on how to improve the quality of your services.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</p>
 
         {if $languageCode == 'fr'}
-            <div class="col col-33 no-bottom-margin">
+            <div class="col col-50 no-bottom-margin">
                 <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/girl-fr.jpg"/>
                 <h2>{l s='RESOLVE CUSTOMER COMPLAINTS WITH YOUSTICE'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</h2>
             </div>
-            <div class="col col-33 no-bottom-margin">
+            <div class="col col-50 no-bottom-margin">
                 <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/notebook-fr.jpg"/>
                 <h2>COUVREZ LES COÛTS DE MÉDIATION AVEC YOUSTICE</h2>
-            </div>
-            <div class="col col-33 no-right-margin no-bottom-margin">
-                <img src="{$modulePath|escape:'htmlall':'UTF-8'}views/img/ratings-fr.jpg"/>
-                <h2>COUVREZ LES FRAIS DE LITIGES AVEC AXA PROTECTION JURIDIQUE</h2>
             </div>
 
             <div class="clear"></div>
 
-            <div class="col col-33">
+            <div class="col col-50">
                 <p>
                     <a href="//youstice.com" target="_blank">Youstice</a> 
                     {l s='is a web application. It`s a cloud service, helping retailers to manage all consumer complaints and to resolve them in a fast and safe way. You can test our solution during three-month, risk-free trial period.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
                 </p>
             </div>
-            <div class="col col-33">
+            <div class="col col-50 no-right-margin">
                 <p>
                     Au-delà du service client, Youstice permet l'accès intégré aux services de médiation  pour les litiges non résolus*. Les commerçants gèreront les litiges sur une interface unique. En offrant le recours à la médiation, vous respectez aussi les obligations de 
                     <a href="{l s='eu_consumer_disputes_paper'|escape:'url' mod='yousticeresolutionsystem'}" target="_blank">l'Ordonnace sur la Consommation</a>.
                 </p>
             </div>
-            <div class="col col-33 no-right-margin">
-                <p>
-                    AXA Protection Juridique défend vos intérêts* dans les cas où un consommateur recourt aux voies légales pour 
-                    <a href="//www.youstice.com/fr/faq#faq_7" target="_blank">un litige non résolu</a>. 
-                    AXA Protection Juridique vous assistera* pour trouver la meilleure solution ou défense,  et couvrira les frais légaux encourus  pour le 
-                    <a href="//www.youstice.com/fr/faq#faq_9" target="_blank">règlement du litige</a>.
-                </p>
-            </div>
 
             <div class="clear"></div>
 
-            <div class="col col-33">
+            <div class="col col-50">
                 <a class="yButton" href="{l s='//www.youtube.com/watch?v=QfNrPR6zWfs' mod='yousticeresolutionsystem'}" target="_blank">{l s='WATCH VIDEO'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
             </div>
-            <div class="col col-33">
-                &nbsp;
-            </div>
-            <div class="col col-33 no-right-margin">
+            
+            <div class="col col-50 no-right-margin">
                 <a class="yButton" href="{l s='//www.youstice.com/en/pricing' mod='yousticeresolutionsystem'}" target="_blank">{l s='CHECK THE PRICING'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}</a>
             </div>
 
@@ -233,7 +219,7 @@
                     {l s='I accept'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
                     <a href="{l s='//www.youstice.com/en/terms-of-use' mod='yousticeresolutionsystem'}" target="_blank">{l s='Terms & Conditions'|escape:'false' mod='yousticeresolutionsystem'}</a> 
                     {l s='and'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
-                    <a href="{l s='///www.youstice.com/en/privacy-policy' mod='yousticeresolutionsystem'}" target="_blank">
+                    <a href="{l s='//www.youstice.com/en/privacy-policy' mod='yousticeresolutionsystem'}" target="_blank">
                         {l s='Privacy Policy'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
                     </a>
                 </label>
@@ -431,7 +417,7 @@
             {l s='If you want to allow customers to make a complaint, embed the link shown below anywhere on your website, e.g. Contact Form, Customer Care Section, Return Policy, Order Confirmation Email(s) and similar.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
         </p>
         <p>
-            {l s='Feel free to use this link also on social networks – Facebook, Twitter or Google+. It will help you answer all negative feedback directly via Youstice`s safe environment.'|escape:'htmlall':'UTF-8' mod='yousticeresolutionsystem'}
+            {l s='Feel free to use this link also on social networks – Facebook, Twitter or Google+. It will help you answer all negative feedback directly via Youstice`s safe environment.' mod='yousticeresolutionsystem'}
         </p>
 
         <input id="reportClaimsPageLink" type="text" name="anonymous_report" onclick="select()" value="{$reportClaimsPageLink|escape:'htmlall':'UTF-8'}">
