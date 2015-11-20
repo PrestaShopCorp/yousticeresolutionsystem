@@ -10,7 +10,6 @@
 class YousticeRequest {
 
 	protected $api_production_url = 'https://api.youstice.com/api/';
-	//protected $api_production_url = 'https://api-qa.youstice.com/';
 	protected $api_sandbox_url = 'https://api-sand.youstice.com/api/';
 	protected $response = null;
 	protected $additional_params = array();

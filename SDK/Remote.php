@@ -192,9 +192,7 @@ class YousticeRemote extends YousticeRequest
             )
         );
 
-        //TODO change for production
-        //$url = $this->api_production_url . 'organizations/retailers/registration';
-        $url = 'https://api-qa.youstice.com/api/organizations/retailers/registration?test=true';
+        $url = $this->api_production_url . 'organizations/retailers/registration';
 
         try {
             $this->post($url, $request_data);
